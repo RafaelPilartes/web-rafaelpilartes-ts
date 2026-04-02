@@ -7,7 +7,7 @@ import {
   TbBrandInstagram,
   TbBrandWhatsapp
 } from 'react-icons/tb'
-import Typical from 'react-typical'
+import { TypeAnimation } from 'react-type-animation'
 import { techBadgeAnimation } from '../../../../lib/animations'
 import { ButtonBase } from '../../ButtonBase'
 import { TechBadge } from '../../TechBadge'
@@ -82,8 +82,8 @@ export default function HomeContentText() {
           crescer{' '}
           <span className="text-accent">
             {/* realidade  */}
-            <Typical
-              steps={[
+            <TypeAnimation
+              sequence={[
                 'seu Negocio!',
                 1000,
                 'sua Startup',
@@ -91,7 +91,7 @@ export default function HomeContentText() {
                 'sua Imagem',
                 1000
               ]}
-              loop={Infinity}
+              repeat={Infinity}
               wrapper="span"
             />
           </span>
