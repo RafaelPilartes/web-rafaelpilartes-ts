@@ -5,7 +5,7 @@ import { mockQualities } from '@/core/mocks/qualitiesMock'
 
 export const HomeQuality = () => {
   return (
-    <section className="container relative py-16">
+    <section id="qualities" className="container relative py-16">
       <div className="flex flex-col">
         <div className="flex-1 relative mb-12 lg:mb-0 ">
           <SectionTitle

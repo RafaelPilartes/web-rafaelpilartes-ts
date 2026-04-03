@@ -34,7 +34,7 @@ const rightStats = [
 
 export const HomeAboutSection = () => {
   return (
-    <section className="container relative py-20">
+    <section id="about" className="container relative py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
         {/* Left side */}
         <motion.div

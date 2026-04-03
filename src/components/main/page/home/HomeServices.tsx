@@ -9,7 +9,7 @@ const topServices = mockServices.slice(0, 4)
 
 export const HomeServices = () => {
   return (
-    <section className="relative  py-24 overflow-hidden">
+    <section id="services" className="relative py-24 overflow-hidden">
       {/* Background Grid Pattern */}
       {/* <div
         className="absolute  inset-0 pointer-events-none opacity-[0.03]"

@@ -3,7 +3,7 @@ import { ButtonBase } from '../../../../components/main/ButtonBase'
 
 export const HomeProjects = () => {
   return (
-    <section className="container relative py-16">
+    <section id="projects" className="container relative py-16">
       <SectionTitle subtitle="projetos" title="Veja os meus" />
       {/* <div className="w-full gap-x-4 gap-y-6 mt-[60px] "> */}
       <div className="flex flex-col lg:flex-row gap-x-10">

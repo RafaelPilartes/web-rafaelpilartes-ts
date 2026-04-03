@@ -4,7 +4,7 @@ import { mockCustomers } from '@/core/mocks/customersMock'
 
 export const HomeCustomers = () => {
   return (
-    <section className="container py-16">
+    <section id="customers" className="container py-16">
       <SectionTitle subtitle="clientes" title="Parceiros e clientes" />
 
       <div className="w-full gap-x-4 gap-y-6 mt-[60px] ">

@@ -4,7 +4,7 @@ import ParticlesContainer from '../../ParticlesContainer'
 
 export const HomeHeroContainer = () => {
   return (
-    <section className="relative w-full h-screen flex flex-row object-cover max-h-[100%] ">
+    <section id="home" className="relative w-full h-screen flex flex-row object-cover max-h-[100%] ">
       {/* Text */}
       <HomeContentText />
 

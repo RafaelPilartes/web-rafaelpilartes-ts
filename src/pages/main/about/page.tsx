@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   FaHtml5,
@@ -85,11 +85,18 @@ const introductionData = {
     'Sou um desenvolvedor apaixonado pela arte de transformar problemas complexos em soluções simples, acessíveis e elegantes através do código.'
 }
 
-const TABS = ['Experiência', 'Habilidades', 'Certificados'] as const
+const TABS = ['Experience', 'Skills', 'Certificates'] as const
 type TabType = typeof TABS[number]
 
 const About = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('Experiência')
+  const [activeTab, setActiveTab] = useState<TabType>('Experience')
+
+  useEffect(() => {
+    const hash = window.location.hash.toLowerCase()
+    if (hash === '#skills') setActiveTab('Skills')
+    else if (hash === '#certificates') setActiveTab('Certificates')
+    else if (hash === '#experience') setActiveTab('Experience')
+  }, [])
 
   return (
     <main className="flex flex-col gap-6 items-center justify-center pb-20">
@@ -173,7 +180,7 @@ const About = () => {
             <AnimatePresence mode="wait">
               
               {/* === TAB 1: Experiência === */}
-              {activeTab === 'Experiência' && (
+              {activeTab === 'Experience' && (
                 <motion.div
                   key="experience"
                   initial={{ opacity: 0, y: 20 }}
@@ -196,7 +203,7 @@ const About = () => {
               )}
 
               {/* === TAB 2: Habilidades === */}
-              {activeTab === 'Habilidades' && (
+              {activeTab === 'Skills' && (
                 <motion.div
                   key="skills"
                   initial={{ opacity: 0, y: 20 }}
@@ -230,7 +237,7 @@ const About = () => {
               )}
 
               {/* === TAB 3: Certificados === */}
-              {activeTab === 'Certificados' && (
+              {activeTab === 'Certificates' && (
                 <motion.div
                   key="certificates"
                   initial={{ opacity: 0, y: 20 }}
