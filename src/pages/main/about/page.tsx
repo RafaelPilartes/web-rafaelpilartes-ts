@@ -182,7 +182,7 @@ const About = () => {
                   transition={{ duration: 0.3 }}
                   className="flex flex-col gap-2"
                 >
-                  <div className="flex items-center gap-3 mb-6 hidden md:flex">
+                  <div className="hidden md:flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
                       <HiStar size={20} />
                     </div>
@@ -239,7 +239,7 @@ const About = () => {
                   transition={{ duration: 0.3 }}
                   className="flex flex-col gap-4"
                 >
-                  <div className="flex items-center gap-3 mb-4 hidden md:flex">
+                  <div className="hidden md:flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
                       <HiAcademicCap size={22} />
                     </div>
