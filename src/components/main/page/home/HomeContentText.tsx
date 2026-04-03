@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 
 import { HiArrowNarrowRight } from 'react-icons/hi'
+import { FaDownload } from 'react-icons/fa'
 import {
   TbBrandGithub,
   TbBrandLinkedin,
@@ -65,6 +66,14 @@ const homeInfo = {
 export default function HomeContentText() {
   const handleContact = () => {
     window.location.href = 'https://wa.me/244923414621'
+  }
+
+  const handleDownloadCV = () => {
+    // Tenta fazer o download direto do ficheiro PDF a partir da pasta public
+    const link = document.createElement('a')
+    link.href = 'docs/CV-One-Rafael_Pilartes-Software-Developer.pdf'
+    link.download = 'CV-One-Rafael_Pilartes-Software-Developer.pdf'
+    link.click()
   }
   return (
     <div className="w-full h-full bg-gradient-to-r from-primary/10 via-black/30">
@@ -134,7 +143,15 @@ export default function HomeContentText() {
             <HiArrowNarrowRight size={18} />
           </ButtonBase>
 
-          <div className="text-2xl text-gray-600 flex items-center h-20 gap-3">
+          <ButtonBase
+            className="w-max border border-accent/50 bg-black/40 text-accent hover:bg-accent/10 hover:border-accent hover:text-white transition-all duration-300"
+            onClick={handleDownloadCV}
+          >
+            Baixar Currículo
+            <FaDownload size={14} className="ml-2" />
+          </ButtonBase>
+
+          <div className="text-2xl text-gray-600 flex items-center h-20 gap-3 ml-2">
             {homeInfo.socials.map((contact, i) => (
               <a
                 href={contact.url}
