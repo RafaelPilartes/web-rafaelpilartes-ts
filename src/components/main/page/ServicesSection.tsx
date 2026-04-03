@@ -1,62 +1,44 @@
-import ServiceSlider from '../ServiceSlider'
-import {
-  RxPencil2,
-  RxDesktop,
-  RxArrowTopRight,
-  RxCrop,
-  RxReader,
-  RxRocket
-} from 'react-icons/rx'
-
-const servicesData = {
-  services: [
-    {
-      icon: <RxPencil2 />,
-      title: 'Desenvolvimento de website',
-      description:
-        'Desenvolvimento de websites criarão uma presença online única e envolvente para o seu negócio'
-    },
-    {
-      icon: <RxDesktop />,
-      title: 'Design gráfico',
-      description:
-        'Criação de designs atraentes e criativos que ajudam a transmitir a mensagem da sua marca de forma única e memorável'
-    },
-    {
-      icon: <RxArrowTopRight />,
-      title: 'Marketing Digital',
-      description:
-        'Soluções abrangentes de marketing digital, desde estratégias de mídia social até campanhas de e-mail marketing'
-    },
-    {
-      icon: <RxCrop />,
-      title: 'Branding',
-      description:
-        'Através de uma abordagem estratégica, desenvolvemos uma identidade de marca coesa e autêntica'
-    },
-    {
-      icon: <RxReader />,
-      title: 'Copywriting',
-      description:
-        'Criam conteúdo persuasivo e envolvente que atrai, convence e transforma os visitantes em clientes'
-    },
-    {
-      icon: <RxRocket />,
-      title: 'SEO',
-      description:
-        'Aumente a visibilidade e a classificação do seu site nos mecanismos de busca com nosso serviço de SEO'
-    }
-  ]
-}
+import { createElement } from 'react'
+import { motion } from 'framer-motion'
+import { RxArrowTopRight } from 'react-icons/rx'
+import { mockServices } from '@/core/mocks/servicesMock'
 
 export const ServicesSection = () => {
   return (
-    <div className="w-full gap-x-4 gap-y-6 mt-[60px] ">
-      <div className="flex flex-col gap-x-8 ">
-        {/* Slider */}
-        <div className="w-full">
-          <ServiceSlider services={servicesData.services} />
-        </div>
+    <div className="w-full mt-[60px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {mockServices.map((service, index) => (
+          <motion.div
+            key={service.id ?? index}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.3, delay: index * 0.08 }}
+            className="bg-[#55555525] rounded-xl p-8 flex flex-col gap-4 group cursor-pointer
+                       hover:bg-[#a9414126] hover:-translate-y-2 transition-all duration-300
+                       border border-transparent hover:border-accent/20"
+          >
+            {/* Icon */}
+            <div className="w-14 h-14 rounded-lg bg-accent/10 flex items-center justify-center text-accent text-2xl group-hover:bg-accent group-hover:text-white transition-all duration-300">
+              {typeof service.icon === 'function'
+                ? createElement(service.icon)
+                : service.icon}
+            </div>
+
+            {/* Title */}
+            <h3 className="text-lg font-semibold text-white">{service.title}</h3>
+
+            {/* Description */}
+            <p className="text-gray-400 text-sm leading-relaxed flex-1">
+              {service.description}
+            </p>
+
+            {/* Arrow */}
+            <div className="text-xl text-gray-600 group-hover:text-accent transition-all duration-300 mt-auto">
+              <RxArrowTopRight className="group-hover:rotate-45 transition-all duration-300" />
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   )

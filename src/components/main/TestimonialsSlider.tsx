@@ -8,10 +8,10 @@ import 'swiper/css/navigation'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
 
-import { TestimonialsSectionProps } from '../../types/testimonials'
+import { TestimonialEntity } from '@/core/entities/content/TestimonialEntity'
 import { BsQuote } from 'react-icons/bs'
 
-const TestimonialsSlider = ({ testimonials }: TestimonialsSectionProps) => {
+const TestimonialsSlider = ({ testimonials }: { testimonials: TestimonialEntity[] }) => {
   return (
     <Swiper
       breakpoints={{
@@ -60,7 +60,7 @@ const TestimonialsSlider = ({ testimonials }: TestimonialsSectionProps) => {
                 <div className="font-medium dark:text-white">
                   <div>{item.name}</div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
-                    {item.createAt}
+                    {item.created_at ? new Date(item.created_at).toLocaleDateString() : ''}
                   </div>
                 </div>
               </div>

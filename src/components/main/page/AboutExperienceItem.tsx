@@ -1,93 +1,123 @@
 import { TechBadge } from '../../../components/main/TechBadge'
-import { differenceInMonths, differenceInYears } from 'date-fns'
 import { motion } from 'framer-motion'
-import { WorkExperience } from '../../../types/WorkExperience'
+import { WorkExperienceEntity } from '@/core/entities/portfolio/WorkExperienceEntity'
 import { fadeUpAnimation, techBadgeAnimation } from '../../../lib/animations'
 
 type ExperienceItemProps = {
-  experience: WorkExperience
+  experience: WorkExperienceEntity
 }
 
 export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
-  const { endDate, companyName, companyLogo, companyUrl, role, technologies } =
-    experience
+  const {
+    end_date,
+    company_name,
+    company_logo,
+    company_url,
+    role,
+    technologies
+  } = experience
 
-  const startDate = new Date(experience.startDate)
+  const startDate = experience.start_date
+    ? new Date(experience.start_date)
+    : new Date()
+  const endDate = end_date ? new Date(end_date) : null
 
-  // const formattedStartDate = format(startDate, 'MMM yyyy', { locale: ptBR })
-  // const formattedEndDate = endDate
-  //   ? format(new Date(endDate), 'MMM yyyy', { locale: ptBR })
-  //   : 'O momento'
-  const formattedStartDate = 'Janeiro/2024'
-  const formattedEndDate = 'Janeiro/2024'
+  const formatter = new Intl.DateTimeFormat('pt-PT', {
+    month: 'short',
+    year: 'numeric'
+  })
 
-  const end = endDate ? new Date(endDate) : new Date()
+  const formattedStartDate = formatter.format(startDate).replace(' de ', '/')
+  const formattedEndDate = endDate
+    ? formatter.format(endDate).replace(' de ', '/')
+    : 'Presente'
 
-  const months = differenceInMonths(end, startDate)
-  const years = differenceInYears(end, startDate)
-  const monthsRemaining = months % 12
+  const end = endDate || new Date()
+
+  const diffInMonths =
+    (end.getFullYear() - startDate.getFullYear()) * 12 +
+    (end.getMonth() - startDate.getMonth())
+  const years = Math.floor(diffInMonths / 12)
+  const monthsRemaining = diffInMonths % 12
 
   const formattedDuration =
     years > 0
       ? `${years} ano${years > 1 ? 's' : ''}${
           monthsRemaining > 0
-            ? ` e ${monthsRemaining} mes${monthsRemaining > 1 ? 'es' : ''}`
+            ? ` e ${monthsRemaining} mês${monthsRemaining > 1 ? 'es' : ''}`
             : ''
         }`
-      : `${months} mes${months > 1 ? 'es' : ''}`
+      : `${diffInMonths} mes${diffInMonths > 1 ? 'es' : ''}`
 
   return (
     <motion.div
-      className="grid grid-cols-[40px,1fr] gap-4 md:gap-10"
+      className="grid grid-cols-[48px,1fr] gap-6 md:gap-8 group"
       {...fadeUpAnimation}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex items-center flex-col gap-4">
-        <div className="rounded-full border border-gray-500 p-0.5">
+      {/* Timeline & Logo */}
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-12 h-12 rounded-xl bg-white/[0.05] border border-white/[0.1] p-1.5 flex items-center justify-center group-hover:border-accent/40 shadow-lg transition-all duration-300">
           <img
-            src={companyLogo.url}
-            width={40}
-            height={40}
-            className="rounded-full"
-            alt={`Logo da empresa ${companyName}`}
+            src={company_logo?.url}
+            width={36}
+            height={36}
+            className="rounded-lg object-contain w-full h-full"
+            alt={`Logo da empresa ${company_name}`}
           />
         </div>
-
-        <div className="h-full w-[1px] bg-gray-800" />
+        {/* Line */}
+        <div className="h-full w-[2px] bg-gradient-to-b from-white/[0.1] to-transparent rounded-full" />
       </div>
 
-      <div>
-        <div className="flex flex-col gap-2 text-sm sm:text-base">
-          <a
-            href={companyUrl}
-            target="_blank"
-            className="text-gray-500 hover:text-red-500 transition-colors"
-            rel="noreferrer"
-          >
-            @ {companyName}
-          </a>
-          <h4 className="text-gray-300">{role}</h4>
-          <span className="text-gray-500">
-            {formattedStartDate} • {formattedEndDate} • ({formattedDuration})
-          </span>
-          <div className="text-gray-400">
-            {/* <RichText content={description.raw} /> */}
+      {/* Content */}
+      <div className="pb-10">
+        <div className="flex flex-col gap-1.5 text-sm sm:text-base">
+          <h4 className="text-xl font-bold text-white group-hover:text-accent transition-colors">
+            {role}
+          </h4>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+            <a
+              href={company_url}
+              target="_blank"
+              className="font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-1"
+              rel="noreferrer"
+            >
+              @{company_name}
+            </a>
+            <span className="text-gray-600">•</span>
+            <span className="text-gray-400 capitalize">
+              {formattedStartDate} — {formattedEndDate}
+            </span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <span className="text-accent/80 font-medium text-xs bg-accent/10 px-2 py-0.5 rounded-full">
+              {formattedDuration}
+            </span>
+          </div>
+
+          <div className="text-gray-400 text-sm leading-relaxed mt-3">
+            {/* If we have an actual rich text renderer we could use it here.
+                 For now, we'll just fall back to role. 
+             */}
+            {role}
           </div>
         </div>
 
-        <p className="text-gray-400 text-sm mb-3 mt-6 font-semibold">
-          Competência
-        </p>
-        <div className="flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8">
-          {technologies.map((tech, i) => (
-            <TechBadge
-              key={`experience-${companyName}-tech-${tech.name}`}
-              name={tech.name}
-              {...techBadgeAnimation}
-              transition={{ duration: 0.2, delay: i * 0.1 }}
-            />
-          ))}
-        </div>
+        {technologies && technologies.length > 0 && (
+          <div className="mt-5">
+            <div className="flex flex-wrap gap-2">
+              {technologies.map((tech, i) => (
+                <TechBadge
+                  key={`experience-${company_name}-tech-${tech.name}`}
+                  name={tech.name}
+                  className="bg-white/[0.03] text-gray-400 border border-white/[0.08] hover:bg-accent/10 hover:text-accent hover:border-accent/30 py-1 px-3 text-xs"
+                  {...techBadgeAnimation}
+                  transition={{ duration: 0.2, delay: i * 0.05 }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </motion.div>
   )

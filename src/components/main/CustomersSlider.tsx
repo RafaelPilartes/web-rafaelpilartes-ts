@@ -8,9 +8,9 @@ import 'swiper/css/navigation'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
 
-import { CustomersSectionProps } from '../../types/customers'
+import { CustomerEntity } from '@/core/entities/content/CustomerEntity'
 
-const CustomersSlider = ({ customers }: CustomersSectionProps) => {
+const CustomersSlider = ({ customers }: { customers: CustomerEntity[] }) => {
   return (
     <Swiper
       breakpoints={{

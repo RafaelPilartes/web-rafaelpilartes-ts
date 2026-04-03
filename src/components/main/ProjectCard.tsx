@@ -1,84 +1,97 @@
-import { LinkSimple } from '../../components/main/Link'
-import { TechBadge } from '../../components/main/TechBadge'
-import { AiOutlineArrowRight } from 'react-icons/ai'
-import { motion } from 'framer-motion'
-import { Project } from '../../types/projects'
-import { fadeUpAnimation } from '../../lib/animations'
+import { ProjectEntity } from '@/core/entities/portfolio/ProjectEntity'
+import { projectCategoryLabels } from '@/core/mocks/projectsMock'
+import { HiArrowTopRightOnSquare } from 'react-icons/hi2'
+import { TbBrandGithub } from 'react-icons/tb'
+import { HiOutlineTrendingUp } from 'react-icons/hi'
 
 type ProjectCardProps = {
-  project: Project
+  project: ProjectEntity
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
+  const categoryLabel = project.category
+    ? projectCategoryLabels[project.category]
+    : undefined
+
   return (
-    <motion.div
-      className="flex gap-6 lg:gap-12 flex-col lg:flex-row py-4 px-4 rounded-md group hover:bg-white/[0.03] hover:backdrop-blur-sm transition-all duration-200"
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 100 }}
-      transition={{ duration: 0.5 }}
-    >
-      <motion.div
-        className="w-full h-[200px] sm:h-[300px] lg:w-[420px] lg:min-h-full rounded-lg overflow-hidden transition-all duration-500"
-        initial={{ opacity: 0, y: 100, scale: 0.5 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 100, scale: 0.5 }}
-        transition={{ duration: 0.3, delay: 0.3 }}
-      >
-        <img
-          src={project.thumbnail.url}
-          width={420}
-          height={304}
-          alt=""
-          className="w-full h-full rounded-lg group-hover:scale-125 transition-all duration-500"
-        />
-      </motion.div>
+    <div className="rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] overflow-hidden group hover:border-accent/20 transition-all duration-300 flex flex-col">
+      {/* Image Area */}
+      <div className="relative p-4 pb-0">
+        {/* Category Badge */}
+        {categoryLabel && (
+          <span className="absolute top-6 left-6 z-10 text-[11px] font-medium px-3 py-1.5 rounded-full border border-white/10 bg-black/60 backdrop-blur-sm text-white">
+            {categoryLabel}
+          </span>
+        )}
 
-      <div className="flex-1 lg:py-[18px]">
-        <motion.h3
-          className="flex items-center gap-3 font-medium text-lg text-gray-50"
-          {...fadeUpAnimation}
-          transition={{ duration: 0.7 }}
-        >
+        {/* Thumbnail */}
+        <div className="relative rounded-xl overflow-hidden h-[200px] bg-gray-900">
           <img
-            width={20}
-            height={20}
-            alt=""
-            src="/icons/project-title-icon.svg"
+            src={project.thumbnail.url}
+            alt={project.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
+
+          {/* Link Icons Overlay (bottom-right) */}
+          <div className="absolute bottom-3 right-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+            {project.live_project_url && (
+              <a
+                href={project.live_project_url}
+                target="_blank"
+                rel="noreferrer"
+                className="w-9 h-9 rounded-lg bg-black/70 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all"
+              >
+                <HiArrowTopRightOnSquare size={16} />
+              </a>
+            )}
+            {project.github_url && (
+              <a
+                href={project.github_url}
+                target="_blank"
+                rel="noreferrer"
+                className="w-9 h-9 rounded-lg bg-black/70 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-accent hover:border-accent transition-all"
+              >
+                <TbBrandGithub size={16} />
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 pt-4 flex flex-col flex-1 gap-3">
+        {/* Title */}
+        <h3 className="text-lg font-semibold text-white group-hover:text-accent transition-colors">
           {project.title}
-        </motion.h3>
+        </h3>
 
-        <motion.p
-          className="text-gray-400 my-6 line-clamp-3"
-          {...fadeUpAnimation}
-          transition={{ duration: 0.2, delay: 0.3 }}
-        >
-          {project.shortDescription}
-        </motion.p>
+        {/* Description */}
+        <p className="text-sm text-gray-400 leading-relaxed line-clamp-2 flex-1">
+          {project.short_description}
+        </p>
 
-        <div className="flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8">
-          {project.technologies.map((tech, i) => (
-            <TechBadge
-              name={tech.name}
-              key={`${project.title}-tech-${tech.name}`}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              transition={{ duration: 0.2, delay: 0.5 + i * 0.1 }}
-              className="hover:-translate-y-2"
-            />
+        {/* Tech Badges */}
+        <div className="flex flex-wrap gap-2 mt-1">
+          {project.technologies?.map((tech) => (
+            <span
+              key={tech.name}
+              className="text-xs px-3 py-1 rounded-full border border-accent/20 text-accent bg-accent/5"
+            >
+              {tech.name}
+            </span>
           ))}
         </div>
 
-        <LinkSimple
-          to={`/works/${project.slug}`}
-          className="group-hover:text-red-500 py-3 px-1"
-        >
-          Ver projeto
-          <AiOutlineArrowRight className="-rotate-[34deg] group-hover:-translate-y-[1px] group-hover:translate-x-[1px] transition-all" />
-        </LinkSimple>
+        {/* Highlight Stat */}
+        {project.highlight && (
+          <div className="flex items-center gap-2 mt-2 pt-3 border-t border-white/[0.06]">
+            <HiOutlineTrendingUp className="text-accent" size={16} />
+            <span className="text-xs font-medium text-accent">
+              {project.highlight}
+            </span>
+          </div>
+        )}
       </div>
-    </motion.div>
+    </div>
   )
 }

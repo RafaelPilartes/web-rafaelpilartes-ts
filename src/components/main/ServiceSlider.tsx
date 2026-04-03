@@ -9,9 +9,9 @@ import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
 
 import { RxArrowTopRight } from 'react-icons/rx'
-import { ServicesSectionProps } from '../../types/services'
+import { ServiceEntity } from '@/core/entities/content/ServiceEntity'
 
-const ServiceSlider = ({ services }: ServicesSectionProps) => {
+const ServiceSlider = ({ services }: { services: ServiceEntity[] }) => {
   return (
     <Swiper
       breakpoints={{

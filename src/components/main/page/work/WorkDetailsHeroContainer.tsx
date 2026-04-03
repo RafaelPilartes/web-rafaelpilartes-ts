@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Project } from '../../../../types/projects'
+import { ProjectEntity } from '@/core/entities/portfolio/ProjectEntity'
 import { TechBadge } from '../../TechBadge'
 import { techBadgeAnimation } from '../../../../lib/animations'
 import { HorizontalDivider } from '../../HorizontalDivider'
@@ -9,7 +9,7 @@ import { FiGlobe } from 'react-icons/fi'
 import { ButtonCenterHoverReverse } from '../../ButtonCenterHoverReverse'
 
 type ProjectDetailsProps = {
-  project: Project
+  project: ProjectEntity
 }
 
 export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
@@ -25,7 +25,7 @@ export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
           transition={{ duration: 0.5 }}
           className="text-gray-200 text-left max-w-3xl max-0 line-clamp-2"
         >
-          {project.createdAt}
+          {project.created_at ? new Date(project.created_at).toLocaleDateString() : ''}
         </motion.p>
 
         {/* Title */}
@@ -47,12 +47,12 @@ export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
           transition={{ duration: 0.5 }}
           className="text-gray-200 text-left max-w-3xl max-0 line-clamp-5"
         >
-          {project.shortDescription}
+          {project.short_description}
         </motion.p>
 
         {/* TechBadge */}
         <div className="flex flex-wrap gap-x-2 gap-y-3 py-2 lg:max-w-[340px]">
-          {project.technologies.map((tech, i) => (
+          {project.technologies?.map((tech, i) => (
             <TechBadge
               name={tech.name}
               key={tech.name}
@@ -73,16 +73,16 @@ export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.5 }}
         >
-          {project.githubUrl && (
-            <a href={project.githubUrl} target="_blank" rel="noreferrer">
+          {project.github_url && (
+            <a href={project.github_url} target="_blank" rel="noreferrer">
               <ButtonCenterHoverReverse className="min-w-[180px]">
                 <TbBrandGithub size={20} />
                 Repositório
               </ButtonCenterHoverReverse>
             </a>
           )}
-          {project.liveProjectUrl && (
-            <a href={project.liveProjectUrl} target="_blank" rel="noreferrer">
+          {project.live_project_url && (
+            <a href={project.live_project_url} target="_blank" rel="noreferrer">
               <ButtonCenterHover className="min-w-[180px]">
                 <FiGlobe size={20} />
                 Projeto Online
@@ -99,7 +99,7 @@ export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
       <div
         className="w-full h-full absolute right-0 bottom-0 blur-[2px] pointer-events-none inset-0 z-[-2]"
         style={{
-          background: `url(${project.pageThumbnail.url}) no-repeat center/cover`
+          background: `url(${project.page_thumbnail.url}) no-repeat center/cover`
         }}
       ></div>
     </section>

@@ -6,5 +6,6 @@ export const routsNameMain = {
   works_details: `/works/details/:workId/:workName`,
   testimonials: `/testimonials`,
   blog: `/blog`,
+  blog_details: `/blog/:slug`,
   contacts: `/contacts`
 }

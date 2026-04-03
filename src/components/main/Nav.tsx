@@ -3,7 +3,7 @@ import {
   HiUser,
   HiRectangleGroup,
   HiViewColumns,
-  HiChatBubbleBottomCenterText,
+  HiDocumentText,
   HiEnvelope
 } from 'react-icons/hi2'
 import { Link, useLocation } from 'react-router-dom'
@@ -25,9 +25,9 @@ const navData = [
   },
   { name: 'Trabalhos', path: routsNameMain.works, icon: <HiViewColumns /> },
   {
-    name: 'Testemunhos',
-    path: routsNameMain.testimonials,
-    icon: <HiChatBubbleBottomCenterText />
+    name: 'Blog',
+    path: routsNameMain.blog,
+    icon: <HiDocumentText />
   },
   {
     name: 'Contactos',

@@ -9,7 +9,8 @@ import About from '../pages/main/about/page'
 import Services from '../pages/main/services/page'
 import Projects from '../pages/main/work/page'
 import ProjectDetails from '../pages/main/work/details/page'
-import Testimonials from '../pages/main/testimonials/page'
+import Blog from '../pages/main/blog/page'
+import BlogDetails from '../pages/main/blog/details/page'
 import Contact from '../pages/main/contact/page'
 
 // const Home = React.lazy(() => import('../pages/main/home'))
@@ -78,12 +79,21 @@ export function Router() {
               </React.Suspense>
             }
           />
-          {/* Testimonials */}
+          {/* Blog */}
           <Route
-            path={routsNameMain.testimonials}
+            path={routsNameMain.blog}
             element={
               <React.Suspense fallback={<Loading />}>
-                <Testimonials />
+                <Blog />
+              </React.Suspense>
+            }
+          />
+          {/* Blog Details */}
+          <Route
+            path={routsNameMain.blog_details}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <BlogDetails />
               </React.Suspense>
             }
           />

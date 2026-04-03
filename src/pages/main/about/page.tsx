@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   FaHtml5,
   FaCss3,
@@ -16,320 +16,256 @@ import {
   SiDiscord
 } from 'react-icons/si'
 import { BiLogoVisualStudio } from 'react-icons/bi'
+import { HiAcademicCap, HiStar } from 'react-icons/hi2'
 
 import Circles from '../../../components/main/Circles'
 import { ExperienceItem } from '../../../components/main/page/AboutExperienceItem'
-import { WorkExperience } from '../../../types/WorkExperience'
+import { PageIntroduction } from '../../../components/main/PageIntroduction'
+import { mockExperiences } from '@/core/mocks/experiencesMock'
 
-type aboutDataInfoType = {
-  title: string
-  stage?: string
-  icons?: any[]
-}
-type aboutDataType = {
-  title: string
-  info: aboutDataInfoType[]
-}
-//  data
-const aboutData: aboutDataType[] = [
+// -- Data --
+const skillsData = [
   {
-    title: 'Habilidades',
-    info: [
-      {
-        title: 'Web Development',
-        icons: [
-          <FaHtml5 key={356} />,
-          <FaCss3 key={547} />,
-          <FaJs key={468} />,
-          <FaReact key={473} />,
-          <SiNextdotjs key={638} />,
-          <FaWordpress key={165} />
-        ]
-      },
-      {
-        title: 'UI/UX Design',
-        icons: [
-          <FaFigma key={4637} />,
-          <SiAdobexd key={9968} />,
-          <SiAdobephotoshop key={3466} />
-        ]
-      },
-      {
-        title: 'Ferramentas',
-        icons: [
-          <SiGithub key={3456} />,
-          <SiDiscord key={6833} />,
-          <BiLogoVisualStudio key={5785} />
-        ]
-      }
+    title: 'Web Development',
+    items: [
+      { name: 'HTML5', icon: <FaHtml5 className="text-[#E34F26]" /> },
+      { name: 'CSS3', icon: <FaCss3 className="text-[#1572B6]" /> },
+      { name: 'JavaScript', icon: <FaJs className="text-[#F7DF1E]" /> },
+      { name: 'React', icon: <FaReact className="text-[#61DAFB]" /> },
+      { name: 'Next.js', icon: <SiNextdotjs className="text-white" /> },
+      { name: 'WordPress', icon: <FaWordpress className="text-[#21759B]" /> }
     ]
   },
   {
-    title: 'Experiência',
-    info: [
-      {
-        title: 'UX/UI Designer - XYZ Company',
-        stage: '2012 - 2023'
-      },
-      {
-        title: 'Web Developer - ABC Agency',
-        stage: '2010 - 2012'
-      },
-      {
-        title: 'Intern - DEF Corporation',
-        stage: '2008 - 2010'
-      }
+    title: 'UI/UX Design',
+    items: [
+      { name: 'Figma', icon: <FaFigma className="text-[#F24E1E]" /> },
+      { name: 'Adobe XD', icon: <SiAdobexd className="text-[#FF61F6]" /> },
+      { name: 'Photoshop', icon: <SiAdobephotoshop className="text-[#31A8FF]" /> }
     ]
   },
   {
-    title: 'Certificados',
-    info: [
-      {
-        title: 'Web Development - ABC University, LA, CA',
-        stage: '2011'
-      },
-      {
-        title: 'Computer Science Diploma - AV Technical Institute',
-        stage: '2009'
-      },
-      {
-        title: 'Certified Graphic Designer - ABC Institute, Los Angeles, CA',
-        stage: '2006'
-      }
+    title: 'Ferramentas',
+    items: [
+      { name: 'GitHub', icon: <SiGithub className="text-white" /> },
+      { name: 'Discord', icon: <SiDiscord className="text-[#5865F2]" /> },
+      { name: 'VS Code', icon: <BiLogoVisualStudio className="text-[#007ACC]" /> }
     ]
   }
 ]
 
-const experiences: WorkExperience[] = [
+const educationData = [
   {
-    companyLogo: {
-      url: '/experience/toqueplay.png'
-    },
-    role: 'Toqueplay é uma plataforma de streaming e vendas de músicas que aproxima os fãs dos artistas através de experiências únicas e da mais alta qualidade do som.',
-    companyName: 'TouePlay',
-    companyUrl: 'https://toqueplay.com/',
-    startDate: 'startDate',
-    endDate: 'endDate',
-    technologies: [
-      {
-        name: 'JavaScript'
-      },
-      {
-        name: 'React Js'
-      },
-      {
-        name: 'React Native'
-      },
-      {
-        name: 'Firebase'
-      }
-    ],
-    description: {
-      raw: 'RichTextContent' as any
-    }
+    course: 'Web Development',
+    institute: 'ABC University, LA, CA',
+    year: '2011'
   },
   {
-    companyLogo: {
-      url: '/experience/gusmapis.jpg'
-    },
-    role: 'A Gusmapis é uma das maiores organizações de construção do país e classificada entre as maiores empreiteiras. Aborde diferentes segmentos.',
-    companyName: 'Gusmapis',
-    companyUrl: 'https://gusmapis.com/',
-    startDate: 'string',
-    endDate: 'string',
-    technologies: [
-      {
-        name: 'SAC4'
-      },
-      {
-        name: 'Exel'
-      },
-      {
-        name: 'Word'
-      }
-    ],
-    description: {
-      raw: 'RichTextContent' as any
-    }
+    course: 'Computer Science Diploma',
+    institute: 'AV Technical Institute',
+    year: '2009'
   },
   {
-    companyLogo: {
-      url: '/experience/graceminds.jpg'
-    },
-    role: 'Grace Minds a equipe de profissionais que entendem e guiá-lo com a consciência de vida rica e profunda durante todo o processo de orientação e cura.',
-    companyName: 'Grace Minds',
-    companyUrl: 'https://graceminds.com/',
-    startDate: 'string',
-    endDate: 'string',
-    technologies: [
-      {
-        name: 'HTML'
-      },
-      {
-        name: 'CSS'
-      },
-      {
-        name: 'JavaScript'
-      }
-    ],
-    description: {
-      raw: 'RichTextContent' as any
-    }
+    course: 'Certified Graphic Designer',
+    institute: 'ABC Institute, Los Angeles, CA',
+    year: '2006'
   }
 ]
+
+const stats = [
+  { label: 'Anos de experiência', value: '3+' },
+  { label: 'Clientes satisfeitos', value: '18+' },
+  { label: 'Projectos entregues', value: '24+' }
+]
+
+const introductionData = {
+  subtitle: 'sobre mim',
+  title: 'Conheça a Minha História',
+  description:
+    'Sou um desenvolvedor apaixonado pela arte de transformar problemas complexos em soluções simples, acessíveis e elegantes através do código.'
+}
+
+const TABS = ['Experiência', 'Habilidades', 'Certificados'] as const
+type TabType = typeof TABS[number]
 
 const About = () => {
-  const [itemIndex, setItemIndex] = useState<number>(0)
+  const [activeTab, setActiveTab] = useState<TabType>('Experiência')
 
   return (
-    <main className="h-full py-36 text-center xl:text-left ">
+    <main className="flex flex-col gap-6 items-center justify-center pb-20">
       <Circles />
+      
+      {/* Intro Header */}
+      <PageIntroduction {...introductionData} />
 
-      {/* Avatar image */}
-      {/* <motion.div
-        variants={fadeIn('left', 0.2)}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        className="hidden xl:flex fixed bottom-0 -right-[370px]"
-      >
-        <Avatar photoImage={myPhoto} />
-      </motion.div> */}
+      <div className="container mx-auto px-4 lg:px-8 mt-4">
+        
+        {/* Intro Text & Stats Grid */}
+        <section className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex-1 text-center lg:text-left"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+              Transformando <span className="text-accent">ideias</span> em código para a realidade.
+            </h2>
+            <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+              Sou um programador movido por desafios e pela arte de criar. Com sólida experiência
+              em diversas tecnologias front-end e mobile, estou sempre em busca da excelência
+              técnica, de novas tendências no design de interfaces e das melhores práticas
+              de desenvolvimento para criar soluções que tragam impacto directo ao usuário.
+            </p>
+          </motion.div>
 
-      <div className="container mx-auto h-full flex flex-col justify-center items-start xl:flex-row gap-x-6 gap-8 ">
-        {/* Text */}
-        <div className="flex-1 flex flex-col justify-center">
-          <h2 className="h2">
-            {' '}
-            Transformando <span className="text-accent"> ideias </span> em
-            código para.{' '}
-          </h2>
-          <p className="max-w-[500px] mx-auto xl:mx-0 mb6 xl:mb-12 px-2 xl:px-0 ">
-            Sou um programador apaixonado por desafios e pela arte de
-            transformar linhas de código em soluções funcionais. Com experiência
-            em diversas linguagens e tecnologias, estou sempre em busca de novos
-            conhecimentos para entregar resultados eficientes e impactantes.{' '}
-          </p>
-
-          {/* Counters */}
-          <div className="hidden md:flex md:max-w-xl xl:max-w-none mx-auto xl:mx-0">
-            <div className="flex flex-1 xl:gap-x-6">
-              {/* Experience */}
-              <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0 ">
-                <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  3 {/* <CountUp start={5} end={3} duration={5} />+ */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full lg:w-auto"
+          >
+            {stats.map((stat, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center justify-center p-6 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] shadow-lg"
+              >
+                <div className="text-4xl lg:text-5xl font-extrabold text-accent mb-3">
+                  {stat.value}
                 </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px] ">
-                  Anos de experiência
-                </div>
-              </div>
-
-              {/* Clients */}
-              <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0 ">
-                <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  18 {/* <CountUp start={5} end={18} duration={5} />+ */}
-                </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px] ">
-                  Clientes satisfeitos
+                <div className="text-xs uppercase tracking-widest text-gray-400 text-center mx-auto max-w-[120px]">
+                  {stat.label}
                 </div>
               </div>
+            ))}
+          </motion.div>
+        </section>
 
-              {/* Projects */}
-              <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0 ">
-                <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  24 {/* <CountUp start={5} end={24} duration={5} />+ */}
-                </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px] ">
-                  Projetos
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Info */}
-        <div className="flex flex-col items-center w-full xl:max-w-[48%] ">
-          <div className="flex gap-x-4 xl:gap-x-8 mx-auto xl:mx-0 mb-4 ">
-            {aboutData.map((item, index) => {
-              return (
-                <button
-                  key={index}
-                  className={`${
-                    itemIndex === index &&
-                    'text-accent after:w-[100%] after:bg-accent after:transition-all duration-300 '
-                  } cursor-pointer capitalize xl:text-lg relative after:w-8 after:h-[2px] after:bg-white after:absolute after:-bottom-1 after:left-0 `}
-                  onClick={() => setItemIndex(index)}
-                >
-                  {item.title}
-                </button>
-              )
-            })}
-          </div>
-
-          <div className="flex flex-col gap-4 py-4">
-            {itemIndex === 0 &&
-              aboutData[itemIndex].info.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex-1 flex flex-col md:flex-row max-w-max gap-x-2 items-center text-white/60 "
-                  >
-                    {/* Title */}
-                    <div className="font-light mb-2 md:mb-0">{item.title}</div>
-                    <div className="hidden md:flex">-</div>
-                    <div> {item.stage} </div>
-                    <div className="flex gap-x-4">
-                      {/* Icons */}
-                      {item.icons?.map((icon, index) => {
-                        return (
-                          <div className="text-2xl " key={index}>
-                            {' '}
-                            {icon}{' '}
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                )
-              })}
-
-            {itemIndex === 1 && (
-              <div className="flex flex-col gap-4">
-                {experiences?.map(experience => (
-                  <ExperienceItem
-                    key={experience.companyName}
-                    experience={experience}
+        {/* Dynamic Tabs Section */}
+        <section className="max-w-4xl mx-auto">
+          {/* Tab Selection */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
+            {TABS.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`relative px-6 py-3 rounded-full text-sm sm:text-base font-medium transition-all duration-300
+                  ${
+                    activeTab === tab
+                      ? 'text-white'
+                      : 'text-gray-400 hover:text-white bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06]'
+                  }`}
+              >
+                {activeTab === tab && (
+                  <motion.div
+                    layoutId="active-tab"
+                    className="absolute inset-0 bg-accent rounded-full -z-10 shadow-lg shadow-accent/25"
+                    transition={{ type: 'spring', duration: 0.6 }}
                   />
-                ))}
-              </div>
-            )}
-            {itemIndex === 2 &&
-              aboutData[itemIndex].info.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex-1 flex flex-col md:flex-row max-w-max gap-x-2 items-center text-white/60 "
-                  >
-                    {/* Title */}
-                    <div className="font-light mb-2 md:mb-0">{item.title}</div>
-                    <div className="hidden md:flex">-</div>
-                    <div> {item.stage} </div>
-                    <div className="flex gap-x-4">
-                      {/* Icons */}
-                      {item.icons?.map((icon, index) => {
-                        return (
-                          <div className="text-2xl " key={index}>
-                            {' '}
-                            {icon}{' '}
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                )
-              })}
+                )}
+                {tab}
+              </button>
+            ))}
           </div>
-        </div>
+
+          {/* Tab Content */}
+          <div className="min-h-[400px]">
+            <AnimatePresence mode="wait">
+              
+              {/* === TAB 1: Experiência === */}
+              {activeTab === 'Experiência' && (
+                <motion.div
+                  key="experience"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col gap-2"
+                >
+                  <div className="flex items-center gap-3 mb-6 hidden md:flex">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+                      <HiStar size={20} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">Trajetória Profissional</h3>
+                  </div>
+                  
+                  {mockExperiences.map((exp, index) => (
+                    <ExperienceItem key={exp.id ?? index} experience={exp} />
+                  ))}
+                </motion.div>
+              )}
+
+              {/* === TAB 2: Habilidades === */}
+              {activeTab === 'Habilidades' && (
+                <motion.div
+                  key="skills"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                >
+                  {skillsData.map((category, index) => (
+                    <div
+                      key={index}
+                      className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-4"
+                    >
+                      <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                        {category.title}
+                      </h4>
+                      <div className="flex flex-wrap gap-3">
+                        {category.items.map((item, i) => (
+                          <div
+                            key={i}
+                            title={item.name}
+                            className="flex items-center justify-center w-12 h-12 rounded-xl bg-black/40 border border-white/5 hover:border-accent/30 hover:bg-accent/10 hover:-translate-y-1 transition-all text-2xl"
+                          >
+                            {item.icon}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+
+              {/* === TAB 3: Certificados === */}
+              {activeTab === 'Certificados' && (
+                <motion.div
+                  key="certificates"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col gap-4"
+                >
+                  <div className="flex items-center gap-3 mb-4 hidden md:flex">
+                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+                      <HiAcademicCap size={22} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">Educação e Certificados</h3>
+                  </div>
+
+                  {educationData.map((edu, index) => (
+                    <div
+                      key={index}
+                      className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-accent/20 transition-colors"
+                    >
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
+                        <h4 className="text-lg font-bold text-white">{edu.course}</h4>
+                        <span className="text-xs font-medium text-accent bg-accent/10 px-3 py-1 rounded-full">
+                          {edu.year}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-400">{edu.institute}</p>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </section>
+
       </div>
     </main>
   )

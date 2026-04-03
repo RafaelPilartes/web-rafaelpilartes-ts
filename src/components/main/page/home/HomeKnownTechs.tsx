@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
-import { KnownTech as IKnownTech } from '../../../../types/projects'
+import { TechnologyEntity } from '@/core/entities/portfolio/TechnologyEntity'
 import { KnownTech } from '../../../../components/main/KnownTech'
 import { SectionTitle } from '../../../../components/main/SectionTitle'
 
 type HomeKnownTechsProps = {
-  techs: IKnownTech[]
+  techs: TechnologyEntity[]
 }
 
 export const HomeKnownTechs = ({ techs }: HomeKnownTechsProps) => {

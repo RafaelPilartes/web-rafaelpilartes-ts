@@ -22,9 +22,9 @@
     @apply leading-[1.8] bg-gradient-to-r text-transparent bg-clip-text text-accent transition-all duration-300;
   }
 }
- {
-  /* bg-gradient-to-r text-transparent bg-clip-text from-[#032ebb] to-[#ff3b3b] font-bold hover:from-[#ff3b3b] hover:to-[#032ebb] */
-}
+/* { */
+/* bg-gradient-to-r text-transparent bg-clip-text from-[#032ebb] to-[#ff3b3b] font-bold hover:from-[#ff3b3b] hover:to-[#032ebb] */
+/* } */
 
 .container {
   @apply mx-auto w-full max-w-[1200px] px-6;

@@ -6,7 +6,6 @@ import { HiArrowNarrowRight } from 'react-icons/hi'
 import { motion } from 'framer-motion'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { fadeUpAnimation } from '../../../lib/animations'
 import Circles from '../../../components/main/Circles'
 import {
   TbBrandGithub,
@@ -15,7 +14,7 @@ import {
   TbBrandWhatsapp
 } from 'react-icons/tb'
 import { BiPhoneCall } from 'react-icons/bi'
-import { MdOutlineMailOutline } from 'react-icons/md'
+import { MdOutlineMailOutline, MdLocationOn } from 'react-icons/md'
 
 const contactFormSchema = z.object({
   name: z.string().min(3).max(100),
@@ -28,19 +27,44 @@ type ContactFormData = z.infer<typeof contactFormSchema>
 const socials = [
   {
     url: 'https://web.whatsapp.com/send?phone=270673235056',
-    iconSvg: <TbBrandWhatsapp />
+    iconSvg: <TbBrandWhatsapp />,
+    label: 'WhatsApp'
   },
   {
     url: 'https://github.com/RafaelPilartes',
-    iconSvg: <TbBrandGithub />
+    iconSvg: <TbBrandGithub />,
+    label: 'GitHub'
   },
   {
     url: 'https://www.instagram.com/rafaelpilartes/',
-    iconSvg: <TbBrandInstagram />
+    iconSvg: <TbBrandInstagram />,
+    label: 'Instagram'
   },
   {
     url: 'https://www.linkedin.com/in/rafael-pilartes-6b9141235/',
-    iconSvg: <TbBrandLinkedin />
+    iconSvg: <TbBrandLinkedin />,
+    label: 'LinkedIn'
+  }
+]
+
+const contactInfo = [
+  {
+    icon: <BiPhoneCall size={22} />,
+    label: 'Telefone',
+    value: '+27 067 323 5056',
+    href: 'tel:270673235056'
+  },
+  {
+    icon: <MdOutlineMailOutline size={22} />,
+    label: 'E-mail',
+    value: 'contact@rafaelpilartes.com',
+    href: 'mailto:contact@rafaelpilartes.com'
+  },
+  {
+    icon: <MdLocationOn size={22} />,
+    label: 'Localização',
+    value: 'Cape Town, South Africa',
+    href: undefined
   }
 ]
 
@@ -49,7 +73,7 @@ const Contact = () => {
     handleSubmit,
     register,
     reset,
-    formState: { isSubmitting }
+    formState: { isSubmitting, errors }
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema)
   })
@@ -59,132 +83,182 @@ const Contact = () => {
       await axios.post('/api/contact', data)
       toast.success('Mensagem enviada com sucesso!')
       reset()
-    } catch (error) {
+    } catch {
       toast.error('Ocorreu um erro ao enviar a mensagem. Tente novamente.')
     }
   }
 
   return (
-    <section
-      className="py-24 px-6 md:py-32 flex items-center justify-center"
-      id="contact"
-    >
-      <div className="container flex flex-col items-center justify-center lg:flex-row ">
-        {/* <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 py-5">
+    <section className="py-20 px-6" id="contact">
+      <div className="container">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="text-accent text-sm font-medium tracking-widest uppercase">
+            Contacto
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">
+            Vamos trabalhar <span className="text-accent">juntos</span>
+          </h2>
+          <p className="max-w-[550px] mx-auto text-gray-400 mt-4">
+            Se você tem algum projeto em mente, podemos desenvolvê-lo juntos.
+            Entre em contacto e vamos transformar a sua ideia em realidade.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          {/* Left Column — Info Cards + Socials */}
           <motion.div
-            {...animPropsLeft}
-            transition={{ duration: 0.5 }}
-            className="flex flex-row items-center justify-center flex-1
-          bg-[#f2f7fb] gap-4 text-gray-900 p-3 rounded-md "
+            className="flex flex-col gap-6"
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <img
-              src="/icons/mobile.png"
-              width={40}
-              height={40}
-              alt="Rafael email"
-            />
-            <a href="tel:270673235056" className="p-text">
-              +244 923 414 621
-            </a>
-          </motion.div>
-          <motion.div
-            {...animPropsRight}
-            transition={{ duration: 0.5 }}
-            className="flex flex-row items-center justify-center flex-1
-          bg-[#f2f7fb] gap-4 text-gray-900 p-3 rounded-md "
-          >
-            <img
-              src="/icons/email.png"
-              width={40}
-              height={40}
-              alt="Rafael phone"
-            />
-            <a href="mailto:contact@rafaelpilartes.com" className="p-text">
-              contact@rafaelpilartes.com
-            </a>
-          </motion.div>
-        </div> */}
-
-        {/* Text */}
-        <div className="flex-1 relative mb-2 lg:mb-0 ">
-          <div className="flex flex-col gap-3 mb-4">
-            <h2 className="h2 ">
-              Entre em <span className="text-accent">contato</span>{' '}
-            </h2>
-            <h3 className=" text-zinc-50">
-              Se você tem algum projeto em mente, podemos desenvolve-lo juntos{' '}
-            </h3>
-            <p className="max-w-[505px] text-sm text-gray-300">
-              Descubra como posso ajudar você a alcançar seus objetivos. Meus
-              serviços são cuidadosamente projetados para atender suas
-              necessidades, proporcionando soluções eficientes e resultados
-              excepcionais. Deixe-me ser parte do seu sucesso.
-            </p>
-          </div>
-
-          <div className="flex flex-row items-center justify-start flex-1 gap-4 text-sm text-gray-300 p-3 rounded-md hover:text-accent transition-all duration-300 group">
-            <BiPhoneCall size={20} />
-            <a href="tel:270673235056" className="p-text">
-              +27 067 323 5056
-            </a>
-          </div>
-          <div className="flex flex-row items-center justify-start flex-1 gap-4 text-sm text-gray-300 p-3 rounded-md hover:text-accent transition-all duration-300 group">
-            <MdOutlineMailOutline size={20} />
-
-            <a href="mailto:contact@rafaelpilartes.com" className="p-text">
-              contact@rafaelpilartes.com
-            </a>
-          </div>
-
-          <div className="text-2xl text-gray-600 flex items-center h-20 gap-3">
-            {socials.map((contact, i) => (
-              <a
-                href={contact.url}
-                key={`contact-${i}`}
-                target="_blank"
-                className="p-3 rounded-lg text-2xl bg-accent text-white hover:bg-white hover:text-accent transition-colors duration-300"
-                rel="noreferrer"
-              >
-                {contact.iconSvg}
-                {/* <CMSIcon icon={contact.iconSvg} /> */}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Form */}
-        <div className="flex-1 w-full px-2">
-          <motion.form
-            className="mt-12 w-full flex flex-col gap-4"
-            onSubmit={handleSubmit(onSubmit)}
-            {...fadeUpAnimation}
-          >
-            <input
-              placeholder="Nome"
-              className="flex-1 h-14 bg-transparent rounded-lg placeholder:text-white text-white border-[1px] border-solid border-white/75 p-4 focus:outline-none focus:ring-2 ring-red-600"
-              {...register('name')}
-            />
-            <input
-              placeholder="E-mail"
-              type="email"
-              className="flex-1 h-14 bg-transparent rounded-lg placeholder:text-white text-white border-[1px] border-solid border-white/75 p-4 focus:outline-none focus:ring-2 ring-red-600"
-              {...register('email')}
-            />
-            <textarea
-              placeholder="Mensagem"
-              className="resize-none flex-1 h-[138px] bg-transparent rounded-lg placeholder:text-white text-white border-[1px] border-solid border-white/75 p-4 focus:outline-none focus:ring-2 ring-red-600"
-              {...register('message')}
-              maxLength={500}
-            />
-
-            <div className="relative w-max mx-auto mt-6">
-              <ButtonBase className="z-[2] relative" disabled={isSubmitting}>
-                Enviar mensagem
-                <HiArrowNarrowRight size={18} />
-              </ButtonBase>
-              <div className="absolute inset-0 bg-red-600 blur-2xl opacity-20" />
+            {/* Contact Info Cards */}
+            <div className="flex flex-col gap-4">
+              {contactInfo.map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.2 + i * 0.1 }}
+                  className="flex items-center gap-5 p-5 rounded-xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] hover:border-accent/30 hover:bg-white/[0.06] transition-all duration-300 group"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">
+                      {item.label}
+                    </p>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className="text-white hover:text-accent transition-colors text-sm"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <span className="text-white text-sm">{item.value}</span>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          </motion.form>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 mt-2">
+              {socials.map((contact, i) => (
+                <a
+                  href={contact.url}
+                  key={`contact-${i}`}
+                  target="_blank"
+                  title={contact.label}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-xl bg-white/[0.05] backdrop-blur-sm border border-white/[0.08] text-gray-400
+                             hover:bg-accent hover:text-white hover:border-accent hover:shadow-lg hover:shadow-accent/20 transition-all duration-300"
+                  rel="noreferrer"
+                >
+                  {contact.iconSvg}
+                </a>
+              ))}
+            </div>
+
+            {/* Google Maps Embed */}
+            <div className="rounded-xl overflow-hidden border border-white/[0.06] mt-2 h-[220px]">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d211064.81586872383!2d18.35!3d-33.9249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc500f8826eed7%3A0x687fe1fc2828aa87!2sCape%20Town%2C%20South%20Africa!5e0!3m2!1sen!2sza!4v1700000000000"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localização - Cape Town, South Africa"
+              />
+            </div>
+          </motion.div>
+
+          {/* Right Column — Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <form
+              className="flex flex-col gap-5 p-8 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06]"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <h3 className="text-xl font-semibold text-white mb-2">
+                Envie uma mensagem
+              </h3>
+
+              {/* Name */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs text-gray-500 uppercase tracking-wider">
+                  Nome
+                </label>
+                <input
+                  placeholder="O seu nome"
+                  className={`h-13 bg-white/[0.04] rounded-xl text-white placeholder:text-gray-600 border p-4 focus:outline-none focus:ring-2 ring-accent/50 transition-all
+                    ${errors.name ? 'border-red-500/50' : 'border-white/[0.08]'}`}
+                  {...register('name')}
+                />
+                {errors.name && (
+                  <span className="text-red-400 text-xs">Mínimo 3 caracteres</span>
+                )}
+              </div>
+
+              {/* Email */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs text-gray-500 uppercase tracking-wider">
+                  E-mail
+                </label>
+                <input
+                  placeholder="seuemail@exemplo.com"
+                  type="email"
+                  className={`h-13 bg-white/[0.04] rounded-xl text-white placeholder:text-gray-600 border p-4 focus:outline-none focus:ring-2 ring-accent/50 transition-all
+                    ${errors.email ? 'border-red-500/50' : 'border-white/[0.08]'}`}
+                  {...register('email')}
+                />
+                {errors.email && (
+                  <span className="text-red-400 text-xs">E-mail inválido</span>
+                )}
+              </div>
+
+              {/* Message */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs text-gray-500 uppercase tracking-wider">
+                  Mensagem
+                </label>
+                <textarea
+                  placeholder="Conte-me sobre o seu projeto..."
+                  className={`resize-none h-[160px] bg-white/[0.04] rounded-xl text-white placeholder:text-gray-600 border p-4 focus:outline-none focus:ring-2 ring-accent/50 transition-all
+                    ${errors.message ? 'border-red-500/50' : 'border-white/[0.08]'}`}
+                  {...register('message')}
+                  maxLength={500}
+                />
+                {errors.message && (
+                  <span className="text-red-400 text-xs">Campo obrigatório</span>
+                )}
+              </div>
+
+              {/* Submit */}
+              <div className="relative w-full mt-4">
+                <ButtonBase
+                  className="z-[2] relative w-full justify-center py-4"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
+                  <HiArrowNarrowRight size={18} />
+                </ButtonBase>
+                <div className="absolute inset-0 bg-red-600 blur-2xl opacity-10 rounded-xl" />
+              </div>
+            </form>
+          </motion.div>
         </div>
       </div>
       <Circles />
