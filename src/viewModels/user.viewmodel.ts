@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { userUseCase } from '@/domain/usecases/UserUseCase'
-import { UserEntity } from '@/core/entities/identity/UserEntity'
+import { UserEntity } from '@/core/entities/UserEntity'
 import { toast } from 'sonner'
 
 export const USER_KEYS = {

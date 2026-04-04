@@ -1,0 +1,85 @@
+src/core/mocks/projectsMock.ts(5,14): error TS2739: Type '{ WEB: string; MOBILE: string; DESIGN: string; }' is missing the following properties from type 'Record<ProjectCategory, string>': AI, DESKTOP
+src/core/mocks/projectsMock.ts(33,33): error TS2561: Object literal may only specify known properties, but 'image' does not exist in type 'ProjectSectionProps'. Did you mean to write 'images'?
+src/core/mocks/projectsMock.ts(55,33): error TS2561: Object literal may only specify known properties, but 'image' does not exist in type 'ProjectSectionProps'. Did you mean to write 'images'?
+src/core/mocks/projectsMock.ts(76,33): error TS2561: Object literal may only specify known properties, but 'image' does not exist in type 'ProjectSectionProps'. Did you mean to write 'images'?
+src/core/mocks/projectsMock.ts(98,33): error TS2561: Object literal may only specify known properties, but 'image' does not exist in type 'ProjectSectionProps'. Did you mean to write 'images'?
+src/core/mocks/projectsMock.ts(119,33): error TS2561: Object literal may only specify known properties, but 'image' does not exist in type 'ProjectSectionProps'. Did you mean to write 'images'?
+src/core/mocks/projectsMock.ts(141,33): error TS2561: Object literal may only specify known properties, but 'image' does not exist in type 'ProjectSectionProps'. Did you mean to write 'images'?
+src/core/mocks/projectsMock.ts(160,33): error TS2561: Object literal may only specify known properties, but 'image' does not exist in type 'ProjectSectionProps'. Did you mean to write 'images'?
+src/core/mocks/projectsMock.ts(178,33): error TS2561: Object literal may only specify known properties, but 'image' does not exist in type 'ProjectSectionProps'. Did you mean to write 'images'?
+src/modules/Api/index.ts(2,33): error TS2307: Cannot find module '@/core/interfaces/IUserRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(4,47): error TS2307: Cannot find module '@/core/interfaces/IInterpreterProfileRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(5,45): error TS2307: Cannot find module '@/core/interfaces/IRequesterProfileRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(6,52): error TS2307: Cannot find module '@/core/interfaces/IInterpreterAvailabilityRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(7,53): error TS2307: Cannot find module '@/core/interfaces/IInterpreterCertificationRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(8,49): error TS2307: Cannot find module '@/core/interfaces/IInterpreterEducationRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(9,50): error TS2307: Cannot find module '@/core/interfaces/IInterpreterExperienceRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(10,49): error TS2307: Cannot find module '@/core/interfaces/IInterpreterPortfolioRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(11,47): error TS2307: Cannot find module '@/core/interfaces/IInterpreterServiceRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(12,36): error TS2307: Cannot find module '@/core/interfaces/IBookingRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(13,39): error TS2307: Cannot find module '@/core/interfaces/IBookingLogRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(14,40): error TS2307: Cannot find module '@/core/interfaces/IChatMessageRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(15,37): error TS2307: Cannot find module '@/core/interfaces/IFavoriteRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(16,35): error TS2307: Cannot find module '@/core/interfaces/IReviewRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(17,36): error TS2307: Cannot find module '@/core/interfaces/IServiceRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(21,36): error TS2307: Cannot find module '@/core/interfaces/IArticleRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(22,34): error TS2307: Cannot find module '@/core/interfaces/IEventRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(23,38): error TS2307: Cannot find module '@/core/interfaces/IForumPostRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(24,39): error TS2307: Cannot find module '@/core/interfaces/IForumTopicRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(25,40): error TS2307: Cannot find module '@/core/interfaces/ISuccessCaseRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(26,40): error TS2307: Cannot find module '@/core/interfaces/ITestimonialRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(28,36): error TS2307: Cannot find module '@/core/interfaces/IPaymentRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(29,35): error TS2307: Cannot find module '@/core/interfaces/IPayoutRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(31,37): error TS2307: Cannot find module '@/core/interfaces/ILanguageRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(32,40): error TS2307: Cannot find module '@/core/interfaces/IOpportunityRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(33,40): error TS2307: Cannot find module '@/core/interfaces/IPartnershipRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(34,38): error TS2307: Cannot find module '@/core/interfaces/ISpecialtyRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(36,37): error TS2307: Cannot find module '@/core/interfaces/IAuditLogRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(37,37): error TS2307: Cannot find module '@/core/interfaces/IDocumentRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(38,42): error TS2307: Cannot find module '@/core/interfaces/ILegalResourceRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(39,41): error TS2307: Cannot find module '@/core/interfaces/INotificationRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(40,42): error TS2307: Cannot find module '@/core/interfaces/ISupportTicketRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(41,41): error TS2307: Cannot find module '@/core/interfaces/ISystemConfigRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(42,48): error TS2307: Cannot find module '@/core/interfaces/IVerificationRequestRepository' or its corresponding type declarations.
+src/modules/Api/index.ts(48,47): error TS2307: Cannot find module './supabase/SupabaseInterpreterProfileDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(49,45): error TS2307: Cannot find module './supabase/SupabaseRequesterProfileDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(50,52): error TS2307: Cannot find module './supabase/SupabaseInterpreterAvailabilityDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(51,53): error TS2307: Cannot find module './supabase/SupabaseInterpreterCertificationDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(52,49): error TS2307: Cannot find module './supabase/SupabaseInterpreterEducationDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(53,50): error TS2307: Cannot find module './supabase/SupabaseInterpreterExperienceDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(54,49): error TS2307: Cannot find module './supabase/SupabaseInterpreterPortfolioDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(55,47): error TS2307: Cannot find module './supabase/SupabaseInterpreterServiceDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(56,36): error TS2307: Cannot find module './supabase/SupabaseBookingDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(57,39): error TS2307: Cannot find module './supabase/SupabaseBookingLogDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(58,40): error TS2307: Cannot find module './supabase/SupabaseChatMessageDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(59,37): error TS2307: Cannot find module './supabase/SupabaseFavoriteDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(60,35): error TS2307: Cannot find module './supabase/SupabaseReviewDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(61,36): error TS2307: Cannot find module './supabase/SupabaseServiceDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(65,36): error TS2307: Cannot find module './supabase/SupabaseArticleDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(66,34): error TS2307: Cannot find module './supabase/SupabaseEventDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(67,38): error TS2307: Cannot find module './supabase/SupabaseForumPostDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(68,39): error TS2307: Cannot find module './supabase/SupabaseForumTopicDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(69,40): error TS2307: Cannot find module './supabase/SupabaseSuccessCaseDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(70,40): error TS2307: Cannot find module './supabase/SupabaseTestimonialDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(72,36): error TS2307: Cannot find module './supabase/SupabasePaymentDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(73,35): error TS2307: Cannot find module './supabase/SupabasePayoutDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(75,37): error TS2307: Cannot find module './supabase/SupabaseLanguageDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(76,40): error TS2307: Cannot find module './supabase/SupabaseOpportunityDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(77,40): error TS2307: Cannot find module './supabase/SupabasePartnershipDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(78,38): error TS2307: Cannot find module './supabase/SupabaseSpecialtyDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(80,37): error TS2307: Cannot find module './supabase/SupabaseAuditLogDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(81,37): error TS2307: Cannot find module './supabase/SupabaseDocumentDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(82,42): error TS2307: Cannot find module './supabase/SupabaseLegalResourceDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(83,41): error TS2307: Cannot find module './supabase/SupabaseNotificationDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(84,42): error TS2307: Cannot find module './supabase/SupabaseSupportTicketDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(85,41): error TS2307: Cannot find module './supabase/SupabaseSystemConfigDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(86,48): error TS2307: Cannot find module './supabase/SupabaseVerificationRequestDAO' or its corresponding type declarations.
+src/modules/Api/index.ts(91,11): error TS6133: 'driver' is declared but its value is never read.
+src/modules/Api/supabase/SupabaseUserDAO.ts(1,28): error TS2307: Cannot find module '@/core/entities/identity/UserEntity' or its corresponding type declarations.
+src/modules/Api/supabase/SupabaseUserDAO.ts(2,33): error TS2307: Cannot find module '@/core/interfaces/IUserRepository' or its corresponding type declarations.
+src/types/enum/index.ts(2,15): error TS2307: Cannot find module './booking' or its corresponding type declarations.
+src/types/enum/index.ts(3,15): error TS2307: Cannot find module './financial' or its corresponding type declarations.
+src/types/enum/index.ts(4,15): error TS2307: Cannot find module './content' or its corresponding type declarations.
+src/types/enum/index.ts(5,15): error TS2307: Cannot find module './platform' or its corresponding type declarations.
+src/types/enum/index.ts(6,15): error TS2307: Cannot find module './system' or its corresponding type declarations.
+src/viewModels/user.viewmodel.ts(3,28): error TS2307: Cannot find module '@/core/entities/identity/UserEntity' or its corresponding type declarations.

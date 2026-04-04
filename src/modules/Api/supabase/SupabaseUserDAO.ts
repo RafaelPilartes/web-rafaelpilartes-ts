@@ -1,4 +1,4 @@
-import { UserEntity } from '@/core/entities/identity/UserEntity'
+import { UserEntity } from '@/core/entities/UserEntity'
 import { IUserRepository } from '@/core/interfaces/IUserRepository'
 import { BaseSupabaseDAO } from './BaseSupabaseDAO'
 

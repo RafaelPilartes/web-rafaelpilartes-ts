@@ -5,7 +5,9 @@ import { ProjectCategory } from '@/types/enum/portfolio'
 export const projectCategoryLabels: Record<ProjectCategory, string> = {
   [ProjectCategory.WEB]: 'Web Apps',
   [ProjectCategory.MOBILE]: 'Mobile',
-  [ProjectCategory.DESIGN]: 'UI Design'
+  [ProjectCategory.DESIGN]: 'UI Design',
+  [ProjectCategory.AI]: 'AI',
+  [ProjectCategory.DESKTOP]: 'Desktop'
 }
 
 export const mockProjects: ProjectEntity[] = [
@@ -30,7 +32,7 @@ export const mockProjects: ProjectEntity[] = [
       new TechnologyEntity({ name: 'Node.js' }),
       new TechnologyEntity({ name: 'Firebase' })
     ],
-    sections: [{ title: 'Hero', image: { url: '/thumb2.jpg' } }]
+    sections: [{ title: 'Hero', type: 'GALLERY', images: [{ url: '/thumb2.jpg' }] }]
   }),
   new ProjectEntity({
     id: 'proj-2',
@@ -52,7 +54,7 @@ export const mockProjects: ProjectEntity[] = [
       new TechnologyEntity({ name: 'Tailwind' }),
       new TechnologyEntity({ name: 'Prisma' })
     ],
-    sections: [{ title: 'Hero', image: { url: '/thumb3.jpg' } }]
+    sections: [{ title: 'Hero', type: 'GALLERY', images: [{ url: '/thumb3.jpg' }] }]
   }),
   new ProjectEntity({
     id: 'proj-3',
@@ -73,7 +75,7 @@ export const mockProjects: ProjectEntity[] = [
       new TechnologyEntity({ name: 'Firebase' }),
       new TechnologyEntity({ name: 'Node.js' })
     ],
-    sections: [{ title: 'Hero', image: { url: '/thumb4.jpg' } }]
+    sections: [{ title: 'Hero', type: 'GALLERY', images: [{ url: '/thumb4.jpg' }] }]
   }),
   new ProjectEntity({
     id: 'proj-4',
@@ -95,7 +97,7 @@ export const mockProjects: ProjectEntity[] = [
       new TechnologyEntity({ name: 'CSS' }),
       new TechnologyEntity({ name: 'JavaScript' })
     ],
-    sections: [{ title: 'Hero', image: { url: '/thumb2.jpg' } }]
+    sections: [{ title: 'Hero', type: 'GALLERY', images: [{ url: '/thumb2.jpg' }] }]
   }),
   new ProjectEntity({
     id: 'proj-5',
@@ -116,7 +118,7 @@ export const mockProjects: ProjectEntity[] = [
       new TechnologyEntity({ name: 'Figma' }),
       new TechnologyEntity({ name: 'Illustrator' })
     ],
-    sections: [{ title: 'Hero', image: { url: '/thumb3.jpg' } }]
+    sections: [{ title: 'Hero', type: 'GALLERY', images: [{ url: '/thumb3.jpg' }] }]
   }),
   new ProjectEntity({
     id: 'proj-6',
@@ -138,7 +140,7 @@ export const mockProjects: ProjectEntity[] = [
       new TechnologyEntity({ name: 'Dart' }),
       new TechnologyEntity({ name: 'Firebase' })
     ],
-    sections: [{ title: 'Hero', image: { url: '/thumb4.jpg' } }]
+    sections: [{ title: 'Hero', type: 'GALLERY', images: [{ url: '/thumb4.jpg' }] }]
   }),
   new ProjectEntity({
     id: 'proj-7',
@@ -157,7 +159,7 @@ export const mockProjects: ProjectEntity[] = [
       new TechnologyEntity({ name: 'TypeScript' }),
       new TechnologyEntity({ name: 'Tailwind' })
     ],
-    sections: [{ title: 'Hero', image: { url: '/thumb2.jpg' } }]
+    sections: [{ title: 'Hero', type: 'GALLERY', images: [{ url: '/thumb2.jpg' }] }]
   }),
   new ProjectEntity({
     id: 'proj-8',
@@ -175,6 +177,6 @@ export const mockProjects: ProjectEntity[] = [
       new TechnologyEntity({ name: 'Figma' }),
       new TechnologyEntity({ name: 'Sketch' })
     ],
-    sections: [{ title: 'Hero', image: { url: '/thumb3.jpg' } }]
+    sections: [{ title: 'Hero', type: 'GALLERY', images: [{ url: '/thumb3.jpg' }] }]
   })
 ]
