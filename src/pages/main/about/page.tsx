@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  FaReact,
-  FaWordpress,
-  FaFigma
-} from 'react-icons/fa'
+import { FaReact, FaWordpress, FaFigma } from 'react-icons/fa'
 import {
   SiNextdotjs,
   SiAdobexd,
@@ -31,8 +27,10 @@ import { HiAcademicCap, HiStar } from 'react-icons/hi2'
 
 import Circles from '../../../components/main/Circles'
 import { ExperienceItem } from '../../../components/main/page/AboutExperienceItem'
+import { CertificateItem } from '../../../components/main/page/AboutCertificateItem'
 import { PageIntroduction } from '../../../components/main/PageIntroduction'
 import { mockExperiences } from '@/core/mocks/experiencesMock'
+import { mockCertificates } from '@/core/mocks/certificatesMock'
 
 // -- Data --
 const skillsData = [
@@ -43,7 +41,10 @@ const skillsData = [
       { name: 'React', icon: <FaReact className="text-[#61DAFB]" /> },
       { name: 'Next.js', icon: <SiNextdotjs className="text-white" /> },
       { name: 'TypeScript', icon: <SiTypescript className="text-[#3178C6]" /> },
-      { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-[#06B6D4]" /> },
+      {
+        name: 'Tailwind CSS',
+        icon: <SiTailwindcss className="text-[#06B6D4]" />
+      },
       { name: 'WordPress', icon: <FaWordpress className="text-[#21759B]" /> }
     ]
   },
@@ -55,7 +56,7 @@ const skillsData = [
       { name: 'PHP', icon: <SiPhp className="text-[#777BB4]" /> },
       { name: 'Python', icon: <SiPython className="text-[#3776AB]" /> },
       { name: 'PostgreSQL', icon: <SiPostgresql className="text-[#4169E1]" /> },
-      { name: 'MongoDB', icon: <SiMongodb className="text-[#47A248]" /> },
+      { name: 'MongoDB', icon: <SiMongodb className="text-[#47A248]" /> }
     ]
   },
   {
@@ -80,7 +81,10 @@ const skillsData = [
     items: [
       { name: 'Figma', icon: <FaFigma className="text-[#F24E1E]" /> },
       { name: 'Adobe XD', icon: <SiAdobexd className="text-[#FF61F6]" /> },
-      { name: 'Photoshop', icon: <SiAdobephotoshop className="text-[#31A8FF]" /> }
+      {
+        name: 'Photoshop',
+        icon: <SiAdobephotoshop className="text-[#31A8FF]" />
+      }
     ]
   },
   {
@@ -89,30 +93,15 @@ const skillsData = [
     items: [
       { name: 'GitHub', icon: <SiGithub className="text-white" /> },
       { name: 'Discord', icon: <SiDiscord className="text-[#5865F2]" /> },
-      { name: 'VS Code', icon: <BiLogoVisualStudio className="text-[#007ACC]" /> },
+      {
+        name: 'VS Code',
+        icon: <BiLogoVisualStudio className="text-[#007ACC]" />
+      },
       { name: 'Docker', icon: <SiDocker className="text-[#2496ED]" /> },
       { name: 'Insomnia', icon: <SiInsomnia className="text-[#5849BE]" /> },
       { name: 'Trello', icon: <SiTrello className="text-[#0079BF]" /> },
       { name: 'Vercel', icon: <SiVercel className="text-white" /> }
     ]
-  }
-]
-
-const educationData = [
-  {
-    course: 'Web Development',
-    institute: 'ABC University, LA, CA',
-    year: '2011'
-  },
-  {
-    course: 'Computer Science Diploma',
-    institute: 'AV Technical Institute',
-    year: '2009'
-  },
-  {
-    course: 'Certified Graphic Designer',
-    institute: 'ABC Institute, Los Angeles, CA',
-    year: '2006'
   }
 ]
 
@@ -130,7 +119,7 @@ const introductionData = {
 }
 
 const TABS = ['Experience', 'Skills', 'Certificates'] as const
-type TabType = typeof TABS[number]
+type TabType = (typeof TABS)[number]
 
 const About = () => {
   const [activeTab, setActiveTab] = useState<TabType>('Experience')
@@ -145,12 +134,11 @@ const About = () => {
   return (
     <main className="flex flex-col gap-6 items-center justify-center pb-20">
       <Circles />
-      
+
       {/* Intro Header */}
       <PageIntroduction {...introductionData} />
 
       <div className="container mx-auto px-4 lg:px-8 mt-4">
-        
         {/* Intro Text & Stats Grid */}
         <section className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-16 items-center">
           <motion.div
@@ -160,13 +148,15 @@ const About = () => {
             className="flex-1 text-center lg:text-left"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-              Transformando <span className="text-accent">ideias</span> em código para a realidade.
+              Transformando <span className="text-accent">ideias</span> em
+              código para a realidade.
             </h2>
             <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
-              Sou um programador movido por desafios e pela arte de criar. Com sólida experiência
-              em diversas tecnologias front-end e mobile, estou sempre em busca da excelência
-              técnica, de novas tendências no design de interfaces e das melhores práticas
-              de desenvolvimento para criar soluções que tragam impacto directo ao usuário.
+              Sou um programador movido por desafios e pela arte de criar. Com
+              sólida experiência em diversas tecnologias front-end e mobile,
+              estou sempre em busca da excelência técnica, de novas tendências
+              no design de interfaces e das melhores práticas de desenvolvimento
+              para criar soluções que tragam impacto directo ao usuário.
             </p>
           </motion.div>
 
@@ -196,7 +186,7 @@ const About = () => {
         <section className="max-w-4xl mx-auto">
           {/* Tab Selection */}
           <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
-            {TABS.map((tab) => (
+            {TABS.map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -222,7 +212,6 @@ const About = () => {
           {/* Tab Content */}
           <div className="min-h-[400px]">
             <AnimatePresence mode="wait">
-              
               {/* === TAB 1: Experiência === */}
               {activeTab === 'Experience' && (
                 <motion.div
@@ -237,9 +226,11 @@ const About = () => {
                     <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
                       <HiStar size={20} />
                     </div>
-                    <h3 className="text-2xl font-bold text-white">Trajetória Profissional</h3>
+                    <h3 className="text-2xl font-bold text-white">
+                      Trajetória Profissional
+                    </h3>
                   </div>
-                  
+
                   {mockExperiences.map((exp, index) => (
                     <ExperienceItem key={exp.id ?? index} experience={exp} />
                   ))}
@@ -299,29 +290,18 @@ const About = () => {
                     <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
                       <HiAcademicCap size={22} />
                     </div>
-                    <h3 className="text-2xl font-bold text-white">Educação e Certificados</h3>
+                    <h3 className="text-2xl font-bold text-white">
+                      Educação e Certificados
+                    </h3>
                   </div>
-
-                  {educationData.map((edu, index) => (
-                    <div
-                      key={index}
-                      className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-accent/20 transition-colors"
-                    >
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
-                        <h4 className="text-lg font-bold text-white">{edu.course}</h4>
-                        <span className="text-xs font-medium text-accent bg-accent/10 px-3 py-1 rounded-full">
-                          {edu.year}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-400">{edu.institute}</p>
-                    </div>
+                  {mockCertificates.map(cert => (
+                    <CertificateItem key={cert.id} certificate={cert} />
                   ))}
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
         </section>
-
       </div>
     </main>
   )

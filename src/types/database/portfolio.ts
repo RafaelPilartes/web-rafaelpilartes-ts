@@ -68,3 +68,19 @@ export interface WorkExperienceProps {
   created_at?: Date
   updated_at?: Date
 }
+
+export interface CertificateProps {
+  id?: string
+  title: string
+  issued_by: string
+  issue_date: string | Date
+  expiration_date?: string | Date
+  credential_id?: string
+  credential_url?: string
+  image?: ImageMediaProps
+  description?: {
+    raw: any
+  }
+  created_at?: Date
+  updated_at?: Date
+}
