@@ -3,6 +3,7 @@ import { projectCategoryLabels } from '@/core/mocks/projectsMock'
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2'
 import { TbBrandGithub } from 'react-icons/tb'
 import { HiOutlineTrendingUp } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
 
 type ProjectCardProps = {
   project: ProjectEntity
@@ -14,7 +15,10 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
     : undefined
 
   return (
-    <div className="rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] overflow-hidden group hover:border-accent/20 transition-all duration-300 flex flex-col">
+    <Link 
+      to={`/works/details/${project.id}/${project.slug}`}
+      className="rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] overflow-hidden group hover:border-accent/20 transition-all duration-300 flex flex-col cursor-pointer text-left"
+    >
       {/* Image Area */}
       <div className="relative p-4 pb-0">
         {/* Category Badge */}
@@ -92,6 +96,6 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           </div>
         )}
       </div>
-    </div>
+    </Link>
   )
 }

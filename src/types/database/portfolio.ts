@@ -1,4 +1,4 @@
-import { ProjectCategory } from '../enum/portfolio'
+import { ProjectCategory, ProjectSectionType } from '../enum/portfolio'
 
 export interface ImageMediaProps {
   url: string
@@ -16,8 +16,15 @@ export interface TechnologyProps {
 export interface ProjectSectionProps {
   id?: string
   project_id?: string
+  type: ProjectSectionType | string
   title: string
-  image: ImageMediaProps
+  subtitle?: string
+  description?: {
+    raw: any
+    text?: string
+  }
+  images?: ImageMediaProps[]
+  items?: string[]
   created_at?: Date
   updated_at?: Date
 }
@@ -26,6 +33,8 @@ export interface ProjectProps {
   id?: string
   slug: string
   category?: ProjectCategory
+  client_name?: string
+  duration?: string
   thumbnail: ImageMediaProps
   page_thumbnail: ImageMediaProps
   title: string

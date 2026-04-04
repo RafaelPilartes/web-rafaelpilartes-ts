@@ -2,27 +2,12 @@ import { useState, useMemo } from 'react'
 import Circles from '../../../components/main/Circles'
 import { PageIntroduction } from '../../../components/main/PageIntroduction'
 import { mockBlogPosts } from '@/core/mocks/blogPostsMock'
-import { BlogCategory } from '@/types/enum/portfolio'
+import { mockBlogCategories } from '@/core/mocks/blogCategoriesMock'
 import { LinkSimple } from '../../../components/main/Link'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { HiChevronLeft, HiChevronRight, HiMagnifyingGlass } from 'react-icons/hi2'
 
 const ITEMS_PER_PAGE = 6
-
-const categoryLabels: Record<string, string> = {
-  ALL: 'Todos',
-  [BlogCategory.TUTORIAL]: 'Tutorial',
-  [BlogCategory.TIP]: 'Dica',
-  [BlogCategory.REFLECTION]: 'Reflexão',
-  [BlogCategory.CASE_STUDY]: 'Case Study'
-}
-
-const categoryColors: Record<string, string> = {
-  [BlogCategory.TUTORIAL]: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-  [BlogCategory.TIP]: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
-  [BlogCategory.REFLECTION]: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
-  [BlogCategory.CASE_STUDY]: 'bg-pink-500/20 text-pink-400 border-pink-500/30'
-}
 
 const introductionData = {
   subtitle: 'Artigos',
@@ -40,7 +25,7 @@ const Blog = () => {
     let posts = mockBlogPosts
 
     if (activeFilter !== 'ALL') {
-      posts = posts.filter((p) => p.category === activeFilter)
+      posts = posts.filter((p) => p.category?.slug === activeFilter)
     }
 
     if (searchQuery.trim()) {
@@ -92,18 +77,29 @@ const Blog = () => {
 
           {/* Category Filters */}
           <div className="flex flex-wrap items-center justify-center gap-2">
-            {Object.entries(categoryLabels).map(([key, label]) => (
+            <button
+              onClick={() => handleFilterChange('ALL')}
+              className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 border
+                ${
+                  activeFilter === 'ALL'
+                    ? 'bg-accent text-white border-accent'
+                    : 'bg-transparent text-gray-400 border-gray-700 hover:border-accent/50 hover:text-white'
+                }`}
+            >
+              Todos
+            </button>
+            {mockBlogCategories.map((cat) => (
               <button
-                key={key}
-                onClick={() => handleFilterChange(key)}
+                key={cat.slug}
+                onClick={() => handleFilterChange(cat.slug)}
                 className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 border
                   ${
-                    activeFilter === key
+                    activeFilter === cat.slug
                       ? 'bg-accent text-white border-accent'
                       : 'bg-transparent text-gray-400 border-gray-700 hover:border-accent/50 hover:text-white'
                   }`}
               >
-                {label}
+                {cat.name}
               </button>
             ))}
           </div>
@@ -135,10 +131,10 @@ const Blog = () => {
                   {post.category && (
                     <span
                       className={`absolute top-3 right-3 text-[10px] font-semibold px-3 py-1 rounded-full border ${
-                        categoryColors[post.category] ?? 'bg-gray-500/20 text-gray-400'
+                        post.category.color ?? 'bg-gray-500/20 text-gray-400'
                       }`}
                     >
-                      {post.category}
+                      {post.category.name}
                     </span>
                   )}
                 </div>
@@ -212,9 +208,9 @@ const Blog = () => {
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                 (page) => (
                   <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300
+                     key={page}
+                     onClick={() => setCurrentPage(page)}
+                     className={`w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300
                       ${
                         currentPage === page
                           ? 'bg-accent text-white shadow-lg shadow-accent/25'

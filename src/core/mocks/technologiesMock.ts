@@ -1,44 +1,15 @@
 import { TechnologyEntity } from '@/core/entities/portfolio/TechnologyEntity'
 import {
-  BiLogoHtml5,
-  BiLogoCss3,
   BiLogoTypescript,
-  BiLogoPhp,
   BiLogoReact,
   BiLogoNodejs,
-  BiLogoJavascript,
-  BiLogoTailwindCss,
   BiLogoFigma,
-  BiLogoGithub
+  BiLogoGithub,
+  BiLogoPython
 } from 'react-icons/bi'
-import { TbSql } from 'react-icons/tb'
+import { SiElectron, SiKotlin } from 'react-icons/si'
 
 export const mockTechnologies: TechnologyEntity[] = [
-  new TechnologyEntity({
-    name: 'HTML',
-    start_date: '2021-01-01',
-    icon_svg: BiLogoHtml5 as any
-  }),
-  new TechnologyEntity({
-    name: 'CSS',
-    start_date: '2021-01-01',
-    icon_svg: BiLogoCss3 as any
-  }),
-  new TechnologyEntity({
-    name: 'JavaScript',
-    start_date: '2021-01-01',
-    icon_svg: BiLogoJavascript as any
-  }),
-  new TechnologyEntity({
-    name: 'PHP',
-    start_date: '2022-01-01',
-    icon_svg: BiLogoPhp as any
-  }),
-  new TechnologyEntity({
-    name: 'TypeScript',
-    start_date: '2022-01-01',
-    icon_svg: BiLogoTypescript as any
-  }),
   new TechnologyEntity({
     name: 'React Js',
     start_date: '2021-01-01',
@@ -50,9 +21,19 @@ export const mockTechnologies: TechnologyEntity[] = [
     icon_svg: BiLogoReact as any
   }),
   new TechnologyEntity({
-    name: 'Next Js',
+    name: 'Kotlin',
+    start_date: '2022-01-01',
+    icon_svg: SiKotlin as any
+  }),
+  new TechnologyEntity({
+    name: 'Electron',
     start_date: '2023-01-01',
-    icon_svg: BiLogoReact as any
+    icon_svg: SiElectron as any
+  }),
+  new TechnologyEntity({
+    name: 'TypeScript',
+    start_date: '2022-01-01',
+    icon_svg: BiLogoTypescript as any
   }),
   new TechnologyEntity({
     name: 'Node.Js',
@@ -60,14 +41,9 @@ export const mockTechnologies: TechnologyEntity[] = [
     icon_svg: BiLogoNodejs as any
   }),
   new TechnologyEntity({
-    name: 'MySQL',
+    name: 'Python',
     start_date: '2022-01-01',
-    icon_svg: TbSql as any
-  }),
-  new TechnologyEntity({
-    name: 'Tailwind',
-    start_date: '2022-01-01',
-    icon_svg: BiLogoTailwindCss as any
+    icon_svg: BiLogoPython as any
   }),
   new TechnologyEntity({
     name: 'Figma',

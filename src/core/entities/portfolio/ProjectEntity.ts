@@ -6,6 +6,8 @@ import { TechnologyEntity } from './TechnologyEntity'
 export class ProjectEntity extends BaseEntity {
   public readonly slug: string
   public readonly category?: ProjectCategory
+  public readonly client_name?: string
+  public readonly duration?: string
   public readonly thumbnail: ImageMediaProps
   public readonly page_thumbnail: ImageMediaProps
   public readonly title: string
@@ -30,6 +32,8 @@ export class ProjectEntity extends BaseEntity {
     super(props.id ?? '', props.created_at, props.updated_at)
     this.slug = props.slug
     this.category = props.category
+    this.client_name = props.client_name
+    this.duration = props.duration
     this.thumbnail = props.thumbnail
     this.page_thumbnail = props.page_thumbnail
     this.title = props.title

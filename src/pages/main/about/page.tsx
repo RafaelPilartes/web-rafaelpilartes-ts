@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  FaHtml5,
-  FaCss3,
-  FaJs,
   FaReact,
   FaWordpress,
   FaFigma
@@ -13,7 +10,21 @@ import {
   SiAdobexd,
   SiAdobephotoshop,
   SiGithub,
-  SiDiscord
+  SiDiscord,
+  SiKotlin,
+  SiSwift,
+  SiElectron,
+  SiTailwindcss,
+  SiTypescript,
+  SiNodedotjs,
+  SiPostgresql,
+  SiMongodb,
+  SiPython,
+  SiPhp,
+  SiDocker,
+  SiInsomnia,
+  SiTrello,
+  SiVercel
 } from 'react-icons/si'
 import { BiLogoVisualStudio } from 'react-icons/bi'
 import { HiAcademicCap, HiStar } from 'react-icons/hi2'
@@ -26,18 +37,46 @@ import { mockExperiences } from '@/core/mocks/experiencesMock'
 // -- Data --
 const skillsData = [
   {
-    title: 'Web Development',
+    title: 'Frontend Development',
+    description: 'Criação de interfaces modernas e responsivas.',
     items: [
-      { name: 'HTML5', icon: <FaHtml5 className="text-[#E34F26]" /> },
-      { name: 'CSS3', icon: <FaCss3 className="text-[#1572B6]" /> },
-      { name: 'JavaScript', icon: <FaJs className="text-[#F7DF1E]" /> },
       { name: 'React', icon: <FaReact className="text-[#61DAFB]" /> },
       { name: 'Next.js', icon: <SiNextdotjs className="text-white" /> },
+      { name: 'TypeScript', icon: <SiTypescript className="text-[#3178C6]" /> },
+      { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-[#06B6D4]" /> },
       { name: 'WordPress', icon: <FaWordpress className="text-[#21759B]" /> }
     ]
   },
   {
+    title: 'Backend Development',
+    description: 'Desenvolvimento de APIs robustas e banco de dados.',
+    items: [
+      { name: 'Node.js', icon: <SiNodedotjs className="text-[#339933]" /> },
+      { name: 'PHP', icon: <SiPhp className="text-[#777BB4]" /> },
+      { name: 'Python', icon: <SiPython className="text-[#3776AB]" /> },
+      { name: 'PostgreSQL', icon: <SiPostgresql className="text-[#4169E1]" /> },
+      { name: 'MongoDB', icon: <SiMongodb className="text-[#47A248]" /> },
+    ]
+  },
+  {
+    title: 'Mobile Development',
+    description: 'Aplicações nativas e multiplataforma de alta performance.',
+    items: [
+      { name: 'React Native', icon: <FaReact className="text-[#61DAFB]" /> },
+      { name: 'Kotlin', icon: <SiKotlin className="text-[#7F52FF]" /> },
+      { name: 'Swift', icon: <SiSwift className="text-[#F05138]" /> }
+    ]
+  },
+  {
+    title: 'Desktop Development',
+    description: 'Soluções rápidas e completas para o ambiente desktop.',
+    items: [
+      { name: 'Electron', icon: <SiElectron className="text-[#47848F]" /> }
+    ]
+  },
+  {
     title: 'UI/UX Design',
+    description: 'Protótipos elegantes focados na experiência do usuário.',
     items: [
       { name: 'Figma', icon: <FaFigma className="text-[#F24E1E]" /> },
       { name: 'Adobe XD', icon: <SiAdobexd className="text-[#FF61F6]" /> },
@@ -46,10 +85,15 @@ const skillsData = [
   },
   {
     title: 'Ferramentas',
+    description: 'Tecnologias cruciais para organização e produtividade.',
     items: [
       { name: 'GitHub', icon: <SiGithub className="text-white" /> },
       { name: 'Discord', icon: <SiDiscord className="text-[#5865F2]" /> },
-      { name: 'VS Code', icon: <BiLogoVisualStudio className="text-[#007ACC]" /> }
+      { name: 'VS Code', icon: <BiLogoVisualStudio className="text-[#007ACC]" /> },
+      { name: 'Docker', icon: <SiDocker className="text-[#2496ED]" /> },
+      { name: 'Insomnia', icon: <SiInsomnia className="text-[#5849BE]" /> },
+      { name: 'Trello', icon: <SiTrello className="text-[#0079BF]" /> },
+      { name: 'Vercel', icon: <SiVercel className="text-white" /> }
     ]
   }
 ]
@@ -217,9 +261,14 @@ const About = () => {
                       key={index}
                       className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex flex-col gap-4"
                     >
-                      <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">
-                        {category.title}
-                      </h4>
+                      <div className="flex flex-col gap-1">
+                        <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">
+                          {category.title}
+                        </h4>
+                        <p className="text-xs text-gray-400">
+                          {category.description}
+                        </p>
+                      </div>
                       <div className="flex flex-wrap gap-3">
                         {category.items.map((item, i) => (
                           <div

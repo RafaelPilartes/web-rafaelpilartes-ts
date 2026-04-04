@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { BlogCategory } from '../enum/portfolio'
 
 export interface ServiceProps {
   id?: string
@@ -39,11 +38,22 @@ export interface QualityProps {
   updated_at?: Date
 }
 
+export interface BlogCategoryProps {
+  id?: string
+  name: string
+  slug: string
+  color?: string
+  description?: string
+  created_at?: Date | string
+  updated_at?: Date
+}
+
 export interface BlogPostProps {
   id?: string
   title: string
   slug: string
-  category?: BlogCategory
+  category_id?: string
+  category?: BlogCategoryProps
   cover_image: string
   author_id?: string
   author_name?: string

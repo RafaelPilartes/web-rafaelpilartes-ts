@@ -1,13 +1,14 @@
 import { BaseEntity } from '@/core/entities/BaseEntity'
 import { BlogPostProps } from '@/types/database/content'
-import { BlogCategory } from '@/types/enum/portfolio'
+import { BlogCategoryEntity } from './BlogCategoryEntity'
 import { UserEntity } from '../UserEntity'
 
 export class BlogPostEntity extends BaseEntity {
   public readonly title: string
   public readonly slug: string
   public readonly cover_image: string
-  public readonly category?: BlogCategory
+  public readonly category_id?: string
+  public readonly category?: BlogCategoryEntity
   public readonly author_id?: string
   public readonly author_name?: string
   public readonly author_avatar?: string
@@ -26,7 +27,8 @@ export class BlogPostEntity extends BaseEntity {
     this.title = props.title
     this.slug = props.slug
     this.cover_image = props.cover_image
-    this.category = props.category
+    this.category_id = props.category_id
+    this.category = props.category ? new BlogCategoryEntity(props.category) : undefined
     this.author_id = props.author_id
     this.author_name = props.author_name
     this.author_avatar = props.author_avatar

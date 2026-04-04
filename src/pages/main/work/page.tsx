@@ -11,6 +11,8 @@ const categoryLabels: Record<string, string> = {
   ALL: 'Todos',
   [ProjectCategory.WEB]: 'Web',
   [ProjectCategory.MOBILE]: 'Mobile',
+  [ProjectCategory.AI]: 'AI',
+  [ProjectCategory.DESKTOP]: 'Desktop',
   [ProjectCategory.DESIGN]: 'Design'
 }
 
@@ -27,7 +29,7 @@ const Projects = () => {
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === 'ALL') return mockProjects
-    return mockProjects.filter((p) => p.category === activeFilter)
+    return mockProjects.filter(p => p.category === activeFilter)
   }, [activeFilter])
 
   const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE)
@@ -52,7 +54,7 @@ const Projects = () => {
             const count =
               key === 'ALL'
                 ? mockProjects.length
-                : mockProjects.filter((p) => p.category === key).length
+                : mockProjects.filter(p => p.category === key).length
             return (
               <button
                 key={key}
@@ -84,7 +86,7 @@ const Projects = () => {
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-            {paginatedProjects.map((project) => (
+            {paginatedProjects.map(project => (
               <ProjectCard key={project.id ?? project.slug} project={project} />
             ))}
           </div>
@@ -94,7 +96,7 @@ const Projects = () => {
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-4">
             <button
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}
               className="p-2.5 rounded-lg border border-gray-700 text-gray-400 hover:border-accent hover:text-accent transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             >
@@ -102,26 +104,24 @@ const Projects = () => {
             </button>
 
             <div className="flex items-center gap-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300
                       ${
                         currentPage === page
                           ? 'bg-accent text-white shadow-lg shadow-accent/25'
                           : 'text-gray-400 hover:text-white hover:bg-gray-800'
                       }`}
-                  >
-                    {page}
-                  </button>
-                )
-              )}
+                >
+                  {page}
+                </button>
+              ))}
             </div>
 
             <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
               className="p-2.5 rounded-lg border border-gray-700 text-gray-400 hover:border-accent hover:text-accent transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             >
