@@ -9,8 +9,9 @@ const PAGE_SIZE = 10
 export default function CertificatesPage() {
   const vm = useCertificateViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const { data, isLoading } = vm.getAllCertificates(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = vm.getAllCertificates(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<CertificateEntity>[] = [
     { key: 'title', label: 'Title', render: item => (
@@ -35,10 +36,11 @@ export default function CertificatesPage() {
       data={data?.data ?? []}
       total={data?.pagination?.total ?? 0}
       page={page}
-      pageSize={PAGE_SIZE}
+      pageSize={pageSize}
       loading={isLoading}
       searchTerm={search}
       onPageChange={setPage}
+      onPageSizeChange={setPageSize}
       onSearchChange={setSearch}
       fields={[
         { key: 'title', label: 'Title', placeholder: 'AWS Solutions Architect' },
@@ -46,10 +48,27 @@ export default function CertificatesPage() {
         { key: 'issue_date', label: 'Issue Date', type: 'date' },
         { key: 'expiration_date', label: 'Expiration Date', type: 'date' },
         { key: 'credential_id', label: 'Credential ID', placeholder: 'ABC-123' },
-        { key: 'credential_url', label: 'Credential URL', type: 'url', placeholder: 'https://...' }
+        { key: 'credential_url', label: 'Credential URL', type: 'url', placeholder: 'https://...' },
+        { key: 'image', label: 'Certificate Image', type: 'image' }
       ]}
-      onCreate={data => vm.createCertificate(data as any)}
-      onUpdate={(id, data) => vm.updateCertificate({ id, data })}
+      onCreate={data => {
+        const payload: any = { ...data }
+        if (data.image && typeof data.image === 'string') {
+          payload.image = { url: data.image }
+        } else if (!data.image) {
+          payload.image = null
+        }
+        return vm.createCertificate(payload)
+      }}
+      onUpdate={(id, data) => {
+        const payload: any = { ...data }
+        if (data.image && typeof data.image === 'string') {
+          payload.image = { url: data.image }
+        } else if (!data.image) {
+          payload.image = null
+        }
+        return vm.updateCertificate({ id, data: payload })
+      }}
       onDelete={vm.deleteCertificate}
       isCreating={vm.isCreating}
       isDeleting={vm.isDeleting}

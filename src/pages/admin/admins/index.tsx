@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { useAdminProfileViewModel } from '@/viewModels/admin-profile.viewmodel'
-import { DataTable, Column } from '@/components/admin/ui/DataTable'
-import { ConfirmDialog } from '@/components/admin/ui/ConfirmDialog'
+import { CrudPage } from '@/components/admin/ui/CrudPage'
 import { AdminProfileEntity } from '@/core/entities/AdminProfileEntity'
-import { Trash2, Shield } from 'lucide-react'
+import { Column } from '@/components/admin/ui/DataTable'
+import { Shield } from 'lucide-react'
 
 const PAGE_SIZE = 10
 
 export default function AdminsPage() {
-  const { getAllAdminProfiles, deleteAdminProfile, isDeleting } = useAdminProfileViewModel()
+  const vm = useAdminProfileViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
 
-  const { data, isLoading } = getAllAdminProfiles(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = vm.getAllAdminProfiles(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<AdminProfileEntity>[] = [
     { key: 'user', label: 'Admin', render: item => (
@@ -45,44 +45,59 @@ export default function AdminsPage() {
   ]
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold" style={{ color: 'var(--dash-text)' }}>Administrators</h1>
-          <p className="text-sm mt-1" style={{ color: 'var(--dash-text-muted)' }}>Manage admin access</p>
-        </div>
-      </div>
-
-      <DataTable
-        columns={columns}
-        data={data?.data ?? []}
-        total={data?.pagination?.total ?? 0}
-        page={page}
-        pageSize={PAGE_SIZE}
-        onPageChange={setPage}
-        searchTerm={search}
-        onSearchChange={setSearch}
-        loading={isLoading}
-        actions={item => (
-          <button
-            onClick={() => setDeleteTarget(item.id)}
-            className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm"
-            style={{ color: 'var(--dash-danger)' }}
-          >
-            <Trash2 size={14} />
-          </button>
-        )}
-      />
-
-      <ConfirmDialog
-        open={!!deleteTarget}
-        title="Remove Admin"
-        message="Are you sure you want to remove this admin access?"
-        confirmLabel="Remove"
-        onConfirm={async () => { if (deleteTarget) { await deleteAdminProfile(deleteTarget); setDeleteTarget(null) } }}
-        onCancel={() => setDeleteTarget(null)}
-        loading={isDeleting}
-      />
-    </div>
+    <CrudPage
+      title="Administrators"
+      subtitle="Manage admin access"
+      columns={columns}
+      data={data?.data ?? []}
+      total={data?.pagination?.total ?? 0}
+      page={page}
+      pageSize={pageSize}
+      loading={isLoading}
+      searchTerm={search}
+      onPageChange={setPage}
+      onPageSizeChange={setPageSize}
+      onSearchChange={setSearch}
+      fields={[
+        { key: 'user_id', label: 'User ID (UUID)', placeholder: 'UUID do utilizador' },
+        { 
+          key: 'permission_level', 
+          label: 'Role', 
+          type: 'select',
+          options: [
+            { label: 'Super Admin', value: 'SUPER_ADMIN' },
+            { label: 'Admin', value: 'ADMIN' },
+            { label: 'Editor', value: 'EDITOR' },
+          ]
+        },
+        { key: 'department', label: 'Department' },
+        { 
+          key: 'is_active', 
+          label: 'Status', 
+          type: 'select',
+          options: [
+            { label: 'Active', value: 'true' },
+            { label: 'Inactive', value: 'false' },
+          ]
+        }
+      ]}
+      onCreate={async data => {
+        const payload = {
+          ...data,
+          is_active: data.is_active === 'true' || data.is_active === true
+        }
+        await vm.createAdminProfile(payload as any)
+      }}
+      onUpdate={async (id, data) => {
+        const payload = {
+          ...data,
+          is_active: data.is_active === 'true' || data.is_active === true
+        }
+        await vm.updateAdminProfile({ id, data: payload })
+      }}
+      onDelete={vm.deleteAdminProfile}
+      isCreating={vm.isCreating}
+      isDeleting={vm.isDeleting}
+    />
   )
 }

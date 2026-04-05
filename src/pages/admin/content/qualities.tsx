@@ -8,8 +8,9 @@ const PAGE_SIZE = 10
 export default function QualitiesPage() {
   const vm = useQualityViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const { data, isLoading } = vm.getAllQualities(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = vm.getAllQualities(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<QualityEntity>[] = [
     { key: 'name', label: 'Quality', render: item => <span className="font-medium text-sm" style={{ color: 'var(--dash-text)' }}>{item.name}</span> },
@@ -18,7 +19,7 @@ export default function QualitiesPage() {
 
   return (
     <CrudPage title="Qualities" subtitle="Manage your personal qualities" columns={columns} data={data?.data ?? []} total={data?.pagination?.total ?? 0}
-      page={page} pageSize={PAGE_SIZE} loading={isLoading} searchTerm={search} onPageChange={setPage} onSearchChange={setSearch}
+      page={page} pageSize={pageSize} loading={isLoading} searchTerm={search} onPageChange={setPage} onPageSizeChange={setPageSize} onSearchChange={setSearch}
       fields={[
         { key: 'name', label: 'Name', placeholder: 'Problem Solver' },
         { key: 'icon_svg', label: 'Icon SVG', type: 'textarea', placeholder: '<svg>...</svg>' },

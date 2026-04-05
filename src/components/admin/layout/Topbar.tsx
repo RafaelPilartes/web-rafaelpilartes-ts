@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuthViewModel } from '@/viewModels/auth.viewmodel'
 import { LogOut, Bell, Search, User } from 'lucide-react'
+import { toast } from 'sonner'
 
 export function Topbar() {
   const navigate = useNavigate()
@@ -17,27 +18,28 @@ export function Topbar() {
       className="sticky top-0 z-30 flex items-center justify-between px-6 shrink-0"
       style={{
         height: 'var(--dash-topbar-h)',
-        background: 'rgba(10, 11, 20, 0.8)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid var(--dash-border)'
+        background: 'rgba(10, 11, 20, 0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid var(--dash-border-visible)'
       }}
     >
       {/* Search */}
       <div className="relative flex-1 max-w-md">
         <Search
           size={16}
-          className="absolute left-3 top-1/2 -translate-y-1/2"
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
           style={{ color: 'var(--dash-text-faint)' }}
         />
         <input
           type="text"
           placeholder="Search anything..."
-          className="dash-input pl-10"
+          className="dash-input"
+          onClick={() => toast('Função de pesquisa em desenvolvimento.')}
           style={{
-            background: 'var(--dash-surface-hover)',
-            border: '1px solid transparent',
+            paddingLeft: '36px',
             fontSize: '13px',
-            padding: '8px 14px 8px 36px'
+            background: 'var(--dash-surface-hover)'
           }}
         />
       </div>
@@ -48,6 +50,7 @@ export function Topbar() {
         <button
           className="dash-btn dash-btn-ghost dash-btn-icon relative"
           title="Notificações"
+          onClick={() => toast('O painel de notificações está em desenvolvimento.')}
         >
           <Bell size={18} />
           <span
@@ -57,7 +60,7 @@ export function Topbar() {
         </button>
 
         {/* Divider */}
-        <div className="w-px h-8 mx-2" style={{ background: 'var(--dash-border)' }} />
+        <div className="w-px h-8 mx-2" style={{ background: 'var(--dash-border-visible)' }} />
 
         {/* User */}
         <div className="flex items-center gap-3">

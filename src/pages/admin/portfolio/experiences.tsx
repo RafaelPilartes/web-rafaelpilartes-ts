@@ -9,10 +9,11 @@ const PAGE_SIZE = 10
 export default function ExperiencesPage() {
   const vm = useWorkExperienceViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
   const { data, isLoading } = vm.getAllExperiences(
-    PAGE_SIZE,
-    page * PAGE_SIZE,
+    pageSize,
+    page * pageSize,
     search || undefined
   )
 
@@ -69,31 +70,38 @@ export default function ExperiencesPage() {
       data={data?.data ?? []}
       total={data?.pagination?.total ?? 0}
       page={page}
-      pageSize={PAGE_SIZE}
+      pageSize={pageSize}
       loading={isLoading}
       searchTerm={search}
       onPageChange={setPage}
+      onPageSizeChange={setPageSize}
       onSearchChange={setSearch}
       fields={[
         { key: 'role', label: 'Role', placeholder: 'Senior Developer' },
         { key: 'company_name', label: 'Company', placeholder: 'Company Name' },
-        {
-          key: 'company_url',
-          label: 'Company URL',
-          type: 'url',
-          placeholder: 'https://...'
-        },
+        { key: 'company_url', label: 'Company URL', type: 'url', placeholder: 'https://...' },
+        { key: 'company_logo', label: 'Company Logo', type: 'image' },
         { key: 'start_date', label: 'Start Date', type: 'date' },
         { key: 'end_date', label: 'End Date (empty = present)', type: 'date' }
       ]}
-      onCreate={data =>
-        vm.createExperience({
-          ...data,
-          company_logo: { url: '' },
-          description: { raw: '' }
-        } as any)
-      }
-      onUpdate={(id, data) => vm.updateExperience({ id, data })}
+      onCreate={data => {
+        const payload: any = { ...data }
+        if (data.company_logo && typeof data.company_logo === 'string') {
+          payload.company_logo = { url: data.company_logo }
+        } else if (!data.company_logo) {
+          payload.company_logo = null
+        }
+        return vm.createExperience(payload)
+      }}
+      onUpdate={(id, data) => {
+        const payload: any = { ...data }
+        if (data.company_logo && typeof data.company_logo === 'string') {
+          payload.company_logo = { url: data.company_logo }
+        } else if (!data.company_logo) {
+          payload.company_logo = null
+        }
+        return vm.updateExperience({ id, data: payload })
+      }}
       onDelete={vm.deleteExperience}
       isCreating={vm.isCreating}
       isDeleting={vm.isDeleting}

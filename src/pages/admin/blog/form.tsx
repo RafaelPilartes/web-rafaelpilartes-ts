@@ -60,7 +60,11 @@ export default function BlogPostFormPage() {
       setValue('slug', p.slug)
       setValue('excerpt', p.excerpt)
       setValue('cover_image', p.cover_image)
-      setValue('content_raw', p.content?.raw ?? '')
+      const rawContent = typeof p.content === 'object' && p.content !== null
+        ? p.content.raw || p.content.text || ''
+        : p.content || ''
+        
+      setValue('content_raw', rawContent)
       setValue('category_id', p.category_id ?? '')
       setValue('author_name', p.author_name ?? '')
       setValue('published_at', p.published_at ? new Date(p.published_at).toISOString().slice(0, 16) : '')

@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { useProjectViewModel } from '@/viewModels/project.viewmodel'
-import { DataTable, Column } from '@/components/admin/ui/DataTable'
-import { ConfirmDialog } from '@/components/admin/ui/ConfirmDialog'
+import { CrudPage } from '@/components/admin/ui/CrudPage'
 import { ProjectEntity } from '@/core/entities/portfolio/ProjectEntity'
-import { Pencil, Trash2, ExternalLink } from 'lucide-react'
+import { Column } from '@/components/admin/ui/DataTable'
+import { ExternalLink } from 'lucide-react'
 
 const PAGE_SIZE = 10
 
 export default function ProjectsPage() {
-  const { getAllProjects, deleteProject, isDeleting } = useProjectViewModel()
+  const vm = useProjectViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
 
-  const { data, isLoading } = getAllProjects(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = vm.getAllProjects(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<ProjectEntity>[] = [
     { key: 'title', label: 'Project', render: item => (
@@ -43,50 +43,52 @@ export default function ProjectsPage() {
   ]
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold" style={{ color: 'var(--dash-text)' }}>Projects</h1>
-          <p className="text-sm mt-1" style={{ color: 'var(--dash-text-muted)' }}>Manage portfolio projects</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs px-3 py-1.5 rounded-full" style={{ background: 'var(--dash-surface-hover)', color: 'var(--dash-text-muted)' }}>
-            Full editor coming soon
-          </span>
-        </div>
-      </div>
-
-      <DataTable
-        columns={columns}
-        data={data?.data ?? []}
-        total={data?.pagination?.total ?? 0}
-        page={page}
-        pageSize={PAGE_SIZE}
-        onPageChange={setPage}
-        searchTerm={search}
-        onSearchChange={setSearch}
-        loading={isLoading}
-        actions={item => (
-          <>
-            <button className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm" title="Editar">
-              <Pencil size={14} />
-            </button>
-            <button onClick={() => setDeleteTarget(item.id)} className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm" title="Apagar" style={{ color: 'var(--dash-danger)' }}>
-              <Trash2 size={14} />
-            </button>
-          </>
-        )}
-      />
-
-      <ConfirmDialog
-        open={!!deleteTarget}
-        title="Delete Project"
-        message="Are you sure you want to delete this project?"
-        confirmLabel="Delete"
-        onConfirm={async () => { if (deleteTarget) { await deleteProject(deleteTarget); setDeleteTarget(null) } }}
-        onCancel={() => setDeleteTarget(null)}
-        loading={isDeleting}
-      />
-    </div>
+    <CrudPage
+      title="Projects"
+      subtitle="Manage portfolio projects"
+      columns={columns}
+      data={data?.data ?? []}
+      total={data?.pagination?.total ?? 0}
+      page={page}
+      pageSize={pageSize}
+      loading={isLoading}
+      searchTerm={search}
+      onPageChange={setPage}
+      onPageSizeChange={setPageSize}
+      onSearchChange={setSearch}
+      fields={[
+        { key: 'title', label: 'Title', placeholder: 'Project Name' },
+        { key: 'slug', label: 'Slug', placeholder: 'project-name' },
+        { key: 'category', label: 'Category', placeholder: 'Web App, Mobile...' },
+        { key: 'thumbnail', label: 'Thumbnail', type: 'image' },
+        { key: 'short_description', label: 'Short Description', type: 'textarea' },
+        { key: 'client_name', label: 'Client Name (Optional)' },
+        { key: 'role', label: 'Role (Optional)', placeholder: 'Frontend Developer' },
+        { key: 'start_date', label: 'Start Date', type: 'date' },
+        { key: 'live_project_url', label: 'Live URL', type: 'url' },
+        { key: 'github_url', label: 'GitHub URL', type: 'url' }
+      ]}
+      onCreate={async data => {
+        const payload: any = { ...data }
+        if (data.thumbnail && typeof data.thumbnail === 'string') {
+          payload.thumbnail = { url: data.thumbnail }
+        } else if (!data.thumbnail) {
+          payload.thumbnail = null
+        }
+        await vm.createProject(payload)
+      }}
+      onUpdate={async (id, data) => {
+        const payload: any = { ...data }
+        if (data.thumbnail && typeof data.thumbnail === 'string') {
+          payload.thumbnail = { url: data.thumbnail }
+        } else if (!data.thumbnail) {
+          payload.thumbnail = null
+        }
+        await vm.updateProject({ id, data: payload })
+      }}
+      onDelete={vm.deleteProject}
+      isCreating={vm.isCreating}
+      isDeleting={vm.isDeleting}
+    />
   )
 }

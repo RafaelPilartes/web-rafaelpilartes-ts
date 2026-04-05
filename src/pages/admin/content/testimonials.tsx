@@ -8,8 +8,9 @@ const PAGE_SIZE = 10
 export default function TestimonialsPage() {
   const vm = useTestimonialViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const { data, isLoading } = vm.getAllTestimonials(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = vm.getAllTestimonials(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<TestimonialEntity>[] = [
     { key: 'name', label: 'Person', render: item => (
@@ -26,11 +27,11 @@ export default function TestimonialsPage() {
 
   return (
     <CrudPage title="Testimonials" subtitle="Manage client testimonials" columns={columns} data={data?.data ?? []} total={data?.pagination?.total ?? 0}
-      page={page} pageSize={PAGE_SIZE} loading={isLoading} searchTerm={search} onPageChange={setPage} onSearchChange={setSearch}
+      page={page} pageSize={pageSize} loading={isLoading} searchTerm={search} onPageChange={setPage} onPageSizeChange={setPageSize} onSearchChange={setSearch}
       fields={[
         { key: 'name', label: 'Name', placeholder: 'John Doe' },
         { key: 'occupation', label: 'Occupation', placeholder: 'CEO at Company' },
-        { key: 'photo', label: 'Photo URL', type: 'url', placeholder: 'https://...' },
+        { key: 'photo', label: 'Photo', type: 'image' },
         { key: 'description', label: 'Testimonial', type: 'textarea', placeholder: 'What they said...' }
       ]}
       onCreate={d => vm.createTestimonial(d as any)} onUpdate={(id, d) => vm.updateTestimonial({ id, data: d })} onDelete={vm.deleteTestimonial}

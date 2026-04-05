@@ -1,2 +1,0 @@
-src/components/admin/ui/AdminAuthGuard.tsx(4,1): error TS6133: 'useAdminProfileViewModel' is declared but its value is never read.
-src/pages/admin/login.tsx(1,1): error TS6133: 'useEffect' is declared but its value is never read.

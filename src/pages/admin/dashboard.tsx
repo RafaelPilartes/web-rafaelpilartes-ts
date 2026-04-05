@@ -156,7 +156,7 @@ export default function AdminDashboardPage() {
         <div className="dash-card">
           <div
             className="flex items-center justify-between px-5 py-4"
-            style={{ borderBottom: '1px solid var(--dash-border)' }}
+            style={{ borderBottom: '1px solid var(--dash-border-visible)' }}
           >
             <h2
               className="text-sm font-semibold"
@@ -233,7 +233,7 @@ export default function AdminDashboardPage() {
         <div className="dash-card">
           <div
             className="flex items-center justify-between px-5 py-4"
-            style={{ borderBottom: '1px solid var(--dash-border)' }}
+            style={{ borderBottom: '1px solid var(--dash-border-visible)' }}
           >
             <h2
               className="text-sm font-semibold"
@@ -308,7 +308,7 @@ export default function AdminDashboardPage() {
         <div className="dash-card lg:col-span-2">
           <div
             className="px-5 py-4"
-            style={{ borderBottom: '1px solid var(--dash-border)' }}
+            style={{ borderBottom: '1px solid var(--dash-border-visible)' }}
           >
             <h2
               className="text-sm font-semibold"

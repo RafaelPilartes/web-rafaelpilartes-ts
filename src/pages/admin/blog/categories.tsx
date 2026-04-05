@@ -8,6 +8,7 @@ import { Plus, Pencil, Trash2, Check, X } from 'lucide-react'
 export default function BlogCategoriesPage() {
   const { getAllCategories, createCategory, updateCategory, deleteCategory, isCreating, isDeleting } = useBlogCategoryViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(20)
   const [search, setSearch] = useState('')
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -15,7 +16,7 @@ export default function BlogCategoriesPage() {
   const [showNew, setShowNew] = useState(false)
   const [newData, setNewData] = useState({ name: '', slug: '', color: '#F13024', description: '' })
 
-  const { data, isLoading } = getAllCategories(20, page * 20, search || undefined)
+  const { data, isLoading } = getAllCategories(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<BlogCategoryEntity>[] = [
     {
@@ -115,8 +116,9 @@ export default function BlogCategoriesPage() {
         data={data?.data ?? []}
         total={data?.pagination?.total ?? 0}
         page={page}
-        pageSize={20}
+        pageSize={pageSize}
         onPageChange={setPage}
+        onPageSizeChange={setPageSize}
         searchTerm={search}
         onSearchChange={setSearch}
         loading={isLoading}

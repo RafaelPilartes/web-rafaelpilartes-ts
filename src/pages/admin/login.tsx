@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
-      style={{ background: 'var(--dash-bg)' }}
+      style={{ background: 'var(--dash-bg)', fontFamily: "'Poppins', sans-serif" }}
     >
       {/* Background decoration */}
       <div
@@ -116,7 +116,8 @@ export default function AdminLoginPage() {
                   {...register('email')}
                   type="email"
                   placeholder="admin@example.com"
-                  className={`dash-input pl-10 ${errors.email ? 'dash-input-error' : ''}`}
+                  className={`dash-input ${errors.email ? 'dash-input-error' : ''}`}
+                  style={{ paddingLeft: '36px' }}
                   autoComplete="email"
                 />
               </div>
@@ -145,7 +146,8 @@ export default function AdminLoginPage() {
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
                   placeholder="••••••••"
-                  className={`dash-input pl-10 pr-10 ${errors.password ? 'dash-input-error' : ''}`}
+                  className={`dash-input ${errors.password ? 'dash-input-error' : ''}`}
+                  style={{ paddingLeft: '36px', paddingRight: '40px' }}
                   autoComplete="current-password"
                 />
                 <button

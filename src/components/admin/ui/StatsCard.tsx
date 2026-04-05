@@ -14,7 +14,18 @@ export function StatsCard({ title, value, icon, trend, color = 'var(--dash-accen
   const isPositive = trend && trend.value >= 0
 
   return (
-    <div className="dash-card p-5 dash-animate-in">
+    <div
+      className="dash-card p-5 dash-animate-in cursor-default"
+      style={{ transition: 'border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease' }}
+      onMouseEnter={e => {
+        const el = e.currentTarget as HTMLElement
+        el.style.transform = 'translateY(-2px)'
+      }}
+      onMouseLeave={e => {
+        const el = e.currentTarget as HTMLElement
+        el.style.transform = 'translateY(0)'
+      }}
+    >
       <div className="flex items-start justify-between mb-4">
         <div
           className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -42,7 +53,7 @@ export function StatsCard({ title, value, icon, trend, color = 'var(--dash-accen
         >
           <CountUp end={value} duration={1.5} separator="." />
         </h3>
-        <p className="text-xs" style={{ color: 'var(--dash-text-muted)' }}>
+        <p className="text-xs font-medium" style={{ color: 'var(--dash-text-muted)' }}>
           {title}
         </p>
       </div>

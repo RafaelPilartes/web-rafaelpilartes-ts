@@ -110,7 +110,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
           ? 'var(--dash-sidebar-collapsed)'
           : 'var(--dash-sidebar-w)',
         background: 'var(--dash-surface)',
-        borderRight: '1px solid var(--dash-border)',
+        borderRight: '1px solid var(--dash-border-visible)',
         transition: 'width var(--dash-transition)'
       }}
     >
@@ -119,7 +119,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         className="flex items-center gap-3 px-5 shrink-0"
         style={{
           height: 'var(--dash-topbar-h)',
-          borderBottom: '1px solid var(--dash-border)'
+          borderBottom: '1px solid var(--dash-border-visible)'
         }}
       >
         <div
@@ -259,7 +259,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {/* Collapse Toggle */}
       <div
         className="px-3 py-3 shrink-0"
-        style={{ borderTop: '1px solid var(--dash-border)' }}
+        style={{ borderTop: '1px solid var(--dash-border-visible)' }}
       >
         <button
           onClick={onToggle}

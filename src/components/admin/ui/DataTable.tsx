@@ -16,6 +16,7 @@ interface DataTableProps<T> {
   page: number
   pageSize: number
   onPageChange: (page: number) => void
+  onPageSizeChange?: (pageSize: number) => void
   searchTerm?: string
   onSearchChange?: (term: string) => void
   loading?: boolean
@@ -31,6 +32,7 @@ export function DataTable<T extends { id: string }>({
   page,
   pageSize,
   onPageChange,
+  onPageSizeChange,
   searchTerm,
   onSearchChange,
   loading = false,
@@ -43,14 +45,17 @@ export function DataTable<T extends { id: string }>({
   const canNext = page < totalPages - 1
 
   return (
-    <div className="dash-card overflow-hidden">
+    <div className="dash-card-static overflow-hidden">
       {/* Search */}
       {onSearchChange && (
-        <div className="p-4" style={{ borderBottom: '1px solid var(--dash-border)' }}>
+        <div
+          className="p-4"
+          style={{ borderBottom: '1px solid var(--dash-border-visible)' }}
+        >
           <div className="relative max-w-sm">
             <Search
               size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2"
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
               style={{ color: 'var(--dash-text-faint)' }}
             />
             <input
@@ -58,8 +63,8 @@ export function DataTable<T extends { id: string }>({
               placeholder="Pesquisar..."
               value={searchTerm}
               onChange={e => onSearchChange(e.target.value)}
-              className="dash-input pl-10"
-              style={{ fontSize: '13px', padding: '8px 14px 8px 36px' }}
+              className="dash-input"
+              style={{ paddingLeft: '36px', fontSize: '13px' }}
             />
           </div>
         </div>
@@ -134,13 +139,36 @@ export function DataTable<T extends { id: string }>({
       {/* Pagination */}
       <div
         className="flex items-center justify-between px-4 py-3"
-        style={{ borderTop: '1px solid var(--dash-border)' }}
+        style={{ borderTop: '1px solid var(--dash-border-visible)' }}
       >
-        <p className="text-xs" style={{ color: 'var(--dash-text-muted)' }}>
-          {total > 0
-            ? `${page * pageSize + 1}–${Math.min((page + 1) * pageSize, total)} de ${total}`
-            : '0 registos'}
-        </p>
+        <div className="flex items-center gap-4">
+          <p className="text-xs" style={{ color: 'var(--dash-text-muted)' }}>
+            {total > 0
+              ? `${page * pageSize + 1}–${Math.min((page + 1) * pageSize, total)} de ${total}`
+              : '0 registos'}
+          </p>
+          
+          {onPageSizeChange && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs" style={{ color: 'var(--dash-text-muted)' }}>Show:</span>
+              <select 
+                value={pageSize}
+                onChange={e => {
+                  onPageSizeChange(Number(e.target.value))
+                  onPageChange(0) // Reset to first page when changing page size
+                }}
+                className="dash-select"
+                style={{ padding: '2px 24px 2px 8px', fontSize: '12px', height: 'auto', backgroundPosition: 'right 6px center', backgroundSize: '12px', width: 'auto' }}
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
+          )}
+        </div>
+
         <div className="flex items-center gap-1">
           <button
             onClick={() => onPageChange(0)}

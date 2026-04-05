@@ -8,8 +8,9 @@ const PAGE_SIZE = 10
 export default function ServicesPage() {
   const vm = useServiceViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const { data, isLoading } = vm.getAllServices(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = vm.getAllServices(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<ServiceEntity>[] = [
     { key: 'title', label: 'Service', render: item => <span className="font-medium text-sm" style={{ color: 'var(--dash-text)' }}>{item.title}</span> },
@@ -18,7 +19,7 @@ export default function ServicesPage() {
 
   return (
     <CrudPage title="Services" subtitle="Manage your offered services" columns={columns} data={data?.data ?? []} total={data?.pagination?.total ?? 0}
-      page={page} pageSize={PAGE_SIZE} loading={isLoading} searchTerm={search} onPageChange={setPage} onSearchChange={setSearch}
+      page={page} pageSize={pageSize} loading={isLoading} searchTerm={search} onPageChange={setPage} onPageSizeChange={setPageSize} onSearchChange={setSearch}
       fields={[
         { key: 'title', label: 'Title', placeholder: 'UI/UX Design' },
         { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Describe the service' },

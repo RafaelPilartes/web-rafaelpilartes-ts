@@ -8,8 +8,9 @@ const PAGE_SIZE = 10
 export default function CustomersPage() {
   const vm = useCustomerViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const { data, isLoading } = vm.getAllCustomers(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = vm.getAllCustomers(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<CustomerEntity>[] = [
     { key: 'name', label: 'Customer', render: item => (
@@ -26,11 +27,11 @@ export default function CustomersPage() {
 
   return (
     <CrudPage title="Customers" subtitle="Manage your client roster" columns={columns} data={data?.data ?? []} total={data?.pagination?.total ?? 0}
-      page={page} pageSize={PAGE_SIZE} loading={isLoading} searchTerm={search} onPageChange={setPage} onSearchChange={setSearch}
+      page={page} pageSize={pageSize} loading={isLoading} searchTerm={search} onPageChange={setPage} onPageSizeChange={setPageSize} onSearchChange={setSearch}
       fields={[
         { key: 'name', label: 'Name', placeholder: 'Client Name' },
         { key: 'occupation', label: 'Occupation', placeholder: 'Role / Company' },
-        { key: 'photo', label: 'Photo URL', type: 'url', placeholder: 'https://...' },
+        { key: 'photo', label: 'Photo', type: 'image' },
         { key: 'description', label: 'Description', type: 'textarea', placeholder: 'About the customer' }
       ]}
       onCreate={d => vm.createCustomer(d as any)} onUpdate={(id, d) => vm.updateCustomer({ id, data: d })} onDelete={vm.deleteCustomer}

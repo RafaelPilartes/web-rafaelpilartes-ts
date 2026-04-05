@@ -1,6 +1,6 @@
 /* ========================================
    Dashboard Design System
-   Dark elegante + glassmorphism + accent red
+   Dark elegante + Poppins + accent red
    ======================================== */
 
 /* Design Tokens */
@@ -9,8 +9,9 @@
   --dash-surface: #12131f;
   --dash-surface-hover: #1a1b2e;
   --dash-surface-active: #22233a;
-  --dash-border: rgba(255, 255, 255, 0.06);
-  --dash-border-hover: rgba(255, 255, 255, 0.12);
+  --dash-border: rgba(255, 255, 255, 0.12);
+  --dash-border-hover: rgba(255, 255, 255, 0.25);
+  --dash-border-visible: rgba(255, 255, 255, 0.20);
   --dash-text: #e4e4e7;
   --dash-text-muted: #71717a;
   --dash-text-faint: #52525b;
@@ -35,7 +36,9 @@
   --dash-glass-border: rgba(255, 255, 255, 0.08);
   --dash-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   --dash-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --dash-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
   --dash-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --dash-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Glassmorphism Panel */
@@ -47,9 +50,10 @@
   border-radius: var(--dash-radius);
 }
 
+/* Card */
 .dash-card {
   background: var(--dash-surface);
-  border: 1px solid var(--dash-border);
+  border: 1px solid var(--dash-border-visible);
   border-radius: var(--dash-radius);
   transition: border-color var(--dash-transition), box-shadow var(--dash-transition);
 }
@@ -59,7 +63,15 @@
   box-shadow: var(--dash-shadow-sm);
 }
 
-/* Animations */
+.dash-card-static {
+  background: var(--dash-surface);
+  border: 1px solid var(--dash-border-visible);
+  border-radius: var(--dash-radius);
+}
+
+/* ========================================
+   Animations
+   ======================================== */
 @keyframes dash-fade-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -89,7 +101,9 @@
 .dash-animate-delay-3 { animation-delay: 150ms; }
 .dash-animate-delay-4 { animation-delay: 200ms; }
 
-/* Skeleton loading */
+/* ========================================
+   Skeleton loading
+   ======================================== */
 .dash-skeleton {
   background: linear-gradient(
     90deg,
@@ -102,7 +116,9 @@
   border-radius: var(--dash-radius-sm);
 }
 
-/* Scrollbar for dashboard */
+/* ========================================
+   Scrollbar
+   ======================================== */
 .dash-scroll::-webkit-scrollbar {
   width: 6px;
 }
@@ -120,7 +136,9 @@
   background-color: var(--dash-text-muted);
 }
 
-/* Badge */
+/* ========================================
+   Badge
+   ======================================== */
 .dash-badge {
   display: inline-flex;
   align-items: center;
@@ -157,7 +175,9 @@
   color: var(--dash-info);
 }
 
-/* Button styles */
+/* ========================================
+   Buttons
+   ======================================== */
 .dash-btn {
   display: inline-flex;
   align-items: center;
@@ -166,6 +186,7 @@
   padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
+  font-family: 'Poppins', sans-serif;
   border-radius: var(--dash-radius-sm);
   transition: all var(--dash-transition);
   cursor: pointer;
@@ -191,7 +212,7 @@
 .dash-btn-secondary {
   background: var(--dash-surface-hover);
   color: var(--dash-text);
-  border: 1px solid var(--dash-border);
+  border: 1px solid var(--dash-border-visible);
 }
 
 .dash-btn-secondary:hover:not(:disabled) {
@@ -230,37 +251,174 @@
   height: 36px;
 }
 
-/* Input styles */
-.dash-input {
+/* ========================================
+   Form Elements
+   ======================================== */
+
+/* Label */
+.dash-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dash-text);
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+
+.dash-label-required::after {
+  content: ' *';
+  color: var(--dash-danger);
+}
+
+/* Form Group */
+.dash-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input */
+input.dash-input {
   width: 100%;
   padding: 10px 14px;
   font-size: 14px;
+  font-family: 'Poppins', sans-serif;
   color: var(--dash-text);
-  background: var(--dash-surface);
-  border: 1px solid var(--dash-border);
+  background-color: var(--dash-bg) !important;
+  border: 1px solid var(--dash-border-visible);
   border-radius: var(--dash-radius-sm);
   outline: none;
-  transition: border-color var(--dash-transition), box-shadow var(--dash-transition);
+  transition: border-color var(--dash-transition), box-shadow var(--dash-transition), background-color var(--dash-transition);
 }
 
-.dash-input::placeholder {
+input.dash-input::placeholder {
   color: var(--dash-text-faint);
+  font-weight: 300;
 }
 
-.dash-input:focus {
+input.dash-input:hover {
+  border-color: var(--dash-border-hover);
+  background-color: var(--dash-surface-hover) !important;
+}
+
+input.dash-input:focus {
+  border-color: var(--dash-accent);
+  box-shadow: 0 0 0 4px var(--dash-accent-soft);
+  background-color: var(--dash-surface) !important;
+}
+
+input.dash-input-error {
+  border-color: var(--dash-danger) !important;
+}
+
+input.dash-input-error:focus {
+  box-shadow: 0 0 0 3px var(--dash-danger-soft) !important;
+}
+
+/* Select */
+select.dash-select {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--dash-text);
+  background-color: var(--dash-bg) !important;
+  border: 1px solid var(--dash-border-visible);
+  border-radius: var(--dash-radius-sm);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  transition: border-color var(--dash-transition), box-shadow var(--dash-transition), background-color var(--dash-transition);
+}
+
+select.dash-select:hover {
+  border-color: var(--dash-border-hover);
+  background-color: var(--dash-surface) !important;
+}
+
+select.dash-select:focus {
   border-color: var(--dash-accent);
   box-shadow: 0 0 0 3px var(--dash-accent-soft);
+  background-color: var(--dash-surface) !important;
 }
 
-.dash-input-error {
-  border-color: var(--dash-danger);
+select.dash-select option {
+  background-color: var(--dash-surface) !important;
+  color: var(--dash-text);
+  padding: 8px;
 }
 
-.dash-input-error:focus {
-  box-shadow: 0 0 0 3px var(--dash-danger-soft);
+/* Textarea */
+textarea.dash-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--dash-text);
+  background-color: var(--dash-bg) !important;
+  border: 1px solid var(--dash-border-visible);
+  border-radius: var(--dash-radius-sm);
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.6;
+  transition: border-color var(--dash-transition), box-shadow var(--dash-transition), background-color var(--dash-transition);
 }
 
-/* Table styles */
+textarea.dash-textarea::placeholder {
+  color: var(--dash-text-faint);
+  font-weight: 300;
+}
+
+textarea.dash-textarea:hover {
+  border-color: var(--dash-border-hover);
+  background-color: var(--dash-surface) !important;
+}
+
+textarea.dash-textarea:focus {
+  border-color: var(--dash-accent);
+  box-shadow: 0 0 0 3px var(--dash-accent-soft);
+  background-color: var(--dash-surface) !important;
+}
+
+/* Color Input */
+.dash-color-input {
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  border: 1px solid var(--dash-border-visible);
+  border-radius: var(--dash-radius-sm);
+  background: var(--dash-bg);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--dash-transition);
+}
+
+.dash-color-input:hover {
+  border-color: var(--dash-border-hover);
+}
+
+.dash-color-input:focus {
+  border-color: var(--dash-accent);
+}
+
+.dash-color-input::-webkit-color-swatch-wrapper {
+  padding: 2px;
+}
+
+.dash-color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 4px;
+}
+
+/* ========================================
+   Table
+   ======================================== */
 .dash-table {
   width: 100%;
   border-collapse: separate;
@@ -275,7 +433,7 @@
   letter-spacing: 0.05em;
   color: var(--dash-text-muted);
   text-align: left;
-  border-bottom: 1px solid var(--dash-border);
+  border-bottom: 1px solid var(--dash-border-visible);
   background: var(--dash-surface);
   position: sticky;
   top: 0;
@@ -294,7 +452,87 @@
   background: var(--dash-surface-hover);
 }
 
-/* Overlay */
+.dash-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ========================================
+   Modal
+   ======================================== */
+.dash-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.dash-modal {
+  width: 100%;
+  max-width: 640px;
+  max-height: calc(100vh - 48px);
+  background: var(--dash-surface);
+  border: 1px solid var(--dash-border-visible);
+  border-radius: var(--dash-radius-lg);
+  box-shadow: var(--dash-shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dash-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--dash-border-visible);
+  flex-shrink: 0;
+}
+
+.dash-modal-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dash-text);
+  margin: 0;
+}
+
+.dash-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.dash-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dash-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dash-modal-body::-webkit-scrollbar-thumb {
+  background-color: var(--dash-text-faint);
+  border-radius: 3px;
+}
+
+.dash-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--dash-border-visible);
+  flex-shrink: 0;
+}
+
+/* ========================================
+   Overlay (legacy)
+   ======================================== */
 .dash-overlay {
   position: fixed;
   inset: 0;
@@ -303,7 +541,9 @@
   z-index: 50;
 }
 
-/* Empty state */
+/* ========================================
+   Empty State
+   ======================================== */
 .dash-empty {
   display: flex;
   flex-direction: column;
@@ -319,4 +559,14 @@
   height: 48px;
   margin-bottom: 16px;
   opacity: 0.4;
+}
+
+/* ========================================
+   Utilities
+   ======================================== */
+.dash-divider {
+  height: 1px;
+  background: var(--dash-border-visible);
+  border: none;
+  margin: 0;
 }

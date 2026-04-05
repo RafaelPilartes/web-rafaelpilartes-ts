@@ -9,7 +9,7 @@ export function DashboardLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--dash-bg)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--dash-bg)', fontFamily: "'Poppins', sans-serif" }}>
       <Sidebar
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(v => !v)}

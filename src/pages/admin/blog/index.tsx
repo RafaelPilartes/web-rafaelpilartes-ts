@@ -12,10 +12,11 @@ export default function BlogPostsPage() {
   const navigate = useNavigate()
   const { getAllPosts, deletePost, isDeleting } = useBlogPostViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
   const [search, setSearch] = useState('')
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
 
-  const { data, isLoading } = getAllPosts(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = getAllPosts(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<BlogPostEntity>[] = [
     {
@@ -82,8 +83,9 @@ export default function BlogPostsPage() {
         data={data?.data ?? []}
         total={data?.pagination?.total ?? 0}
         page={page}
-        pageSize={PAGE_SIZE}
+        pageSize={pageSize}
         onPageChange={setPage}
+        onPageSizeChange={setPageSize}
         searchTerm={search}
         onSearchChange={setSearch}
         loading={isLoading}

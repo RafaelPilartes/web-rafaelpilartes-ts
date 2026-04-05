@@ -9,8 +9,9 @@ const PAGE_SIZE = 20
 export default function TechnologiesPage() {
   const vm = useTechnologyViewModel()
   const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const { data, isLoading } = vm.getAllTechnologies(PAGE_SIZE, page * PAGE_SIZE, search || undefined)
+  const { data, isLoading } = vm.getAllTechnologies(pageSize, page * pageSize, search || undefined)
 
   const columns: Column<TechnologyEntity>[] = [
     { key: 'name', label: 'Name', render: item => (
@@ -34,10 +35,11 @@ export default function TechnologiesPage() {
       data={data?.data ?? []}
       total={data?.pagination?.total ?? 0}
       page={page}
-      pageSize={PAGE_SIZE}
+      pageSize={pageSize}
       loading={isLoading}
       searchTerm={search}
       onPageChange={setPage}
+      onPageSizeChange={setPageSize}
       onSearchChange={setSearch}
       fields={[
         { key: 'name', label: 'Name', placeholder: 'React, TypeScript...' },
