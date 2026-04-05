@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { IChildren } from '../interfaces/children'
 
 interface AppContextInterface {
@@ -12,24 +13,36 @@ interface AppContextInterface {
 
 const AppContext = createContext<AppContextInterface>({} as AppContextInterface)
 
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1
+    }
+  }
+})
+
 const AppProvider: React.FC<IChildren> = ({ children }): JSX.Element => {
   const [menuIsVisible, setMenuIsVisible] = useState<boolean>(false)
   const [searchIsVisible, setSearchIsVisible] = useState<boolean>(false)
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
 
   return (
-    <AppContext.Provider
-      value={{
-        menuIsVisible,
-        setMenuIsVisible,
-        searchIsVisible,
-        setSearchIsVisible,
-        isDarkMode,
-        setIsDarkMode
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <AppContext.Provider
+        value={{
+          menuIsVisible,
+          setMenuIsVisible,
+          searchIsVisible,
+          setSearchIsVisible,
+          isDarkMode,
+          setIsDarkMode
+        }}
+      >
+        {children}
+      </AppContext.Provider>
+    </QueryClientProvider>
   )
 }
 

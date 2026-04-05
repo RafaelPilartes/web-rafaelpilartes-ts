@@ -58,4 +58,15 @@ export class SupabaseAuthDAO implements IAuthRepository {
 
     return { data: user }
   }
+
+  onAuthStateChange(
+    callback: (event: string, user: any | null) => void
+  ): () => void {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        callback(event, session?.user ?? null)
+      }
+    )
+    return () => subscription.unsubscribe()
+  }
 }

@@ -31,7 +31,7 @@ export interface TestimonialProps {
 
 export interface QualityProps {
   id?: string
-  iconSvg: string
+  icon_svg: string
   name: string
   description: string
   created_at?: Date

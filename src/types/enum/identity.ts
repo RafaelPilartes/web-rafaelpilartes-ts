@@ -1,7 +1,10 @@
 export enum UserRole {
-  ADMIN = 'admin'
+  ADMIN = 'admin',
+  USER = 'user'
 }
 
 export enum AdminPermissionLevel {
-  SUPER_ADMIN = 'super_admin'
+  SUPER_ADMIN = 'super_admin',
+  EDITOR = 'editor',
+  VIEWER = 'viewer'
 }

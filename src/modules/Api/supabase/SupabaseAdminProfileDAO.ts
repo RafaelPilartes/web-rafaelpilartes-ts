@@ -1,4 +1,5 @@
 import { AdminProfileEntity } from '@/core/entities/AdminProfileEntity'
+import { UserEntity } from '@/core/entities/UserEntity'
 import { IAdminProfileRepository } from '@/core/interfaces/IAdminProfileRepository'
 import { BaseSupabaseDAO } from './BaseSupabaseDAO'
 
@@ -14,7 +15,7 @@ export class SupabaseAdminProfileDAO
   protected mapToEntity(data: any): AdminProfileEntity {
     return new AdminProfileEntity({
       ...data,
-      user: data.user ? data.user : undefined,
+      user: data.user ? new UserEntity(data.user) : undefined,
       last_login_at: data.last_login_at
         ? new Date(data.last_login_at)
         : undefined,

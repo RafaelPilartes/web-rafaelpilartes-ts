@@ -9,4 +9,7 @@ export interface IAuthRepository {
   ): Promise<SingleResponseType<any>>
   signOut(): Promise<void>
   getCurrentUser(): Promise<SingleResponseType<any>>
+  onAuthStateChange(
+    callback: (event: string, user: any | null) => void
+  ): () => void
 }

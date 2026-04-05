@@ -9,9 +9,9 @@ export const CardQuality = ({ quality }: CardQualityProps) => {
   return (
     <div className="p-6 rounded-lg bg-gray-600/20 text-gray-500 flex flex-col gap-4 hover:text-red-500 hover:bg-gray-600/30 hover:-translate-y-2 transition-all">
       <span className="text-4xl text-accent">
-        {typeof quality.iconSvg === 'function'
-          ? createElement(quality.iconSvg)
-          : quality.iconSvg}
+        {typeof quality.icon_svg === 'function'
+          ? createElement(quality.icon_svg)
+          : quality.icon_svg}
       </span>
 
       <p className="font-medium text-xl text-white">{quality.name}</p>

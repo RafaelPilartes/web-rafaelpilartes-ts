@@ -55,6 +55,9 @@ export const useAuthViewModel = () => {
 
   return {
     useCurrentUser,
+    getCurrentUser: () => authUseCase.executeGetCurrentUser(),
+    onAuthStateChange: (callback: (event: string, user: any | null) => void) =>
+      authUseCase.onAuthStateChange(callback),
     login: loginMutation.mutateAsync,
     isLoggingIn: loginMutation.isPending,
     register: registerMutation.mutateAsync,

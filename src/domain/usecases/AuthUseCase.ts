@@ -26,6 +26,12 @@ export class AuthUseCase {
   async executeGetCurrentUser(): Promise<SingleResponseType<any>> {
     return this.repository.getCurrentUser()
   }
+
+  onAuthStateChange(
+    callback: (event: string, user: any | null) => void
+  ): () => void {
+    return this.repository.onAuthStateChange(callback)
+  }
 }
 
 export const authUseCase = new AuthUseCase()
