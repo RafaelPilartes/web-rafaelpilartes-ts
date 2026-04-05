@@ -12,7 +12,7 @@ export default function BlogPostsPage() {
   const navigate = useNavigate()
   const { getAllPosts, deletePost, isDeleting } = useBlogPostViewModel()
   const [page, setPage] = useState(0)
-  const [pageSize, setPageSize] = useState(10)
+  const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
 
