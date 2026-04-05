@@ -82,7 +82,8 @@ export default function ExperiencesPage() {
         { key: 'company_url', label: 'Company URL', type: 'url', placeholder: 'https://...' },
         { key: 'company_logo', label: 'Company Logo', type: 'image' },
         { key: 'start_date', label: 'Start Date', type: 'date' },
-        { key: 'end_date', label: 'End Date (empty = present)', type: 'date' }
+        { key: 'end_date', label: 'End Date (empty = present)', type: 'date' },
+        { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Job description (Markdown accepted)' }
       ]}
       onCreate={data => {
         const payload: any = { ...data }
@@ -90,6 +91,9 @@ export default function ExperiencesPage() {
           payload.company_logo = { url: data.company_logo }
         } else if (!data.company_logo) {
           payload.company_logo = null
+        }
+        if (data.description && typeof data.description === 'string') {
+          payload.description = { raw: data.description }
         }
         return vm.createExperience(payload)
       }}
@@ -99,6 +103,9 @@ export default function ExperiencesPage() {
           payload.company_logo = { url: data.company_logo }
         } else if (!data.company_logo) {
           payload.company_logo = null
+        }
+        if (data.description && typeof data.description === 'string') {
+          payload.description = { raw: data.description }
         }
         return vm.updateExperience({ id, data: payload })
       }}

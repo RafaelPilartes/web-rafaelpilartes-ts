@@ -59,14 +59,30 @@ export default function ProjectsPage() {
       fields={[
         { key: 'title', label: 'Title', placeholder: 'Project Name' },
         { key: 'slug', label: 'Slug', placeholder: 'project-name' },
-        { key: 'category', label: 'Category', placeholder: 'Web App, Mobile...' },
+        { 
+          key: 'category', 
+          label: 'Category', 
+          type: 'select',
+          options: [
+            { label: 'Web', value: 'WEB' },
+            { label: 'Mobile', value: 'MOBILE' },
+            { label: 'AI', value: 'AI' },
+            { label: 'Desktop', value: 'DESKTOP' },
+            { label: 'Design', value: 'DESIGN' },
+          ]
+        },
+        { key: 'highlight', label: 'Highlight/Badge', placeholder: 'Award winning' },
         { key: 'thumbnail', label: 'Thumbnail', type: 'image' },
+        { key: 'page_thumbnail', label: 'Page Cover Image', type: 'image' },
         { key: 'short_description', label: 'Short Description', type: 'textarea' },
+        { key: 'description', label: 'Detailed Description', type: 'textarea', placeholder: 'Markdown accepted' },
         { key: 'client_name', label: 'Client Name (Optional)' },
-        { key: 'role', label: 'Role (Optional)', placeholder: 'Frontend Developer' },
-        { key: 'start_date', label: 'Start Date', type: 'date' },
+        { key: 'duration', label: 'Duration (ex: 3 months)' },
         { key: 'live_project_url', label: 'Live URL', type: 'url' },
-        { key: 'github_url', label: 'GitHub URL', type: 'url' }
+        { key: 'github_url', label: 'GitHub URL', type: 'url' },
+        { key: 'figma_url', label: 'Figma URL', type: 'url' },
+        { key: 'play_store_url', label: 'Play Store URL', type: 'url' },
+        { key: 'app_store_url', label: 'App Store URL', type: 'url' }
       ]}
       onCreate={async data => {
         const payload: any = { ...data }
@@ -74,6 +90,14 @@ export default function ProjectsPage() {
           payload.thumbnail = { url: data.thumbnail }
         } else if (!data.thumbnail) {
           payload.thumbnail = null
+        }
+        if (data.page_thumbnail && typeof data.page_thumbnail === 'string') {
+          payload.page_thumbnail = { url: data.page_thumbnail }
+        } else if (!data.page_thumbnail) {
+          payload.page_thumbnail = null
+        }
+        if (data.description && typeof data.description === 'string') {
+          payload.description = { raw: data.description, text: data.description }
         }
         await vm.createProject(payload)
       }}
@@ -83,6 +107,14 @@ export default function ProjectsPage() {
           payload.thumbnail = { url: data.thumbnail }
         } else if (!data.thumbnail) {
           payload.thumbnail = null
+        }
+        if (data.page_thumbnail && typeof data.page_thumbnail === 'string') {
+          payload.page_thumbnail = { url: data.page_thumbnail }
+        } else if (!data.page_thumbnail) {
+          payload.page_thumbnail = null
+        }
+        if (data.description && typeof data.description === 'string') {
+          payload.description = { raw: data.description, text: data.description }
         }
         await vm.updateProject({ id, data: payload })
       }}

@@ -156,7 +156,7 @@ export default function BlogPostFormPage() {
               <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--dash-text)' }}>
                 Category
               </label>
-              <select {...register('category_id')} className="dash-input">
+              <select {...register('category_id')} className="dash-select">
                 <option value="">Select category</option>
                 {categoriesQuery.data?.data.map(cat => (
                   <option key={cat.id} value={cat.id}>{cat.name}</option>
@@ -190,7 +190,7 @@ export default function BlogPostFormPage() {
             </label>
             <textarea
               {...register('excerpt')}
-              className={`dash-input ${errors.excerpt ? 'dash-input-error' : ''}`}
+              className={`dash-textarea ${errors.excerpt ? 'dash-input-error' : ''}`}
               rows={3}
               placeholder="Brief description"
               style={{ resize: 'vertical' }}

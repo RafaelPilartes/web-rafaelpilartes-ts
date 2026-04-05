@@ -49,7 +49,8 @@ export default function CertificatesPage() {
         { key: 'expiration_date', label: 'Expiration Date', type: 'date' },
         { key: 'credential_id', label: 'Credential ID', placeholder: 'ABC-123' },
         { key: 'credential_url', label: 'Credential URL', type: 'url', placeholder: 'https://...' },
-        { key: 'image', label: 'Certificate Image', type: 'image' }
+        { key: 'image', label: 'Certificate Image', type: 'image' },
+        { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Course syllabus or context (Markdown accepted)' }
       ]}
       onCreate={data => {
         const payload: any = { ...data }
@@ -57,6 +58,9 @@ export default function CertificatesPage() {
           payload.image = { url: data.image }
         } else if (!data.image) {
           payload.image = null
+        }
+        if (data.description && typeof data.description === 'string') {
+          payload.description = { raw: data.description }
         }
         return vm.createCertificate(payload)
       }}
@@ -66,6 +70,9 @@ export default function CertificatesPage() {
           payload.image = { url: data.image }
         } else if (!data.image) {
           payload.image = null
+        }
+        if (data.description && typeof data.description === 'string') {
+          payload.description = { raw: data.description }
         }
         return vm.updateCertificate({ id, data: payload })
       }}

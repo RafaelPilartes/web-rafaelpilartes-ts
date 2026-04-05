@@ -65,9 +65,9 @@ export default function AdminsPage() {
           label: 'Role', 
           type: 'select',
           options: [
-            { label: 'Super Admin', value: 'SUPER_ADMIN' },
-            { label: 'Admin', value: 'ADMIN' },
-            { label: 'Editor', value: 'EDITOR' },
+            { label: 'Super Admin', value: 'super_admin' },
+            { label: 'Editor', value: 'editor' },
+            { label: 'Viewer', value: 'viewer' },
           ]
         },
         { key: 'department', label: 'Department' },
