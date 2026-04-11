@@ -11,20 +11,50 @@ export default function TechnologiesPage() {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(PAGE_SIZE)
   const [search, setSearch] = useState('')
-  const { data, isLoading } = vm.getAllTechnologies(pageSize, page * pageSize, search || undefined)
+  const { data, isLoading } = vm.getAllTechnologies(
+    pageSize,
+    page * pageSize,
+    search || undefined
+  )
 
   const columns: Column<TechnologyEntity>[] = [
-    { key: 'name', label: 'Name', render: item => (
-      <span className="font-medium text-sm" style={{ color: 'var(--dash-text)' }}>{item.name}</span>
-    )},
-    { key: 'icon_svg', label: 'Icon', width: '80px', render: item => item.icon_svg ? (
-      <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'var(--dash-surface-hover)' }} dangerouslySetInnerHTML={{ __html: item.icon_svg }} />
-    ) : <span style={{ color: 'var(--dash-text-faint)' }}>—</span>},
-    { key: 'start_date', label: 'Since', width: '120px', render: item => (
-      <span className="text-sm" style={{ color: 'var(--dash-text-muted)' }}>
-        {item.start_date ? new Date(item.start_date).getFullYear() : '—'}
-      </span>
-    )}
+    {
+      key: 'name',
+      label: 'Name',
+      render: item => (
+        <span
+          className="font-medium text-sm"
+          style={{ color: 'var(--dash-text)' }}
+        >
+          {item.name}
+        </span>
+      )
+    },
+    {
+      key: 'icon_svg',
+      label: 'Icon',
+      width: '80px',
+      render: item =>
+        item.icon_svg ? (
+          <div
+            className="w-8 h-8 rounded-lg flex items-center justify-center"
+            style={{ background: 'var(--dash-surface-hover)' }}
+            dangerouslySetInnerHTML={{ __html: item.icon_svg }}
+          />
+        ) : (
+          <span style={{ color: 'var(--dash-text-faint)' }}>—</span>
+        )
+    },
+    {
+      key: 'start_date',
+      label: 'Since',
+      width: '120px',
+      render: item => (
+        <span className="text-sm" style={{ color: 'var(--dash-text-muted)' }}>
+          {item.start_date ? new Date(item.start_date).getFullYear() : '—'}
+        </span>
+      )
+    }
   ]
 
   return (
@@ -43,7 +73,12 @@ export default function TechnologiesPage() {
       onSearchChange={setSearch}
       fields={[
         { key: 'name', label: 'Name', placeholder: 'React, TypeScript...' },
-        { key: 'icon_svg', label: 'Icon SVG', type: 'textarea', placeholder: '<svg>...</svg>' },
+        {
+          key: 'icon_svg',
+          label: 'Icon SVG',
+          type: 'textarea',
+          placeholder: '<svg>...</svg>'
+        },
         { key: 'start_date', label: 'Start Date', type: 'date' }
       ]}
       onCreate={data => vm.createTechnology(data as any)}

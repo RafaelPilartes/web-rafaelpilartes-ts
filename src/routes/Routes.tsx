@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ScrollToTop from '../components/common/ScrollToTop'
 import { routsNameMain } from '../data/routsName'
 import RootLayout from '../Layout/RootLayout'
 import FourOhFour from '../pages/404'
@@ -65,6 +66,7 @@ function AdminLoading() {
 export function Router() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* =================== PUBLIC SITE =================== */}
         <Route path="/" element={<RootLayout />}>

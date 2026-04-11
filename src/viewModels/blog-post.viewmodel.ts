@@ -8,7 +8,8 @@ export const BLOG_POST_KEYS = {
   lists: () => [...BLOG_POST_KEYS.all, 'list'] as const,
   list: (filters: string) => [...BLOG_POST_KEYS.lists(), { filters }] as const,
   details: () => [...BLOG_POST_KEYS.all, 'detail'] as const,
-  detail: (id: string) => [...BLOG_POST_KEYS.details(), id] as const
+  detail: (id: string) => [...BLOG_POST_KEYS.details(), id] as const,
+  detailBySlug: (slug: string) => [...BLOG_POST_KEYS.details(), 'slug', slug] as const
 }
 
 export const useBlogPostViewModel = () => {
@@ -34,6 +35,14 @@ export const useBlogPostViewModel = () => {
       queryKey: BLOG_POST_KEYS.detail(id),
       queryFn: () => blogPostUseCase.executeGetById(id),
       enabled: !!id
+    })
+  }
+
+  const getPostBySlug = (slug: string) => {
+    return useQuery({
+      queryKey: BLOG_POST_KEYS.detailBySlug(slug),
+      queryFn: () => blogPostUseCase.executeGetBySlug(slug),
+      enabled: !!slug
     })
   }
 
@@ -84,6 +93,7 @@ export const useBlogPostViewModel = () => {
   return {
     getAllPosts,
     getPostById,
+    getPostBySlug,
     createPost: createMutation.mutateAsync,
     isCreating: createMutation.isPending,
     updatePost: updateMutation.mutateAsync,

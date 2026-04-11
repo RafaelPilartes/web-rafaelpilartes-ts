@@ -7,8 +7,6 @@ import { HomeServices } from '../../components/main/page/home/HomeServices'
 import { HomeQuality } from '../../components/main/page/home/HomeQuality'
 import { HomeCustomers } from '../../components/main/page/home/HomeCustomers'
 import { HomeTestimonials } from '../../components/main/page/home/HomeTestimonials'
-import { mockTechnologies } from '@/core/mocks/technologiesMock'
-
 export default function Home() {
   useEffect(() => {
     const hash = window.location.hash
@@ -30,7 +28,7 @@ export default function Home() {
       <HomeHeroContainer />
       <HomeAboutSection />
       <HomeQuality />
-      <HomeKnownTechs techs={mockTechnologies} />
+      <HomeKnownTechs />
 
       <HomeServices />
       <HomeProjects />

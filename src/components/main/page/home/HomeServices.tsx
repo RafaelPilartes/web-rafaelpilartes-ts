@@ -1,23 +1,21 @@
 import { createElement } from 'react'
 import { motion } from 'framer-motion'
 import { ButtonBase } from '../../../../components/main/ButtonBase'
-import { mockServices } from '@/core/mocks/servicesMock'
 import { RxArrowTopRight } from 'react-icons/rx'
 import { FaWrench } from 'react-icons/fa'
-
-const topServices = mockServices.slice(0, 4)
+import { useServiceViewModel } from '@/viewModels/service.viewmodel'
+import { Skeleton } from '../../ui/Skeleton'
 
 export const HomeServices = () => {
+  const { getAllServices } = useServiceViewModel()
+  const { data: response, isLoading, isError } = getAllServices(4)
+  
+  const services = response?.data || []
+
+  if (isError) return null
+
   return (
     <section id="services" className="relative py-24 overflow-hidden">
-      {/* Background Grid Pattern */}
-      {/* <div
-        className="absolute  inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px)`,
-          backgroundSize: '40px 40px'
-        }}
-      /> */}
       {/* Subtle radial gradient to highlight the center */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
 
@@ -32,7 +30,7 @@ export const HomeServices = () => {
               transition={{ duration: 0.3 }}
               className="px-4 py-1.5 rounded-full border border-accent/30 bg-accent/10 flex items-center gap-2 text-accent text-xs font-semibold tracking-wider shadow-[0_0_15px_rgba(var(--accent-rgb),0.1)] uppercase"
             >
-              <FaWrench size={14} />o que eu ofereço
+              <FaWrench size={14} /> o que eu ofereço
             </motion.div>
 
             {/* Title */}
@@ -58,36 +56,51 @@ export const HomeServices = () => {
             </motion.p>
           </div>
 
-          {/* Services Cards */}
+          {/* Services Cards / Skeletons */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
-            {topServices.map((item, index) => (
-              <motion.div
-                key={item.id ?? index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.08 }}
-                viewport={{ once: true }}
-                className="relative p-7 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06]
-                            hover:border-accent/30 hover:-translate-y-1 group transition-all duration-300 flex flex-col gap-4 shadow-lg shadow-black/10"
-              >
-                {/* Icon */}
-                <div className="w-12 h-12 rounded-xl bg-accent/10 border border-white/[0.05] flex items-center justify-center text-accent text-xl group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-300">
-                  {typeof item.icon === 'function'
-                    ? createElement(item.icon)
-                    : item.icon}
+            {isLoading ? (
+               Array.from({ length: 4 }).map((_, idx) => (
+                <div key={idx} className="relative p-7 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] flex flex-col gap-4 shadow-lg h-[220px]">
+                  <Skeleton className="w-12 h-12 rounded-xl" />
+                  <Skeleton className="w-3/4 h-5 mt-2" />
+                  <Skeleton className="w-full h-4 mt-2" />
+                  <Skeleton className="w-5/6 h-4" />
                 </div>
+               ))
+            ) : services.length > 0 ? (
+              services.map((item, index) => (
+                <motion.div
+                  key={item.id ?? index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.08 }}
+                  viewport={{ once: true }}
+                  className="relative p-7 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06]
+                              hover:border-accent/30 hover:-translate-y-1 group transition-all duration-300 flex flex-col gap-4 shadow-lg shadow-black/10"
+                >
+                  {/* Icon */}
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-white/[0.05] flex items-center justify-center text-accent text-xl group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-300">
+                    {item.icon && typeof item.icon === 'function'
+                      ? createElement(item.icon)
+                      : <FaWrench /> /* Fallback icon for dynamically stored instances */}
+                  </div>
 
-                {/* Title */}
-                <h4 className="text-base font-semibold text-white mt-2">
-                  {item.title}
-                </h4>
+                  {/* Title */}
+                  <h4 className="text-base font-semibold text-white mt-2">
+                    {item.title}
+                  </h4>
 
-                {/* Description */}
-                <p className="text-sm text-gray-400 leading-relaxed flex-1">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
+                  {/* Description */}
+                  <p className="text-sm text-gray-400 leading-relaxed flex-1">
+                    {item.description}
+                  </p>
+                </motion.div>
+              ))
+            ) : (
+                <div className="col-span-1 sm:col-span-2 lg:col-span-4 text-center text-white/50 p-10 bg-white/5 rounded-2xl border border-white/10">
+                   Serviços em atualização
+                </div>
+            )}
           </div>
 
           <motion.div

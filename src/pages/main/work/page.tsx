@@ -1,9 +1,10 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { ProjectCard } from '../../../components/main/ProjectCard'
 import { PageIntroduction } from '../../../components/main/PageIntroduction'
-import { mockProjects } from '@/core/mocks/projectsMock'
 import { ProjectCategory } from '@/types/enum/portfolio'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2'
+import { useProjectViewModel } from '@/viewModels/project.viewmodel'
+import { Skeleton } from '../../../components/main/ui/Skeleton'
 
 const ITEMS_PER_PAGE = 6
 
@@ -23,20 +24,69 @@ const introductionData = {
     'Aqui você poderá ver alguns dos trabalhos que eu desenvolvi. Navegue à vontade e explore os projetos para ver como foram criados, as tecnologias utilizadas e as funcionalidades implementadas.'
 }
 
+const ProjectCardSkeleton = ({ index = 0 }: { index?: number }) => {
+  const isReversed = index % 2 !== 0
+  return (
+    <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-0 items-center py-10 lg:py-16 w-full animate-pulse">
+      {/* Content Area Skeleton */}
+      <div
+        className={`relative z-10 flex flex-col col-span-12 lg:col-span-7 xl:col-span-6 lg:[grid-row:1]
+          ${isReversed ? 'lg:col-start-6 xl:col-start-7 lg:items-end' : 'lg:col-start-1 lg:items-start'}
+          p-6 lg:p-0`}
+      >
+        <div className="flex gap-3 mb-4">
+          <Skeleton className="w-12 h-4" />
+          <Skeleton className="w-32 h-4" />
+        </div>
+        <Skeleton className="w-64 h-8 mb-5" />
+        <div className="w-full mb-6">
+          <Skeleton className="w-full h-28 rounded-xl" />
+        </div>
+        <div className="flex gap-4 mb-6">
+          <Skeleton className="w-16 h-4" />
+          <Skeleton className="w-16 h-4" />
+          <Skeleton className="w-16 h-4" />
+        </div>
+        <div className="flex gap-5">
+          <Skeleton className="w-6 h-6" />
+          <Skeleton className="w-6 h-6" />
+        </div>
+      </div>
+
+      {/* Image Area Skeleton */}
+      <div
+        className={`hidden lg:block lg:h-[350px] col-span-12 lg:col-span-7 lg:[grid-row:1]
+          ${isReversed ? 'lg:col-start-1' : 'lg:col-start-6'}
+          rounded-xl overflow-hidden`}
+      >
+        <Skeleton className="w-full h-full" />
+      </div>
+    </div>
+  )
+}
+
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState<string>('ALL')
   const [currentPage, setCurrentPage] = useState(1)
 
-  const filteredProjects = useMemo(() => {
-    if (activeFilter === 'ALL') return mockProjects
-    return mockProjects.filter(p => p.category === activeFilter)
-  }, [activeFilter])
+  const { getAllProjects } = useProjectViewModel()
 
-  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE)
-  const paginatedProjects = filteredProjects.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  )
+  // Convert API filter format
+  const filterParams =
+    activeFilter !== 'ALL'
+      ? { category: activeFilter as ProjectCategory }
+      : undefined
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE
+
+  const {
+    data: response,
+    isLoading,
+    isError
+  } = getAllProjects(ITEMS_PER_PAGE, offset, undefined, filterParams)
+
+  const projects = response?.data || []
+  const totalCount = response?.pagination?.total || 0
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE)
 
   const handleFilterChange = (filter: string) => {
     setActiveFilter(filter)
@@ -44,17 +94,13 @@ const Projects = () => {
   }
 
   return (
-    <main className="flex flex-col gap-6 items-center justify-center">
+    <main className="flex flex-col gap-6 w-full">
       <PageIntroduction {...introductionData} />
 
       <div className="container flex flex-col gap-8 pb-12">
         {/* Filters */}
         <div className="w-full flex flex-wrap items-center justify-center gap-3">
           {Object.entries(categoryLabels).map(([key, label]) => {
-            const count =
-              key === 'ALL'
-                ? mockProjects.length
-                : mockProjects.filter(p => p.category === key).length
             return (
               <button
                 key={key}
@@ -67,27 +113,34 @@ const Projects = () => {
                   }`}
               >
                 {label}
-                <span
-                  className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
-                    activeFilter === key ? 'bg-white/20' : 'bg-gray-800'
-                  }`}
-                >
-                  {count}
-                </span>
               </button>
             )
           })}
         </div>
 
-        {/* Project Grid */}
-        {paginatedProjects.length === 0 ? (
-          <p className="text-center text-gray-500 py-20">
+        {/* Project Grid / Skeletons */}
+        {isError ? (
+          <p className="text-center text-red-500 py-20 bg-red-500/10 rounded-2xl mx-4">
+            Não foi possível carregar os projetos momentaneamente.
+          </p>
+        ) : isLoading ? (
+          <div className="flex flex-col gap-16 px-4">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <ProjectCardSkeleton key={i} index={i} />
+            ))}
+          </div>
+        ) : projects.length === 0 ? (
+          <p className="text-center text-gray-500 py-20 border border-white/10 rounded-2xl mx-4 bg-white/5">
             Nenhum projeto encontrado para esta categoria.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-            {paginatedProjects.map(project => (
-              <ProjectCard key={project.id ?? project.slug} project={project} />
+          <div className="flex flex-col gap-8 md:gap-12 px-4">
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.id ?? project.slug}
+                project={project}
+                index={index}
+              />
             ))}
           </div>
         )}
@@ -97,7 +150,7 @@ const Projects = () => {
           <div className="flex items-center justify-center gap-4">
             <button
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
+              disabled={currentPage === 1 || isLoading}
               className="p-2.5 rounded-lg border border-gray-700 text-gray-400 hover:border-accent hover:text-accent transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <HiChevronLeft size={20} />
@@ -108,6 +161,7 @@ const Projects = () => {
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page)}
+                  disabled={isLoading}
                   className={`w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300
                       ${
                         currentPage === page
@@ -122,7 +176,7 @@ const Projects = () => {
 
             <button
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
+              disabled={currentPage === totalPages || isLoading}
               className="p-2.5 rounded-lg border border-gray-700 text-gray-400 hover:border-accent hover:text-accent transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <HiChevronRight size={20} />

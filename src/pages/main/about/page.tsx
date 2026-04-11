@@ -29,10 +29,11 @@ import Circles from '../../../components/main/Circles'
 import { ExperienceItem } from '../../../components/main/page/AboutExperienceItem'
 import { CertificateItem } from '../../../components/main/page/AboutCertificateItem'
 import { PageIntroduction } from '../../../components/main/PageIntroduction'
-import { mockExperiences } from '@/core/mocks/experiencesMock'
-import { mockCertificates } from '@/core/mocks/certificatesMock'
+import { useWorkExperienceViewModel } from '@/viewModels/work-experience.viewmodel'
+import { useCertificateViewModel } from '@/viewModels/certificate.viewmodel'
+import { Skeleton } from '../../../components/main/ui/Skeleton'
 
-// -- Data --
+// -- Static Data for Skills --
 const skillsData = [
   {
     title: 'Frontend Development',
@@ -120,6 +121,107 @@ const introductionData = {
 
 const TABS = ['Experience', 'Skills', 'Certificates'] as const
 type TabType = (typeof TABS)[number]
+
+const ExperienceTabWrapper = () => {
+  const { getAllExperiences } = useWorkExperienceViewModel()
+  const { data: response, isLoading } = getAllExperiences()
+  const experiences = response?.data || []
+
+  return (
+    <motion.div
+      key="experience"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col gap-2"
+    >
+      <div className="hidden md:flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+          <HiStar size={20} />
+        </div>
+        <h3 className="text-2xl font-bold text-white">Trajetória Profissional</h3>
+      </div>
+
+      {isLoading ? (
+         <div className="flex flex-col gap-8 w-full mt-4">
+           {Array.from({ length: 3 }).map((_, idx) => (
+             <div key={idx} className="flex gap-4 w-full items-start">
+               {/* Timeline Dot Skeleton */}
+               <div className="flex flex-col items-center mt-2">
+                 <Skeleton className="w-4 h-4 rounded-full" />
+                 <Skeleton className="w-1 h-32 mt-2" />
+               </div>
+               
+               {/* Card Skeleton */}
+               <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col gap-3">
+                 <Skeleton className="w-24 h-5 rounded-md" /> {/* date */}
+                 <Skeleton className="w-48 h-6 rounded-md" /> {/* title */}
+                 <Skeleton className="w-32 h-4 rounded-md" /> {/* company */}
+                 <Skeleton className="w-full h-16 rounded-md mt-2" /> {/* description */}
+               </div>
+             </div>
+           ))}
+         </div>
+      ) : experiences.length > 0 ? (
+        experiences.map((exp, index) => (
+          <ExperienceItem key={exp.id ?? index} experience={exp} />
+        ))
+      ) : (
+        <div className="text-center text-white/50 p-6 border border-white/10 rounded-2xl bg-white/5 w-full">
+           Nenhuma experiência registada ainda.
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
+const CertificatesTabWrapper = () => {
+  const { getAllCertificates } = useCertificateViewModel()
+  const { data: response, isLoading } = getAllCertificates()
+  const certificates = response?.data || []
+
+  return (
+    <motion.div
+      key="certificates"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col gap-4"
+    >
+      <div className="hidden md:flex items-center gap-3 mb-4">
+        <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+          <HiAcademicCap size={22} />
+        </div>
+        <h3 className="text-2xl font-bold text-white">Educação e Certificados</h3>
+      </div>
+      
+      {isLoading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+          {Array.from({ length: 4 }).map((_, idx) => (
+             <div key={idx} className="flex gap-4 w-full items-center p-4 rounded-xl bg-white/5 border border-white/10">
+               <Skeleton className="w-16 h-16 rounded-lg flex-shrink-0" />
+               <div className="flex flex-col gap-2 w-full">
+                 <Skeleton className="w-3/4 h-5 rounded-md" />
+                 <Skeleton className="w-1/2 h-4 rounded-md" />
+               </div>
+             </div>
+           ))}
+        </div>
+      ) : certificates.length > 0 ? (
+        certificates.map(cert => (
+          <CertificateItem key={cert.id} certificate={cert} />
+        ))
+      ) : (
+        <div className="text-center text-white/50 p-6 border border-white/10 rounded-2xl bg-white/5 w-full">
+          Nenhum certificado registado ainda.
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
 
 const About = () => {
   const [activeTab, setActiveTab] = useState<TabType>('Experience')
@@ -213,29 +315,7 @@ const About = () => {
           <div className="min-h-[400px]">
             <AnimatePresence mode="wait">
               {/* === TAB 1: Experiência === */}
-              {activeTab === 'Experience' && (
-                <motion.div
-                  key="experience"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex flex-col gap-2"
-                >
-                  <div className="hidden md:flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
-                      <HiStar size={20} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">
-                      Trajetória Profissional
-                    </h3>
-                  </div>
-
-                  {mockExperiences.map((exp, index) => (
-                    <ExperienceItem key={exp.id ?? index} experience={exp} />
-                  ))}
-                </motion.div>
-              )}
+              {activeTab === 'Experience' && <ExperienceTabWrapper />}
 
               {/* === TAB 2: Habilidades === */}
               {activeTab === 'Skills' && (
@@ -277,28 +357,7 @@ const About = () => {
               )}
 
               {/* === TAB 3: Certificados === */}
-              {activeTab === 'Certificates' && (
-                <motion.div
-                  key="certificates"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex flex-col gap-4"
-                >
-                  <div className="hidden md:flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
-                      <HiAcademicCap size={22} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white">
-                      Educação e Certificados
-                    </h3>
-                  </div>
-                  {mockCertificates.map(cert => (
-                    <CertificateItem key={cert.id} certificate={cert} />
-                  ))}
-                </motion.div>
-              )}
+              {activeTab === 'Certificates' && <CertificatesTabWrapper />}
             </AnimatePresence>
           </div>
         </section>

@@ -1,11 +1,12 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import Circles from '../../../components/main/Circles'
 import { PageIntroduction } from '../../../components/main/PageIntroduction'
-import { mockBlogPosts } from '@/core/mocks/blogPostsMock'
-import { mockBlogCategories } from '@/core/mocks/blogCategoriesMock'
 import { LinkSimple } from '../../../components/main/Link'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { HiChevronLeft, HiChevronRight, HiMagnifyingGlass } from 'react-icons/hi2'
+import { useBlogCategoryViewModel } from '@/viewModels/blog-category.viewmodel'
+import { useBlogPostViewModel } from '@/viewModels/blog-post.viewmodel'
+import { Skeleton } from '../../../components/main/ui/Skeleton'
 
 const ITEMS_PER_PAGE = 6
 
@@ -16,38 +17,67 @@ const introductionData = {
     'Acompanhe histórias, tutoriais e dicas sobre desenvolvimento, design e a vida como criador. Partilho aprendizagens contínuas, novas tecnologias e insights para a nossa comunidade.'
 }
 
+// Simple internal hook to debounce search query
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+  return debouncedValue
+}
+
+const BlogPostSkeleton = () => (
+   <div className="bg-[#55555525] rounded-xl overflow-hidden h-[420px] border border-transparent flex flex-col">
+      <Skeleton className="h-48 w-full rounded-none" />
+      <div className="p-6 flex flex-col flex-1 gap-3">
+        <Skeleton className="w-24 h-3" />
+        <Skeleton className="w-full h-5 mt-1" />
+        <Skeleton className="w-3/4 h-5" />
+        <Skeleton className="w-full h-3 mt-3" />
+        <Skeleton className="w-full h-3" />
+        <Skeleton className="w-4/5 h-3" />
+        <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+           <div className="flex items-center gap-2">
+             <Skeleton className="w-7 h-7 rounded-full" />
+             <Skeleton className="w-16 h-3" />
+           </div>
+           <Skeleton className="w-16 h-4" />
+        </div>
+      </div>
+   </div>
+)
+
 const Blog = () => {
-  const [activeFilter, setActiveFilter] = useState<string>('ALL')
+  const [activeFilterId, setActiveFilterId] = useState<string>('ALL')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
+  
+  const debouncedSearch = useDebounce(searchQuery, 500)
 
-  const filteredPosts = useMemo(() => {
-    let posts = mockBlogPosts
+  // API Hooks
+  const { getAllCategories } = useBlogCategoryViewModel()
+  const { getAllPosts } = useBlogPostViewModel()
 
-    if (activeFilter !== 'ALL') {
-      posts = posts.filter((p) => p.category?.slug === activeFilter)
-    }
+  const { data: catResponse, isLoading: isLoadingCats } = getAllCategories()
+  const categories = catResponse?.data || []
 
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase()
-      posts = posts.filter(
-        (p) =>
-          p.title.toLowerCase().includes(query) ||
-          p.excerpt.toLowerCase().includes(query)
-      )
-    }
+  // Setup Filters
+  const filters = activeFilterId !== 'ALL' ? { category_id: activeFilterId } : undefined
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE
 
-    return posts
-  }, [activeFilter, searchQuery])
+  const { data: postResponse, isLoading: isLoadingPosts, isError: isErrorPosts } = getAllPosts(ITEMS_PER_PAGE, offset, debouncedSearch, filters)
+  
+  const posts = postResponse?.data || []
+  const totalCount = postResponse?.pagination?.total || 0
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE)
 
-  const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE)
-  const paginatedPosts = filteredPosts.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  )
-
-  const handleFilterChange = (filter: string) => {
-    setActiveFilter(filter)
+  const handleFilterChange = (categoryId: string) => {
+    setActiveFilterId(categoryId)
     setCurrentPage(1)
   }
 
@@ -81,20 +111,24 @@ const Blog = () => {
               onClick={() => handleFilterChange('ALL')}
               className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 border
                 ${
-                  activeFilter === 'ALL'
+                  activeFilterId === 'ALL'
                     ? 'bg-accent text-white border-accent'
                     : 'bg-transparent text-gray-400 border-gray-700 hover:border-accent/50 hover:text-white'
                 }`}
             >
               Todos
             </button>
-            {mockBlogCategories.map((cat) => (
+            {isLoadingCats ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="w-20 h-8 rounded-full" />
+              ))
+            ) : categories.map((cat) => (
               <button
-                key={cat.slug}
-                onClick={() => handleFilterChange(cat.slug)}
+                key={cat.id}
+                onClick={() => handleFilterChange(cat.id)}
                 className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 border
                   ${
-                    activeFilter === cat.slug
+                    activeFilterId === cat.id
                       ? 'bg-accent text-white border-accent'
                       : 'bg-transparent text-gray-400 border-gray-700 hover:border-accent/50 hover:text-white'
                   }`}
@@ -106,33 +140,41 @@ const Blog = () => {
         </div>
 
         {/* Blog Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {paginatedPosts.length === 0 ? (
-            <div className="col-span-full text-center text-gray-500 py-20">
+        {isErrorPosts ? (
+           <p className="text-center text-red-500 py-20 bg-red-500/10 rounded-2xl">
+              Não foi possível carregar os artigos.
+           </p>
+        ) : isLoadingPosts ? (
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 3 }).map((_, i) => <BlogPostSkeleton key={i} />)}
+           </div>
+        ) : posts.length === 0 ? (
+           <div className="text-center text-gray-500 py-20 border border-white/10 rounded-2xl bg-white/5">
               Nenhum artigo encontrado.
-            </div>
-          ) : (
-            paginatedPosts.map((post) => (
+           </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post) => (
               <div
-                key={post.slug}
+                key={post.id || post.slug}
                 className="bg-[#55555525] rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-accent/20 flex flex-col"
               >
                 {/* Cover Image */}
                 <div className="h-48 w-full bg-gray-700/50 relative overflow-hidden">
-                  <div
-                    style={{
-                      backgroundImage: `url(${post.cover_image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
-                    }}
-                    className="w-full h-full group-hover:scale-110 transition-transform duration-500"
-                  />
+                  {post.cover_image && (
+                     <div
+                        style={{
+                          backgroundImage: `url(${post.cover_image})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center'
+                        }}
+                        className="w-full h-full group-hover:scale-110 transition-transform duration-500"
+                     />
+                  )}
                   {/* Category Badge */}
                   {post.category && (
                     <span
-                      className={`absolute top-3 right-3 text-[10px] font-semibold px-3 py-1 rounded-full border ${
-                        post.category.color ?? 'bg-gray-500/20 text-gray-400'
-                      }`}
+                      className={`absolute top-3 right-3 text-[10px] font-semibold px-3 py-1 rounded-full border bg-black/60 text-white backdrop-blur-sm border-white/10`}
                     >
                       {post.category.name}
                     </span>
@@ -166,15 +208,17 @@ const Blog = () => {
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
                     {/* Author */}
                     <div className="flex items-center gap-2">
-                      {post.author_avatar && (
+                      {post.author_avatar ? (
                         <img
                           src={post.author_avatar}
                           alt={post.author_name ?? ''}
-                          className="w-7 h-7 rounded-full"
+                          className="w-7 h-7 rounded-full object-cover"
                         />
+                      ) : (
+                        <div className="w-7 h-7 rounded-full bg-gray-700" />
                       )}
                       <span className="text-xs text-gray-500">
-                        {post.author_name}
+                        {post.author_name || 'Desconhecido'}
                       </span>
                     </div>
 
@@ -189,16 +233,16 @@ const Blog = () => {
                   </div>
                 </div>
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-4 pt-12 pb-4">
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
+              disabled={currentPage === 1 || isLoadingPosts}
               className="p-2.5 rounded-lg border border-gray-700 text-gray-400 hover:border-accent hover:text-accent transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <HiChevronLeft size={20} />
@@ -210,6 +254,7 @@ const Blog = () => {
                   <button
                      key={page}
                      onClick={() => setCurrentPage(page)}
+                     disabled={isLoadingPosts}
                      className={`w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300
                       ${
                         currentPage === page
@@ -225,7 +270,7 @@ const Blog = () => {
 
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
+              disabled={currentPage === totalPages || isLoadingPosts}
               className="p-2.5 rounded-lg border border-gray-700 text-gray-400 hover:border-accent hover:text-accent transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <HiChevronRight size={20} />
