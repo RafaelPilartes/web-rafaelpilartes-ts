@@ -1,4 +1,11 @@
-import { useState, useEffect, useRef, useCallback, memo, ReactNode } from 'react'
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  memo,
+  ReactNode
+} from 'react'
 import { DataTable, Column } from '@/components/admin/ui/DataTable'
 import { ConfirmDialog } from '@/components/admin/ui/ConfirmDialog'
 import { Plus, Pencil, Trash2, X } from 'lucide-react'
@@ -51,7 +58,14 @@ interface CrudModalProps<T> {
 }
 
 function CrudModalInner<T>({
-  open, editingId, initialData, fields, title, isCreating, onClose, onSubmit,
+  open,
+  editingId,
+  initialData,
+  fields,
+  title,
+  isCreating,
+  onClose,
+  onSubmit
 }: CrudModalProps<T>) {
   // Ref tracks all field values — zero re-renders on keystroke for text/textarea/select/date
   const valuesRef = useRef<Record<string, any>>({})
@@ -66,7 +80,8 @@ function CrudModalInner<T>({
     const rich: Record<string, any> = {}
     fields.forEach(f => {
       if (f.type === 'color' || f.type === 'image') {
-        rich[f.key] = initialData[f.key] ?? (f.type === 'color' ? '#F13024' : '')
+        rich[f.key] =
+          initialData[f.key] ?? (f.type === 'color' ? '#F13024' : '')
       }
     })
     setRichValues(rich)
@@ -74,7 +89,9 @@ function CrudModalInner<T>({
 
   // Close on Escape
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => { if (e.key === 'Escape' && open) onClose() }
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && open) onClose()
+    }
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
   }, [open, onClose])
@@ -82,7 +99,9 @@ function CrudModalInner<T>({
   // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [open])
 
   const handleSubmit = async () => {
@@ -123,15 +142,23 @@ function CrudModalInner<T>({
             <div className="dash-modal" onClick={e => e.stopPropagation()}>
               {/* Header */}
               <div className="dash-modal-header">
-                <h2>{editingId ? `Edit ${entityName}` : `Create ${entityName}`}</h2>
-                <button onClick={onClose} className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm">
+                <h2>
+                  {editingId ? `Edit ${entityName}` : `Create ${entityName}`}
+                </h2>
+                <button
+                  onClick={onClose}
+                  className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm"
+                >
                   <X size={16} />
                 </button>
               </div>
 
               {/* Body — key forces remount of all uncontrolled inputs on session change */}
               <div className="dash-modal-body">
-                <div key={sessionKey} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div
+                  key={sessionKey}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                >
                   {fields.map(field => (
                     <div
                       key={field.key}
@@ -145,7 +172,10 @@ function CrudModalInner<T>({
                           value={richValues[field.key] ?? ''}
                           onChange={val => {
                             valuesRef.current[field.key] = val
-                            setRichValues(prev => ({ ...prev, [field.key]: val }))
+                            setRichValues(prev => ({
+                              ...prev,
+                              [field.key]: val
+                            }))
                           }}
                           bucket="images"
                           path={`crud_${field.key}/`}
@@ -154,7 +184,9 @@ function CrudModalInner<T>({
                         // Uncontrolled — no re-render on keystroke, cursor position preserved
                         <textarea
                           defaultValue={initialData[field.key] ?? ''}
-                          onChange={e => { valuesRef.current[field.key] = e.target.value }}
+                          onChange={e => {
+                            valuesRef.current[field.key] = e.target.value
+                          }}
                           className="dash-textarea"
                           rows={4}
                           placeholder={field.placeholder}
@@ -167,11 +199,17 @@ function CrudModalInner<T>({
                             value={richValues[field.key] ?? '#F13024'}
                             onChange={e => {
                               valuesRef.current[field.key] = e.target.value
-                              setRichValues(prev => ({ ...prev, [field.key]: e.target.value }))
+                              setRichValues(prev => ({
+                                ...prev,
+                                [field.key]: e.target.value
+                              }))
                             }}
                             className="dash-color-input"
                           />
-                          <span className="text-sm" style={{ color: 'var(--dash-text-muted)' }}>
+                          <span
+                            className="text-sm"
+                            style={{ color: 'var(--dash-text-muted)' }}
+                          >
                             {richValues[field.key] ?? '#F13024'}
                           </span>
                         </div>
@@ -179,12 +217,16 @@ function CrudModalInner<T>({
                         // Uncontrolled — defaultValue sets initial selection
                         <select
                           defaultValue={initialData[field.key] ?? ''}
-                          onChange={e => { valuesRef.current[field.key] = e.target.value }}
+                          onChange={e => {
+                            valuesRef.current[field.key] = e.target.value
+                          }}
                           className="dash-select"
                         >
                           <option value="">Select...</option>
                           {field.options?.map(o => (
-                            <option key={o.value} value={o.value}>{o.label}</option>
+                            <option key={o.value} value={o.value}>
+                              {o.label}
+                            </option>
                           ))}
                         </select>
                       ) : (
@@ -192,7 +234,9 @@ function CrudModalInner<T>({
                         <input
                           type={field.type || 'text'}
                           defaultValue={initialData[field.key] ?? ''}
-                          onChange={e => { valuesRef.current[field.key] = e.target.value }}
+                          onChange={e => {
+                            valuesRef.current[field.key] = e.target.value
+                          }}
                           className="dash-input"
                           placeholder={field.placeholder}
                         />
@@ -204,7 +248,10 @@ function CrudModalInner<T>({
 
               {/* Footer */}
               <div className="dash-modal-footer">
-                <button onClick={onClose} className="dash-btn dash-btn-secondary dash-btn-sm">
+                <button
+                  onClick={onClose}
+                  className="dash-btn dash-btn-secondary dash-btn-sm"
+                >
                   Cancel
                 </button>
                 <button
@@ -231,9 +278,24 @@ const CrudModal = memo(CrudModalInner) as typeof CrudModalInner
 // CrudPage — only holds visibility state; formData lives inside CrudModal
 // ---------------------------------------------------------------------------
 export function CrudPage<T extends { id: string }>({
-  title, subtitle, fields, columns, data, total, page, pageSize, loading,
-  searchTerm, onPageChange, onPageSizeChange, onSearchChange, onCreate, onUpdate, onDelete,
-  isCreating, isDeleting
+  title,
+  subtitle,
+  fields,
+  columns,
+  data,
+  total,
+  page,
+  pageSize,
+  loading,
+  searchTerm,
+  onPageChange,
+  onPageSizeChange,
+  onSearchChange,
+  onCreate,
+  onUpdate,
+  onDelete,
+  isCreating,
+  isDeleting
 }: CrudPageProps<T>) {
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -246,32 +308,63 @@ export function CrudPage<T extends { id: string }>({
     setShowForm(false)
   }, [])
 
-  const startEdit = useCallback((item: T) => {
-    const snapshot: Record<string, any> = {}
-    fields.forEach(f => { snapshot[f.key] = (item as any)[f.key] ?? '' })
-    setInitialData(snapshot)
-    setEditingId(item.id)
-    setShowForm(true)
-  }, [fields])
+  const startEdit = useCallback(
+    (item: T) => {
+      const snapshot: Record<string, any> = {}
+      fields.forEach(f => {
+        const value = (item as any)[f.key]
 
-  const handleSubmit = useCallback(async (formData: Record<string, any>) => {
-    if (editingId) {
-      await onUpdate(editingId, formData)
-    } else {
-      await onCreate(formData)
-    }
-    resetForm()
-  }, [editingId, onUpdate, onCreate, resetForm])
+        // (thumbnail: { url }, description: { raw, text })
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+          if (value.url) snapshot[f.key] = value.url
+          else if (value.raw) snapshot[f.key] = value.raw
+          else if (value.text) snapshot[f.key] = value.text
+          else snapshot[f.key] = value
+        } else {
+          snapshot[f.key] = value ?? ''
+        }
+      })
+      setInitialData(snapshot)
+      setEditingId(item.id)
+      setShowForm(true)
+    },
+    [fields]
+  )
+
+  const handleSubmit = useCallback(
+    async (formData: Record<string, any>) => {
+      if (editingId) {
+        await onUpdate(editingId, formData)
+      } else {
+        await onCreate(formData)
+      }
+      resetForm()
+    },
+    [editingId, onUpdate, onCreate, resetForm]
+  )
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold" style={{ color: 'var(--dash-text)' }}>{title}</h1>
-          <p className="text-sm mt-1" style={{ color: 'var(--dash-text-muted)' }}>{subtitle}</p>
+          <h1
+            className="text-xl font-bold"
+            style={{ color: 'var(--dash-text)' }}
+          >
+            {title}
+          </h1>
+          <p
+            className="text-sm mt-1"
+            style={{ color: 'var(--dash-text-muted)' }}
+          >
+            {subtitle}
+          </p>
         </div>
         <button
-          onClick={() => { resetForm(); setShowForm(true) }}
+          onClick={() => {
+            resetForm()
+            setShowForm(true)
+          }}
           className="dash-btn dash-btn-primary dash-btn-sm"
         >
           <Plus size={16} /> Add New
@@ -302,10 +395,19 @@ export function CrudPage<T extends { id: string }>({
         loading={loading}
         actions={item => (
           <>
-            <button onClick={() => startEdit(item)} className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm" title="Editar">
+            <button
+              onClick={() => startEdit(item)}
+              className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm"
+              title="Editar"
+            >
               <Pencil size={14} />
             </button>
-            <button onClick={() => setDeleteTarget(item.id)} className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm" title="Apagar" style={{ color: 'var(--dash-danger)' }}>
+            <button
+              onClick={() => setDeleteTarget(item.id)}
+              className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm"
+              title="Apagar"
+              style={{ color: 'var(--dash-danger)' }}
+            >
               <Trash2 size={14} />
             </button>
           </>
@@ -317,7 +419,12 @@ export function CrudPage<T extends { id: string }>({
         title={`Delete ${title.replace(/s$/, '')}`}
         message="This action cannot be undone. Are you sure?"
         confirmLabel="Delete"
-        onConfirm={async () => { if (deleteTarget) { await onDelete(deleteTarget); setDeleteTarget(null) } }}
+        onConfirm={async () => {
+          if (deleteTarget) {
+            await onDelete(deleteTarget)
+            setDeleteTarget(null)
+          }
+        }}
         onCancel={() => setDeleteTarget(null)}
         loading={isDeleting}
       />
