@@ -1,8 +1,6 @@
 import { ProjectEntity } from '@/core/entities/portfolio/ProjectEntity'
-import { projectCategoryLabels } from '@/core/mocks/projectsMock'
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2'
 import { TbBrandGithub } from 'react-icons/tb'
-import { HiOutlineTrendingUp } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 
 type ProjectCardProps = {
