@@ -1,9 +1,11 @@
 import { SectionTitle } from '../../../../components/main/SectionTitle'
 import { ButtonBase } from '../../../../components/main/ButtonBase'
 import { useProjectViewModel } from '@/viewModels/project.viewmodel'
+import { useNavigate, Link } from 'react-router-dom'
 import { Skeleton } from '../../ui/Skeleton'
 
 export const HomeProjects = () => {
+  const navigate = useNavigate()
   const { getAllProjects } = useProjectViewModel()
   const { data: response, isLoading, isError } = getAllProjects(3) // Top 3
 
@@ -27,7 +29,7 @@ export const HomeProjects = () => {
               meu compromisso com a excelência e criatividade. Seja o próximo
               sucesso nesta jornada!!
             </p>
-            <ButtonBase onClick={() => (window.location.href = '/work')}>
+            <ButtonBase onClick={() => navigate('/works')}>
               Ver todos os projetos
             </ButtonBase>
           </div>
@@ -36,8 +38,8 @@ export const HomeProjects = () => {
           {isLoading ? (
             <Skeleton className="flex-1 h-[400px] w-full rounded-xl" />
           ) : projects[0] ? (
-            <a
-              href={`/work/${projects[0].slug}`}
+            <Link
+              to={`/works/details/${projects[0].id}/${projects[0].slug}`}
               className="flex-1 group relative overflow-hidden border-2 border-white/50 rounded-xl min-h-[300px]"
             >
               {/* Overlay */}
@@ -62,7 +64,7 @@ export const HomeProjects = () => {
               <div className="absolute -bottom-full left-12 group-hover:bottom-14 transition-all duration-700 z-50">
                 <span className="text-3xl text-white">{projects[0].title}</span>
               </div>
-            </a>
+            </Link>
           ) : (
             <div className="flex-1 border-2 border-white/10 rounded-xl flex items-center justify-center p-8 text-center text-white/50 bg-white/5">
               Mais projetos em breve
@@ -84,9 +86,9 @@ export const HomeProjects = () => {
                 if (!project) return null
                 
                 return (
-                  <a
+                  <Link
                     key={project.id}
-                    href={`/work/${project.slug}`}
+                    to={`/works/details/${project.id}/${project.slug}`}
                     className="group relative overflow-hidden border-2 border-white/50 rounded-xl flex-1 min-h-[250px]"
                   >
                     {/* Overlay */}
@@ -111,7 +113,7 @@ export const HomeProjects = () => {
                     <div className="absolute -bottom-full left-12 group-hover:bottom-14 transition-all duration-700 z-50">
                       <span className="text-3xl text-white">{project.title}</span>
                     </div>
-                  </a>
+                  </Link>
                 )
               })}
             </>
