@@ -1,1 +1,65 @@
-{}
+{
+  "subtitle": "sobre mim",
+  "title": "Conheça a Minha História",
+  "description": "Sou um desenvolvedor apaixonado pela arte de transformar problemas complexos em soluções simples, acessíveis e elegantes através do código.",
+  "hero": {
+    "heading_1": "Transformando",
+    "heading_accent": "ideias",
+    "heading_2": "em código para a realidade.",
+    "body": "Sou um programador movido por desafios e pela arte de criar. Com sólida experiência em diversas tecnologias front-end e mobile, estou sempre em busca da excelência técnica, de novas tendências no design de interfaces e das melhores práticas de desenvolvimento para criar soluções que tragam impacto directo ao usuário."
+  },
+  "stats": {
+    "years": "Anos de experiência",
+    "clients": "Clientes satisfeitos",
+    "projects": "Projectos entregues"
+  },
+  "tabs": {
+    "experience": "Experiência",
+    "skills": "Competências",
+    "certificates": "Certificados"
+  },
+  "experience": {
+    "heading": "Trajetória Profissional",
+    "empty": "Nenhuma experiência registada ainda.",
+    "present": "Presente",
+    "company_logo_alt": "Logo da empresa {{name}}",
+    "duration": {
+      "year_one": "{{count}} ano",
+      "year_other": "{{count}} anos",
+      "month_one": "{{count}} mês",
+      "month_other": "{{count}} meses",
+      "and": "e"
+    }
+  },
+  "certificates": {
+    "heading": "Educação e Certificados",
+    "empty": "Nenhum certificado registado ainda.",
+    "view_credential": "Ver Credencial"
+  },
+  "skills": {
+    "frontend": {
+      "title": "Frontend Development",
+      "description": "Criação de interfaces modernas e responsivas."
+    },
+    "backend": {
+      "title": "Backend Development",
+      "description": "Desenvolvimento de APIs robustas e banco de dados."
+    },
+    "mobile": {
+      "title": "Mobile Development",
+      "description": "Aplicações nativas e multiplataforma de alta performance."
+    },
+    "desktop": {
+      "title": "Desktop Development",
+      "description": "Soluções rápidas e completas para o ambiente desktop."
+    },
+    "uiux": {
+      "title": "UI/UX Design",
+      "description": "Protótipos elegantes focados na experiência do usuário."
+    },
+    "tools": {
+      "title": "Ferramentas",
+      "description": "Tecnologias cruciais para organização e produtividade."
+    }
+  }
+}

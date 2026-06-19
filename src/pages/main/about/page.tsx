@@ -24,6 +24,7 @@ import {
 } from 'react-icons/si'
 import { BiLogoVisualStudio } from 'react-icons/bi'
 import { HiAcademicCap, HiStar } from 'react-icons/hi2'
+import { useTranslation } from 'react-i18next'
 
 import Circles from '../../../components/main/Circles'
 import { ExperienceItem } from '../../../components/main/page/AboutExperienceItem'
@@ -33,96 +34,48 @@ import { useWorkExperienceViewModel } from '@/viewModels/work-experience.viewmod
 import { useCertificateViewModel } from '@/viewModels/certificate.viewmodel'
 import { Skeleton } from '../../../components/main/ui/Skeleton'
 
-// -- Static Data for Skills --
-const skillsData = [
-  {
-    title: 'Frontend Development',
-    description: 'Criação de interfaces modernas e responsivas.',
-    items: [
-      { name: 'React', icon: <FaReact className="text-[#61DAFB]" /> },
-      { name: 'Next.js', icon: <SiNextdotjs className="text-white" /> },
-      { name: 'TypeScript', icon: <SiTypescript className="text-[#3178C6]" /> },
-      {
-        name: 'Tailwind CSS',
-        icon: <SiTailwindcss className="text-[#06B6D4]" />
-      },
-      { name: 'WordPress', icon: <FaWordpress className="text-[#21759B]" /> }
-    ]
-  },
-  {
-    title: 'Backend Development',
-    description: 'Desenvolvimento de APIs robustas e banco de dados.',
-    items: [
-      { name: 'Node.js', icon: <SiNodedotjs className="text-[#339933]" /> },
-      { name: 'PHP', icon: <SiPhp className="text-[#777BB4]" /> },
-      { name: 'Python', icon: <SiPython className="text-[#3776AB]" /> },
-      { name: 'PostgreSQL', icon: <SiPostgresql className="text-[#4169E1]" /> },
-      { name: 'MongoDB', icon: <SiMongodb className="text-[#47A248]" /> }
-    ]
-  },
-  {
-    title: 'Mobile Development',
-    description: 'Aplicações nativas e multiplataforma de alta performance.',
-    items: [
-      { name: 'React Native', icon: <FaReact className="text-[#61DAFB]" /> },
-      { name: 'Kotlin', icon: <SiKotlin className="text-[#7F52FF]" /> },
-      { name: 'Swift', icon: <SiSwift className="text-[#F05138]" /> }
-    ]
-  },
-  {
-    title: 'Desktop Development',
-    description: 'Soluções rápidas e completas para o ambiente desktop.',
-    items: [
-      { name: 'Electron', icon: <SiElectron className="text-[#47848F]" /> }
-    ]
-  },
-  {
-    title: 'UI/UX Design',
-    description: 'Protótipos elegantes focados na experiência do usuário.',
-    items: [
-      { name: 'Figma', icon: <FaFigma className="text-[#F24E1E]" /> },
-      { name: 'Adobe XD', icon: <SiAdobexd className="text-[#FF61F6]" /> },
-      {
-        name: 'Photoshop',
-        icon: <SiAdobephotoshop className="text-[#31A8FF]" />
-      }
-    ]
-  },
-  {
-    title: 'Ferramentas',
-    description: 'Tecnologias cruciais para organização e produtividade.',
-    items: [
-      { name: 'GitHub', icon: <SiGithub className="text-white" /> },
-      { name: 'Discord', icon: <SiDiscord className="text-[#5865F2]" /> },
-      {
-        name: 'VS Code',
-        icon: <BiLogoVisualStudio className="text-[#007ACC]" />
-      },
-      { name: 'Docker', icon: <SiDocker className="text-[#2496ED]" /> },
-      { name: 'Insomnia', icon: <SiInsomnia className="text-[#5849BE]" /> },
-      { name: 'Trello', icon: <SiTrello className="text-[#0079BF]" /> },
-      { name: 'Vercel', icon: <SiVercel className="text-white" /> }
-    ]
-  }
+// -- Static icon lists (no text) --
+const frontendItems = [
+  { name: 'React', icon: <FaReact className="text-[#61DAFB]" /> },
+  { name: 'Next.js', icon: <SiNextdotjs className="text-white" /> },
+  { name: 'TypeScript', icon: <SiTypescript className="text-[#3178C6]" /> },
+  { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-[#06B6D4]" /> },
+  { name: 'WordPress', icon: <FaWordpress className="text-[#21759B]" /> }
+]
+const backendItems = [
+  { name: 'Node.js', icon: <SiNodedotjs className="text-[#339933]" /> },
+  { name: 'PHP', icon: <SiPhp className="text-[#777BB4]" /> },
+  { name: 'Python', icon: <SiPython className="text-[#3776AB]" /> },
+  { name: 'PostgreSQL', icon: <SiPostgresql className="text-[#4169E1]" /> },
+  { name: 'MongoDB', icon: <SiMongodb className="text-[#47A248]" /> }
+]
+const mobileItems = [
+  { name: 'React Native', icon: <FaReact className="text-[#61DAFB]" /> },
+  { name: 'Kotlin', icon: <SiKotlin className="text-[#7F52FF]" /> },
+  { name: 'Swift', icon: <SiSwift className="text-[#F05138]" /> }
+]
+const desktopItems = [
+  { name: 'Electron', icon: <SiElectron className="text-[#47848F]" /> }
+]
+const uiuxItems = [
+  { name: 'Figma', icon: <FaFigma className="text-[#F24E1E]" /> },
+  { name: 'Adobe XD', icon: <SiAdobexd className="text-[#FF61F6]" /> },
+  { name: 'Photoshop', icon: <SiAdobephotoshop className="text-[#31A8FF]" /> }
+]
+const toolsItems = [
+  { name: 'GitHub', icon: <SiGithub className="text-white" /> },
+  { name: 'Discord', icon: <SiDiscord className="text-[#5865F2]" /> },
+  { name: 'VS Code', icon: <BiLogoVisualStudio className="text-[#007ACC]" /> },
+  { name: 'Docker', icon: <SiDocker className="text-[#2496ED]" /> },
+  { name: 'Insomnia', icon: <SiInsomnia className="text-[#5849BE]" /> },
+  { name: 'Trello', icon: <SiTrello className="text-[#0079BF]" /> },
+  { name: 'Vercel', icon: <SiVercel className="text-white" /> }
 ]
 
-const stats = [
-  { label: 'Anos de experiência', value: '3+' },
-  { label: 'Clientes satisfeitos', value: '18+' },
-  { label: 'Projectos entregues', value: '24+' }
-]
-
-const introductionData = {
-  subtitle: 'sobre mim',
-  title: 'Conheça a Minha História',
-  description:
-    'Sou um desenvolvedor apaixonado pela arte de transformar problemas complexos em soluções simples, acessíveis e elegantes através do código.'
-}
-
-const TABS = ['Experience', 'Skills', 'Certificates'] as const
-type TabType = (typeof TABS)[number]
+const statsValues = ['3+', '18+', '24+']
 
 const ExperienceTabWrapper = () => {
+  const { t } = useTranslation('about')
   const { getAllExperiences } = useWorkExperienceViewModel()
   const { data: response, isLoading } = getAllExperiences()
   const experiences = response?.data || []
@@ -140,7 +93,7 @@ const ExperienceTabWrapper = () => {
         <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
           <HiStar size={20} />
         </div>
-        <h3 className="text-2xl font-bold text-white">Trajetória Profissional</h3>
+        <h3 className="text-2xl font-bold text-white">{t('experience.heading')}</h3>
       </div>
 
       {isLoading ? (
@@ -152,7 +105,7 @@ const ExperienceTabWrapper = () => {
                  <Skeleton className="w-4 h-4 rounded-full" />
                  <Skeleton className="w-1 h-32 mt-2" />
                </div>
-               
+
                {/* Card Skeleton */}
                <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col gap-3">
                  <Skeleton className="w-24 h-5 rounded-md" /> {/* date */}
@@ -169,7 +122,7 @@ const ExperienceTabWrapper = () => {
         ))
       ) : (
         <div className="text-center text-white/50 p-6 border border-white/10 rounded-2xl bg-white/5 w-full">
-           Nenhuma experiência registada ainda.
+           {t('experience.empty')}
         </div>
       )}
     </motion.div>
@@ -177,6 +130,7 @@ const ExperienceTabWrapper = () => {
 }
 
 const CertificatesTabWrapper = () => {
+  const { t } = useTranslation('about')
   const { getAllCertificates } = useCertificateViewModel()
   const { data: response, isLoading } = getAllCertificates()
   const certificates = response?.data || []
@@ -194,9 +148,9 @@ const CertificatesTabWrapper = () => {
         <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
           <HiAcademicCap size={22} />
         </div>
-        <h3 className="text-2xl font-bold text-white">Educação e Certificados</h3>
+        <h3 className="text-2xl font-bold text-white">{t('certificates.heading')}</h3>
       </div>
-      
+
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           {Array.from({ length: 4 }).map((_, idx) => (
@@ -215,7 +169,7 @@ const CertificatesTabWrapper = () => {
         ))
       ) : (
         <div className="text-center text-white/50 p-6 border border-white/10 rounded-2xl bg-white/5 w-full">
-          Nenhum certificado registado ainda.
+          {t('certificates.empty')}
         </div>
       )}
     </motion.div>
@@ -224,7 +178,8 @@ const CertificatesTabWrapper = () => {
 
 
 const About = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('Experience')
+  const { t } = useTranslation('about')
+  const [activeTab, setActiveTab] = useState<string>('Experience')
 
   useEffect(() => {
     const hash = window.location.hash.toLowerCase()
@@ -232,6 +187,57 @@ const About = () => {
     else if (hash === '#certificates') setActiveTab('Certificates')
     else if (hash === '#experience') setActiveTab('Experience')
   }, [])
+
+  const skillsData = [
+    {
+      title: t('skills.frontend.title'),
+      description: t('skills.frontend.description'),
+      items: frontendItems
+    },
+    {
+      title: t('skills.backend.title'),
+      description: t('skills.backend.description'),
+      items: backendItems
+    },
+    {
+      title: t('skills.mobile.title'),
+      description: t('skills.mobile.description'),
+      items: mobileItems
+    },
+    {
+      title: t('skills.desktop.title'),
+      description: t('skills.desktop.description'),
+      items: desktopItems
+    },
+    {
+      title: t('skills.uiux.title'),
+      description: t('skills.uiux.description'),
+      items: uiuxItems
+    },
+    {
+      title: t('skills.tools.title'),
+      description: t('skills.tools.description'),
+      items: toolsItems
+    }
+  ]
+
+  const stats = [
+    { label: t('stats.years'), value: statsValues[0] },
+    { label: t('stats.clients'), value: statsValues[1] },
+    { label: t('stats.projects'), value: statsValues[2] }
+  ]
+
+  const TABS = [
+    { key: 'Experience', label: t('tabs.experience') },
+    { key: 'Skills', label: t('tabs.skills') },
+    { key: 'Certificates', label: t('tabs.certificates') }
+  ]
+
+  const introductionData = {
+    subtitle: t('subtitle'),
+    title: t('title'),
+    description: t('description')
+  }
 
   return (
     <main className="flex flex-col gap-6 items-center justify-center pb-20">
@@ -250,15 +256,11 @@ const About = () => {
             className="flex-1 text-center lg:text-left"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-              Transformando <span className="text-accent">ideias</span> em
-              código para a realidade.
+              {t('hero.heading_1')} <span className="text-accent">{t('hero.heading_accent')}</span>{' '}
+              {t('hero.heading_2')}
             </h2>
             <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
-              Sou um programador movido por desafios e pela arte de criar. Com
-              sólida experiência em diversas tecnologias front-end e mobile,
-              estou sempre em busca da excelência técnica, de novas tendências
-              no design de interfaces e das melhores práticas de desenvolvimento
-              para criar soluções que tragam impacto directo ao usuário.
+              {t('hero.body')}
             </p>
           </motion.div>
 
@@ -290,23 +292,23 @@ const About = () => {
           <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
             {TABS.map(tab => (
               <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
                 className={`relative px-6 py-3 rounded-full text-sm sm:text-base font-medium transition-all duration-300
                   ${
-                    activeTab === tab
+                    activeTab === tab.key
                       ? 'text-white'
                       : 'text-gray-400 hover:text-white bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06]'
                   }`}
               >
-                {activeTab === tab && (
+                {activeTab === tab.key && (
                   <motion.div
                     layoutId="active-tab"
                     className="absolute inset-0 bg-accent rounded-full -z-10 shadow-lg shadow-accent/25"
                     transition={{ type: 'spring', duration: 0.6 }}
                   />
                 )}
-                {tab}
+                {tab.label}
               </button>
             ))}
           </div>
