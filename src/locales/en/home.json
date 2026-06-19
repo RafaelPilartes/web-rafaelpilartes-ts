@@ -1,1 +1,35 @@
-{}
+{
+  "hero": {
+    "titleLine1": "Solutions to grow",
+    "titleLine2": "your",
+    "rotating": ["Business!", "Startup", "Brand"],
+    "subtitle": "I believe in the power of ideas and technology's ability to make them real. With skill and creativity, I build tailor-made digital solutions aligned with each client's needs and goals.",
+    "contactCta": "Get in touch",
+    "downloadCv": "Download CV"
+  },
+  "about": {
+    "badge": "Full-Stack Developer",
+    "headingLine1": "Crafting Digital",
+    "headingLine2": "Experiences That",
+    "headingAccent": "Matter",
+    "paragraph1": "I'm a passionate React developer with 3+ years of experience building scalable, high-performance web applications. I specialize in crafting intuitive interfaces that combine beautiful design with exceptional functionality.",
+    "paragraph2": "When I'm not coding, you'll find me contributing to open-source projects, writing technical articles, or exploring new design trends.",
+    "highlights": {
+      "expertiseTitle": "Expertise",
+      "expertiseDesc": "Specialized in building scalable web applications with modern technologies and best practices.",
+      "cleanCodeTitle": "Clean Code",
+      "cleanCodeDesc": "Writing maintainable, well-documented code that scales.",
+      "performanceTitle": "Performance",
+      "performanceDesc": "Optimizing speed and efficiency in every project."
+    },
+    "stats": {
+      "happyClients": "Happy Clients",
+      "codeCommits": "Code Commits",
+      "githubStars": "GitHub Stars",
+      "clientSatisfaction": "Client Satisfaction",
+      "supportAvailable": "Support Available",
+      "deliveryTime": "Delivery Time",
+      "fast": "Fast"
+    }
+  }
+}

@@ -1,1 +1,35 @@
-{}
+{
+  "hero": {
+    "titleLine1": "Soluções para fazer",
+    "titleLine2": "crescer",
+    "rotating": ["seu Negócio!", "sua Startup", "sua Imagem"],
+    "subtitle": "Acredito no poder das ideias e na capacidade da tecnologia de torná-las realidade. Com habilidade e criatividade, desenvolvo soluções digitais sob medida, alinhadas às necessidades e objetivos de cada cliente.",
+    "contactCta": "Entre em contato",
+    "downloadCv": "Baixar Currículo"
+  },
+  "about": {
+    "badge": "Full-Stack Developer",
+    "headingLine1": "Crafting Digital",
+    "headingLine2": "Experiences That",
+    "headingAccent": "Matter",
+    "paragraph1": "Sou um desenvolvedor React apaixonado com mais de 3 anos de experiência na construção de aplicações web escaláveis e performáticas. Especializo-me em criar interfaces intuitivas que combinam design bonito com funcionalidade excepcional.",
+    "paragraph2": "Quando não estou a programar, encontras-me a contribuir para projectos open-source, a escrever artigos técnicos ou a explorar novas tendências de design.",
+    "highlights": {
+      "expertiseTitle": "Expertise",
+      "expertiseDesc": "Especializado em construir aplicações web escaláveis com tecnologias modernas e melhores práticas.",
+      "cleanCodeTitle": "Clean Code",
+      "cleanCodeDesc": "Escrevendo código mantível e bem-documentado que escala.",
+      "performanceTitle": "Performance",
+      "performanceDesc": "Optimizando velocidade e eficiência em cada projeto."
+    },
+    "stats": {
+      "happyClients": "Clientes Satisfeitos",
+      "codeCommits": "Commits de Código",
+      "githubStars": "GitHub Stars",
+      "clientSatisfaction": "Satisfação do Cliente",
+      "supportAvailable": "Suporte Disponível",
+      "deliveryTime": "Tempo de Entrega",
+      "fast": "Rápido"
+    }
+  }
+}
