@@ -31,5 +31,41 @@
       "deliveryTime": "Delivery Time",
       "fast": "Fast"
     }
+  },
+  "quality": {
+    "subtitle": "what sets me apart?",
+    "title": "My Qualities",
+    "description": "I am known for my passion, dedication and commitment to every project. My skills allow me to embrace complex challenges and find creative solutions to overcome them. Together with a collaborative approach, this ensures exceptional results for my clients and partners."
+  },
+  "knownTechs": {
+    "subtitle": "skills",
+    "title": "Knowledge",
+    "empty": "No skills registered yet."
+  },
+  "services": {
+    "badge": "what I offer",
+    "title": "Built to innovate. Designed for results.",
+    "titleAccent": "results.",
+    "titlePrefix": "Built to innovate. Designed for",
+    "subtitle": "Complete solutions to turn your ideas into exceptional digital experiences.",
+    "viewAll": "View all services",
+    "empty": "Services being updated"
+  },
+  "projects": {
+    "subtitle": "projects",
+    "sectionTitle": "Check out my",
+    "heading": "Latest projects.",
+    "description": "Explore the gallery of inspiring projects. Each work reflects my commitment to excellence and creativity. Be the next success story on this journey!",
+    "viewAll": "View all projects",
+    "comingSoon": "More projects coming soon"
+  },
+  "customers": {
+    "subtitle": "clients",
+    "title": "Partners & Clients",
+    "empty": "No partners registered"
+  },
+  "testimonials": {
+    "subtitle": "testimonials",
+    "title": "What clients say"
   }
 }

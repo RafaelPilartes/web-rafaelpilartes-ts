@@ -31,5 +31,41 @@
       "deliveryTime": "Tempo de Entrega",
       "fast": "Rápido"
     }
+  },
+  "quality": {
+    "subtitle": "o que me diferencia?",
+    "title": "Minhas Qualidades",
+    "description": "Sou conhecido por minha paixão, dedicação e comprometimento com cada projeto. Minhas habilidades permitem abraçar desafios complexos e encontrar soluções criativas para superá-los. Juntamente com uma abordagem colaborativa, garante resultados excepcionais para meus clientes e parceiros."
+  },
+  "knownTechs": {
+    "subtitle": "competências",
+    "title": "Conhecimentos",
+    "empty": "Nenhuma competência registada ainda."
+  },
+  "services": {
+    "badge": "o que eu ofereço",
+    "title": "Feito para inovar. Projetado para resultados.",
+    "titleAccent": "resultados.",
+    "titlePrefix": "Feito para inovar. Projetado para",
+    "subtitle": "Soluções completas para transformar as suas ideias em experiências digitais excepcionais.",
+    "viewAll": "Ver todos os serviços",
+    "empty": "Serviços em atualização"
+  },
+  "projects": {
+    "subtitle": "projetos",
+    "sectionTitle": "Veja os meus",
+    "heading": "Últimos projetos.",
+    "description": "Explore a galeria de projetos inspiradores. Cada trabalho reflete meu compromisso com a excelência e criatividade. Seja o próximo sucesso nesta jornada!",
+    "viewAll": "Ver todos os projetos",
+    "comingSoon": "Mais projetos em breve"
+  },
+  "customers": {
+    "subtitle": "clientes",
+    "title": "Parceiros e clientes",
+    "empty": "Nenhum parceiro registado"
+  },
+  "testimonials": {
+    "subtitle": "testemunhos",
+    "title": "O que os clientes dizem"
   }
 }

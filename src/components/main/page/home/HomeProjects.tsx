@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '../../../../components/main/SectionTitle'
 import { ButtonBase } from '../../../../components/main/ButtonBase'
 import { useProjectViewModel } from '@/viewModels/project.viewmodel'
@@ -5,32 +6,31 @@ import { useNavigate, Link } from 'react-router-dom'
 import { Skeleton } from '../../ui/Skeleton'
 
 export const HomeProjects = () => {
+  const { t } = useTranslation('home')
   const navigate = useNavigate()
   const { getAllProjects } = useProjectViewModel()
   const { data: response, isLoading, isError } = getAllProjects(3) // Top 3
 
   const projects = response?.data || [] // Assuming response shape is { data: ProjectEntity[] }
-  
+
   if (isError) {
     return null // Esconde a secção se falhar
   }
 
   return (
     <section id="projects" className="container relative py-16">
-      <SectionTitle subtitle="projetos" title="Veja os meus" />
-      
+      <SectionTitle subtitle={t('projects.subtitle')} title={t('projects.sectionTitle')} />
+
       <div className="flex flex-col lg:flex-row gap-x-10 mt-10">
         <div className="flex-1 flex flex-col gap-y-12 mb-10 lg:mb-0 ">
           {/* Text */}
           <div className="flex-1">
-            <h2 className="h2 leading-tight text-accent">Últimos projetos.</h2>
+            <h2 className="h2 leading-tight text-accent">{t('projects.heading')}</h2>
             <p className="max-w-lg mb-6 mt-6">
-              Explore a galeria de projetos inspiradores. Cada trabalho reflete
-              meu compromisso com a excelência e criatividade. Seja o próximo
-              sucesso nesta jornada!!
+              {t('projects.description')}
             </p>
             <ButtonBase onClick={() => navigate('/works')}>
-              Ver todos os projetos
+              {t('projects.viewAll')}
             </ButtonBase>
           </div>
 
@@ -53,7 +53,7 @@ export const HomeProjects = () => {
                 alt={projects[0].title}
                 className="w-full h-full object-cover group-hover:scale-125 transition-all duration-500"
               />
-              
+
               {/* Category */}
               <div className="absolute -bottom-full left-12 group-hover:bottom-24 transition-all duration-500 z-50">
                 <span className="text-[1.3rem] text-accent font-semibold">
@@ -67,7 +67,7 @@ export const HomeProjects = () => {
             </Link>
           ) : (
             <div className="flex-1 border-2 border-white/10 rounded-xl flex items-center justify-center p-8 text-center text-white/50 bg-white/5">
-              Mais projetos em breve
+              {t('projects.comingSoon')}
             </div>
           )}
         </div>
@@ -84,7 +84,7 @@ export const HomeProjects = () => {
               {[1, 2].map((index) => {
                 const project = projects[index]
                 if (!project) return null
-                
+
                 return (
                   <Link
                     key={project.id}
@@ -102,7 +102,7 @@ export const HomeProjects = () => {
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-125 transition-all duration-500"
                     />
-                    
+
                     {/* Category */}
                     <div className="absolute -bottom-full left-12 group-hover:bottom-24 transition-all duration-500 z-50">
                       <span className="text-[1.3rem] text-accent font-semibold capitalize">

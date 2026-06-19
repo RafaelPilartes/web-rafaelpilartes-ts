@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { KnownTech } from '../../../../components/main/KnownTech'
 import { SectionTitle } from '../../../../components/main/SectionTitle'
 import { useTechnologyViewModel } from '@/viewModels/technology.viewmodel'
 import { Skeleton } from '../../ui/Skeleton'
 
 export const HomeKnownTechs = () => {
+  const { t } = useTranslation('home')
   const { getAllTechnologies } = useTechnologyViewModel()
   const { data: response, isLoading, isError } = getAllTechnologies(8)
 
@@ -14,7 +16,7 @@ export const HomeKnownTechs = () => {
 
   return (
     <section id="skills" className="container py-16">
-      <SectionTitle subtitle="competências" title="Conhecimentos" />
+      <SectionTitle subtitle={t('knownTechs.subtitle')} title={t('knownTechs.title')} />
       <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(264px,1fr))] gap-x-4 gap-y-6 mt-[60px]">
         {isLoading ? (
           Array.from({ length: 6 }).map((_, idx) => (
@@ -43,7 +45,7 @@ export const HomeKnownTechs = () => {
           ))
         ) : (
           <div className="col-span-full border border-white/10 p-10 text-center rounded-xl bg-white/5 text-white/50">
-            Nenhuma competência registada ainda.
+            {t('knownTechs.empty')}
           </div>
         )}
       </div>
