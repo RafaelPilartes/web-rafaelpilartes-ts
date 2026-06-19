@@ -7,11 +7,13 @@ type PageIntroductionProps = {
   subtitle: string
   title: string
   description: string
+  backLabel?: string
 }
 export const PageIntroduction = ({
   subtitle,
   title,
-  description
+  description,
+  backLabel = 'Voltar para Home'
 }: PageIntroductionProps) => {
   return (
     <section className="relative overflow-hidden w-full py-28 md:py-36 flex flex-col items-center justify-center px-2">
@@ -35,7 +37,7 @@ export const PageIntroduction = ({
           className="hover:text-accent transition-all duration-300"
         >
           <HiArrowNarrowLeft size={20} />
-          Voltar para Home
+          {backLabel}
         </LinkSimple>
       </motion.div>
 
