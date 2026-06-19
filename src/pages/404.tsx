@@ -1,11 +1,4 @@
-import Aos from 'aos'
-import { useEffect } from 'react'
-
 function FourOhFour() {
-  useEffect(() => {
-    Aos.init({ duration: 1500 })
-  }, [])
-
   return (
     <>
       <div className="w-full py-12 px-6 flex flex-col items-center justify-center gap-6 text-center ">
