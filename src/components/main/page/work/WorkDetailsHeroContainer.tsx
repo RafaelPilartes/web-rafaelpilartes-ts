@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { ProjectEntity } from '@/core/entities/portfolio/ProjectEntity'
 import { TechBadge } from '../../TechBadge'
 import { techBadgeAnimation } from '../../../../lib/animations'
@@ -13,6 +14,8 @@ type ProjectDetailsProps = {
 }
 
 export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
+  const { t } = useTranslation('work')
+
   return (
     <section className="w-full h-screen flex flex-col items-center justify-end relative overflow-hidden bg-gradient-to-r from-primary/10 via-black/30 z-[1] ">
       {/* Text */}
@@ -77,7 +80,7 @@ export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
             <a href={project.github_url} target="_blank" rel="noreferrer">
               <ButtonCenterHoverReverse className="min-w-[180px]">
                 <TbBrandGithub size={20} />
-                Repositório
+                {t('details.repository')}
               </ButtonCenterHoverReverse>
             </a>
           )}
@@ -85,7 +88,7 @@ export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
             <a href={project.live_project_url} target="_blank" rel="noreferrer">
               <ButtonCenterHover className="min-w-[180px]">
                 <FiGlobe size={20} />
-                Projeto Online
+                {t('details.liveProject')}
               </ButtonCenterHover>
             </a>
           )}

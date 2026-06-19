@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { ProjectEntity } from '@/core/entities/portfolio/ProjectEntity'
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2'
 import { TbBrandGithub } from 'react-icons/tb'
@@ -9,6 +10,7 @@ type ProjectCardProps = {
 }
 
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
+  const { t } = useTranslation('work')
   const isReversed = index % 2 !== 0
   const projectNumber = (index + 1).toString().padStart(2, '0')
 
@@ -33,7 +35,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               {projectNumber}.
             </span>
             <span className="text-accent text-xs font-mono tracking-widest uppercase">
-              Projeto em Destaque
+              {t('featured')}
             </span>
           </div>
 
@@ -89,7 +91,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                 target="_blank"
                 rel="noreferrer"
                 className="text-gray-400 hover:text-accent transition-colors hover:-translate-y-1"
-                title="Site ao Vivo"
+                title={t('livesite')}
               >
                 <HiArrowTopRightOnSquare size={22} />
               </a>
