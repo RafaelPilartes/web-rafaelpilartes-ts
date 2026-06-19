@@ -28,6 +28,9 @@ const BlogCategoriesPage = React.lazy(
 const AdminProjectsPage = React.lazy(
   () => import('@/pages/admin/portfolio/projects')
 )
+const AdminProjectFormPage = React.lazy(
+  () => import('@/pages/admin/portfolio/project-form')
+)
 const TechnologiesPage = React.lazy(
   () => import('@/pages/admin/portfolio/technologies')
 )
@@ -215,6 +218,22 @@ export function Router() {
             element={
               <React.Suspense fallback={<AdminLoading />}>
                 <AdminProjectsPage />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="projects/new"
+            element={
+              <React.Suspense fallback={<AdminLoading />}>
+                <AdminProjectFormPage />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="projects/:id/edit"
+            element={
+              <React.Suspense fallback={<AdminLoading />}>
+                <AdminProjectFormPage />
               </React.Suspense>
             }
           />

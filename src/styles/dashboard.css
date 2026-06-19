@@ -1,23 +1,38 @@
 /* ========================================
-   Dashboard Design System
-   Dark elegante + Poppins + accent red
+   Dashboard Design System — Rafael CMS
+   Dark, refined. Poppins UI + accent red.
+   Single source of truth for all admin pages.
    ======================================== */
 
-/* Design Tokens */
+/* ----------------------------------------
+   Design Tokens
+   ---------------------------------------- */
 :root {
-  --dash-bg: #0a0b14;
-  --dash-surface: #12131f;
-  --dash-surface-hover: #1a1b2e;
-  --dash-surface-active: #22233a;
-  --dash-border: rgba(255, 255, 255, 0.12);
-  --dash-border-hover: rgba(255, 255, 255, 0.25);
-  --dash-border-visible: rgba(255, 255, 255, 0.20);
-  --dash-text: #e4e4e7;
-  --dash-text-muted: #71717a;
-  --dash-text-faint: #52525b;
-  --dash-accent: #F13024;
+  /* Backgrounds & surfaces (low → high elevation) */
+  --dash-bg: #090a12;
+  --dash-bg-subtle: #0d0e18;
+  --dash-surface: #14151f;
+  --dash-surface-hover: #1c1d2b;
+  --dash-surface-active: #24263a;
+  --dash-elevated: #181925;
+
+  /* Borders (hairline → emphasised) */
+  --dash-border: rgba(255, 255, 255, 0.07);
+  --dash-border-visible: rgba(255, 255, 255, 0.13);
+  --dash-border-hover: rgba(255, 255, 255, 0.24);
+
+  /* Text (AA-compliant muted tones) */
+  --dash-text: #edeef3;
+  --dash-text-muted: #9b9ba8;
+  --dash-text-faint: #6c6c7a;
+
+  /* Accent — brand red */
+  --dash-accent: #f13024;
+  --dash-accent-hover: #ff4938;
   --dash-accent-soft: rgba(241, 48, 36, 0.12);
-  --dash-accent-hover: #ff4438;
+  --dash-accent-ring: rgba(241, 48, 36, 0.32);
+
+  /* Status */
   --dash-success: #22c55e;
   --dash-success-soft: rgba(34, 197, 94, 0.12);
   --dash-warning: #eab308;
@@ -26,29 +41,46 @@
   --dash-danger-soft: rgba(239, 68, 68, 0.12);
   --dash-info: #3b82f6;
   --dash-info-soft: rgba(59, 130, 246, 0.12);
+
+  /* Layout */
   --dash-sidebar-w: 260px;
   --dash-sidebar-collapsed: 72px;
   --dash-topbar-h: 64px;
+
+  /* Radius */
   --dash-radius: 12px;
   --dash-radius-sm: 8px;
   --dash-radius-lg: 16px;
-  --dash-glass: rgba(18, 19, 31, 0.7);
+
+  /* Glass (legacy alias kept for ConfirmDialog etc.) */
+  --dash-glass: rgba(20, 21, 31, 0.72);
   --dash-glass-border: rgba(255, 255, 255, 0.08);
-  --dash-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --dash-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --dash-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+
+  /* Elevation */
+  --dash-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --dash-shadow: 0 8px 28px rgba(0, 0, 0, 0.42);
+  --dash-shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.55);
+
+  /* Spacing scale (base unit) */
+  --dash-gap: 24px;
+
+  /* Typography — Poppins for content, IBM Plex Mono for technical metadata */
+  --dash-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Motion */
   --dash-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --dash-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Glassmorphism Panel — solid background avoids GPU compositing overhead */
+/* ----------------------------------------
+   Surfaces & cards
+   ---------------------------------------- */
 .dash-glass {
-  background: var(--dash-surface);
+  background: var(--dash-elevated);
   border: 1px solid var(--dash-glass-border);
   border-radius: var(--dash-radius);
 }
 
-/* Card */
 .dash-card {
   background: var(--dash-surface);
   border: 1px solid var(--dash-border-visible);
@@ -67,9 +99,38 @@
   border-radius: var(--dash-radius);
 }
 
-/* ========================================
+/* ----------------------------------------
+   Page header (shared layout primitive)
+   ---------------------------------------- */
+.dash-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dash-page-title {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: var(--dash-font-mono);
+  color: var(--dash-text);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.dash-page-subtitle {
+  font-size: 12.5px;
+  font-family: var(--dash-font-mono);
+  color: var(--dash-text-muted);
+  margin-top: 6px;
+  letter-spacing: 0.01em;
+}
+
+/* ----------------------------------------
    Animations
-   ======================================== */
+   ---------------------------------------- */
 @keyframes dash-fade-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -99,9 +160,16 @@
 .dash-animate-delay-3 { animation-delay: 150ms; }
 .dash-animate-delay-4 { animation-delay: 200ms; }
 
-/* ========================================
+@media (prefers-reduced-motion: reduce) {
+  .dash-animate-in,
+  .dash-skeleton {
+    animation: none !important;
+  }
+}
+
+/* ----------------------------------------
    Skeleton loading
-   ======================================== */
+   ---------------------------------------- */
 .dash-skeleton {
   background: linear-gradient(
     90deg,
@@ -114,82 +182,96 @@
   border-radius: var(--dash-radius-sm);
 }
 
-/* ========================================
+/* ----------------------------------------
    Scrollbar
-   ======================================== */
-.dash-scroll::-webkit-scrollbar {
-  width: 6px;
-}
-
-.dash-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+   ---------------------------------------- */
+.dash-scroll::-webkit-scrollbar { width: 6px; }
+.dash-scroll::-webkit-scrollbar-track { background: transparent; }
 .dash-scroll::-webkit-scrollbar-thumb {
   background-color: var(--dash-text-faint);
   border-radius: 3px;
 }
-
 .dash-scroll::-webkit-scrollbar-thumb:hover {
   background-color: var(--dash-text-muted);
 }
 
-/* ========================================
-   Badge
-   ======================================== */
+/* ----------------------------------------
+   Badge / chip
+   ---------------------------------------- */
 .dash-badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.025em;
-  border-radius: 9999px;
+  gap: 5px;
+  padding: 2px 9px;
+  font-size: 10.5px;
+  font-weight: 500;
+  font-family: var(--dash-font-mono);
+  letter-spacing: 0.04em;
+  border-radius: 6px;
   text-transform: uppercase;
+  line-height: 1.6;
+  white-space: nowrap;
 }
 
-.dash-badge-accent {
-  background: var(--dash-accent-soft);
-  color: var(--dash-accent);
+.dash-badge-accent { background: var(--dash-accent-soft); color: var(--dash-accent); }
+.dash-badge-success { background: var(--dash-success-soft); color: var(--dash-success); }
+.dash-badge-warning { background: var(--dash-warning-soft); color: var(--dash-warning); }
+.dash-badge-danger { background: var(--dash-danger-soft); color: var(--dash-danger); }
+.dash-badge-info { background: var(--dash-info-soft); color: var(--dash-info); }
+.dash-badge-neutral {
+  background: var(--dash-surface-active);
+  color: var(--dash-text-muted);
 }
 
-.dash-badge-success {
-  background: var(--dash-success-soft);
-  color: var(--dash-success);
+/* Chip — soft removable tag (e.g. selected technologies) */
+.dash-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 9999px;
+  background: var(--dash-surface-active);
+  color: var(--dash-text);
+  border: 1px solid var(--dash-border-visible);
 }
 
-.dash-badge-warning {
-  background: var(--dash-warning-soft);
-  color: var(--dash-warning);
+.dash-chip button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  color: var(--dash-text-muted);
+  transition: background var(--dash-transition-fast), color var(--dash-transition-fast);
 }
 
-.dash-badge-danger {
+.dash-chip button:hover {
   background: var(--dash-danger-soft);
   color: var(--dash-danger);
 }
 
-.dash-badge-info {
-  background: var(--dash-info-soft);
-  color: var(--dash-info);
-}
-
-/* ========================================
+/* ----------------------------------------
    Buttons
-   ======================================== */
+   ---------------------------------------- */
 .dash-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 9px 18px;
   font-size: 14px;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
   border-radius: var(--dash-radius-sm);
-  transition: all var(--dash-transition);
+  transition: background var(--dash-transition), border-color var(--dash-transition),
+    box-shadow var(--dash-transition), color var(--dash-transition);
   cursor: pointer;
-  border: none;
+  border: 1px solid transparent;
   outline: none;
+  white-space: nowrap;
 }
 
 .dash-btn:disabled {
@@ -197,20 +279,24 @@
   cursor: not-allowed;
 }
 
+.dash-btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--dash-accent-ring);
+}
+
 .dash-btn-primary {
   background: var(--dash-accent);
-  color: white;
+  color: #fff;
 }
 
 .dash-btn-primary:hover:not(:disabled) {
   background: var(--dash-accent-hover);
-  box-shadow: 0 0 20px rgba(241, 48, 36, 0.3);
+  box-shadow: 0 4px 16px rgba(241, 48, 36, 0.28);
 }
 
 .dash-btn-secondary {
   background: var(--dash-surface-hover);
   color: var(--dash-text);
-  border: 1px solid var(--dash-border-visible);
+  border-color: var(--dash-border-visible);
 }
 
 .dash-btn-secondary:hover:not(:disabled) {
@@ -235,7 +321,7 @@
 
 .dash-btn-danger:hover:not(:disabled) {
   background: var(--dash-danger);
-  color: white;
+  color: #fff;
 }
 
 .dash-btn-sm {
@@ -249,11 +335,15 @@
   height: 36px;
 }
 
-/* ========================================
-   Form Elements
-   ======================================== */
+.dash-btn-icon.dash-btn-sm {
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+}
 
-/* Label */
+/* ----------------------------------------
+   Form elements
+   ---------------------------------------- */
 .dash-label {
   display: block;
   font-size: 13px;
@@ -268,81 +358,83 @@
   color: var(--dash-danger);
 }
 
-/* Form Group */
+.dash-hint {
+  font-size: 12px;
+  color: var(--dash-text-muted);
+  margin-top: 6px;
+}
+
+.dash-error-text {
+  font-size: 12px;
+  color: var(--dash-danger);
+  margin-top: 6px;
+}
+
 .dash-form-group {
   display: flex;
   flex-direction: column;
 }
 
-/* Input */
-input.dash-input {
+/* Shared field base — applied to input/select/textarea */
+input.dash-input,
+select.dash-select,
+textarea.dash-textarea {
   width: 100%;
   padding: 10px 14px;
   font-size: 14px;
   font-family: 'Poppins', sans-serif;
   color: var(--dash-text);
-  background-color: var(--dash-bg) !important;
+  background-color: var(--dash-bg-subtle) !important;
   border: 1px solid var(--dash-border-visible);
   border-radius: var(--dash-radius-sm);
   outline: none;
-  transition: border-color var(--dash-transition), box-shadow var(--dash-transition), background-color var(--dash-transition);
+  transition: border-color var(--dash-transition), box-shadow var(--dash-transition),
+    background-color var(--dash-transition);
 }
 
-input.dash-input::placeholder {
+input.dash-input::placeholder,
+textarea.dash-textarea::placeholder {
   color: var(--dash-text-faint);
   font-weight: 300;
 }
 
-input.dash-input:hover {
+input.dash-input:hover,
+select.dash-select:hover,
+textarea.dash-textarea:hover {
   border-color: var(--dash-border-hover);
-  background-color: var(--dash-surface-hover) !important;
 }
 
-input.dash-input:focus {
+input.dash-input:focus,
+select.dash-select:focus,
+textarea.dash-textarea:focus {
   border-color: var(--dash-accent);
-  box-shadow: 0 0 0 4px var(--dash-accent-soft);
+  box-shadow: 0 0 0 3px var(--dash-accent-soft);
   background-color: var(--dash-surface) !important;
 }
 
-input.dash-input-error {
+input.dash-input-error,
+select.dash-input-error,
+textarea.dash-input-error {
   border-color: var(--dash-danger) !important;
 }
 
-input.dash-input-error:focus {
+input.dash-input-error:focus,
+select.dash-input-error:focus,
+textarea.dash-input-error:focus {
   box-shadow: 0 0 0 3px var(--dash-danger-soft) !important;
 }
 
-/* Select */
+/* Select-specific */
 select.dash-select {
-  width: 100%;
-  padding: 10px 36px 10px 14px;
-  font-size: 14px;
-  font-family: 'Poppins', sans-serif;
-  color: var(--dash-text);
-  background-color: var(--dash-bg) !important;
-  border: 1px solid var(--dash-border-visible);
-  border-radius: var(--dash-radius-sm);
-  outline: none;
+  padding-right: 36px;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239b9ba8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px;
-  transition: border-color var(--dash-transition), box-shadow var(--dash-transition), background-color var(--dash-transition);
-}
-
-select.dash-select:hover {
-  border-color: var(--dash-border-hover);
-  background-color: var(--dash-surface) !important;
-}
-
-select.dash-select:focus {
-  border-color: var(--dash-accent);
-  box-shadow: 0 0 0 3px var(--dash-accent-soft);
-  background-color: var(--dash-surface) !important;
 }
 
 select.dash-select option {
@@ -351,72 +443,34 @@ select.dash-select option {
   padding: 8px;
 }
 
-/* Textarea */
+/* Textarea-specific */
 textarea.dash-textarea {
-  width: 100%;
-  padding: 10px 14px;
-  font-size: 14px;
-  font-family: 'Poppins', sans-serif;
-  color: var(--dash-text);
-  background-color: var(--dash-bg) !important;
-  border: 1px solid var(--dash-border-visible);
-  border-radius: var(--dash-radius-sm);
-  outline: none;
   resize: vertical;
   min-height: 80px;
   line-height: 1.6;
-  transition: border-color var(--dash-transition), box-shadow var(--dash-transition), background-color var(--dash-transition);
 }
 
-textarea.dash-textarea::placeholder {
-  color: var(--dash-text-faint);
-  font-weight: 300;
-}
-
-textarea.dash-textarea:hover {
-  border-color: var(--dash-border-hover);
-  background-color: var(--dash-surface) !important;
-}
-
-textarea.dash-textarea:focus {
-  border-color: var(--dash-accent);
-  box-shadow: 0 0 0 3px var(--dash-accent-soft);
-  background-color: var(--dash-surface) !important;
-}
-
-/* Color Input */
+/* Color input */
 .dash-color-input {
   width: 40px;
   height: 40px;
   padding: 2px;
   border: 1px solid var(--dash-border-visible);
   border-radius: var(--dash-radius-sm);
-  background: var(--dash-bg);
+  background: var(--dash-bg-subtle);
   cursor: pointer;
   outline: none;
   transition: border-color var(--dash-transition);
 }
 
-.dash-color-input:hover {
-  border-color: var(--dash-border-hover);
-}
+.dash-color-input:hover { border-color: var(--dash-border-hover); }
+.dash-color-input:focus { border-color: var(--dash-accent); }
+.dash-color-input::-webkit-color-swatch-wrapper { padding: 2px; }
+.dash-color-input::-webkit-color-swatch { border: none; border-radius: 4px; }
 
-.dash-color-input:focus {
-  border-color: var(--dash-accent);
-}
-
-.dash-color-input::-webkit-color-swatch-wrapper {
-  padding: 2px;
-}
-
-.dash-color-input::-webkit-color-swatch {
-  border: none;
-  border-radius: 4px;
-}
-
-/* ========================================
+/* ----------------------------------------
    Table
-   ======================================== */
+   ---------------------------------------- */
 .dash-table {
   width: 100%;
   border-collapse: separate;
@@ -425,10 +479,11 @@ textarea.dash-textarea:focus {
 
 .dash-table th {
   padding: 12px 16px;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--dash-font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--dash-text-muted);
   text-align: left;
   border-bottom: 1px solid var(--dash-border-visible);
@@ -444,6 +499,7 @@ textarea.dash-textarea:focus {
   color: var(--dash-text);
   border-bottom: 1px solid var(--dash-border);
   transition: background var(--dash-transition);
+  vertical-align: middle;
 }
 
 .dash-table tbody tr:hover td {
@@ -454,13 +510,14 @@ textarea.dash-textarea:focus {
   border-bottom: none;
 }
 
-/* ========================================
+/* ----------------------------------------
    Modal
-   ======================================== */
+   ---------------------------------------- */
 .dash-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(2px);
   z-index: 50;
   display: flex;
   align-items: center;
@@ -473,7 +530,7 @@ textarea.dash-textarea:focus {
   width: 100%;
   max-width: 640px;
   max-height: calc(100vh - 48px);
-  background: var(--dash-surface);
+  background: var(--dash-elevated);
   border: 1px solid var(--dash-border-visible);
   border-radius: var(--dash-radius-lg);
   box-shadow: var(--dash-shadow-lg);
@@ -504,14 +561,8 @@ textarea.dash-textarea:focus {
   flex: 1;
 }
 
-.dash-modal-body::-webkit-scrollbar {
-  width: 6px;
-}
-
-.dash-modal-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+.dash-modal-body::-webkit-scrollbar { width: 6px; }
+.dash-modal-body::-webkit-scrollbar-track { background: transparent; }
 .dash-modal-body::-webkit-scrollbar-thumb {
   background-color: var(--dash-text-faint);
   border-radius: 3px;
@@ -527,20 +578,19 @@ textarea.dash-textarea:focus {
   flex-shrink: 0;
 }
 
-/* ========================================
-   Overlay (legacy)
-   ======================================== */
+/* Overlay (legacy — ConfirmDialog) */
 .dash-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(2px);
   z-index: 50;
   will-change: opacity;
 }
 
-/* ========================================
-   Empty State
-   ======================================== */
+/* ----------------------------------------
+   Empty state
+   ---------------------------------------- */
 .dash-empty {
   display: flex;
   flex-direction: column;
@@ -558,9 +608,295 @@ textarea.dash-textarea:focus {
   opacity: 0.4;
 }
 
-/* ========================================
+/* ----------------------------------------
+   Sidebar navigation
+   ---------------------------------------- */
+.dash-nav-group-label {
+  padding: 0 12px;
+  margin-bottom: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: var(--dash-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--dash-text-faint);
+}
+
+.dash-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 14px;
+  text-align: left;
+  color: var(--dash-text-muted);
+  border-radius: var(--dash-radius-sm);
+  transition: background var(--dash-transition-fast), color var(--dash-transition-fast);
+}
+
+.dash-nav-item:hover {
+  background: var(--dash-surface-hover);
+  color: var(--dash-text);
+}
+
+.dash-nav-item.active {
+  background: var(--dash-accent-soft);
+  color: var(--dash-accent);
+}
+
+.dash-nav-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--dash-accent-ring);
+}
+
+.dash-nav-subitem {
+  display: block;
+  padding: 7px 12px;
+  font-size: 13px;
+  color: var(--dash-text-muted);
+  border-radius: var(--dash-radius-sm);
+  transition: background var(--dash-transition-fast), color var(--dash-transition-fast);
+}
+
+.dash-nav-subitem:hover {
+  background: var(--dash-surface-hover);
+  color: var(--dash-text);
+}
+
+.dash-nav-subitem.active {
+  background: var(--dash-accent-soft);
+  color: var(--dash-accent);
+}
+
+/* ----------------------------------------
+   Card header + list rows + quick actions
+   ---------------------------------------- */
+.dash-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dash-border-visible);
+}
+
+.dash-card-header h2 {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--dash-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dash-text-muted);
+  margin: 0;
+}
+
+.dash-link-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--dash-accent);
+  transition: opacity var(--dash-transition-fast);
+}
+
+.dash-link-accent:hover {
+  opacity: 0.8;
+}
+
+.dash-list-row {
+  display: block;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--dash-border);
+  transition: background var(--dash-transition-fast);
+}
+
+.dash-list-row:last-child {
+  border-bottom: none;
+}
+
+.dash-list-row:hover {
+  background: var(--dash-surface-hover);
+}
+
+.dash-quick-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: var(--dash-radius);
+  text-align: center;
+  background: var(--dash-surface-hover);
+  border: 1px solid transparent;
+  transition: background var(--dash-transition-fast), border-color var(--dash-transition-fast);
+}
+
+.dash-quick-action:hover {
+  background: var(--dash-surface-active);
+  border-color: var(--dash-border-visible);
+}
+
+/* ----------------------------------------
+   Avatar
+   ---------------------------------------- */
+.dash-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: var(--dash-accent-soft);
+  color: var(--dash-accent);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------
+   Sidebar account footer + collapse toggle
+   ---------------------------------------- */
+.dash-sidebar-account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: var(--dash-radius-sm);
+  transition: background var(--dash-transition-fast);
+}
+
+.dash-sidebar-account:hover {
+  background: var(--dash-surface-hover);
+}
+
+.dash-collapse-toggle {
+  position: absolute;
+  top: 21px;
+  right: -12px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--dash-surface-active);
+  border: 1px solid var(--dash-border-visible);
+  color: var(--dash-text-muted);
+  transition: background var(--dash-transition-fast), color var(--dash-transition-fast),
+    border-color var(--dash-transition-fast);
+}
+
+.dash-collapse-toggle:hover {
+  background: var(--dash-accent);
+  border-color: var(--dash-accent);
+  color: #fff;
+}
+
+/* ----------------------------------------
+   Stat card
+   ---------------------------------------- */
+.dash-stat-card {
+  transition: transform var(--dash-transition), border-color var(--dash-transition),
+    box-shadow var(--dash-transition);
+}
+
+.dash-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--dash-border-hover);
+  box-shadow: var(--dash-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-stat-card:hover {
+    transform: none;
+  }
+}
+
+/* ----------------------------------------
+   Mission Control — atmosphere & terminal bits
+   ---------------------------------------- */
+
+/* Dotted-grid background for the app shell */
+.dash-grid-bg {
+  background-color: var(--dash-bg);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.045) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+  background-attachment: fixed;
+}
+
+/* Mono utilities */
+.dash-mono {
+  font-family: var(--dash-font-mono);
+}
+
+.dash-value {
+  font-family: var(--dash-font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Terminal section label: "> recent_activity" */
+.dash-kicker {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--dash-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dash-accent);
+}
+
+.dash-kicker::before {
+  content: '> ';
+  white-space: pre;
+  opacity: 0.65;
+}
+
+/* Live status chip with pulsing dot */
+.dash-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 11px;
+  font-family: var(--dash-font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dash-success);
+  background: var(--dash-success-soft);
+  border-radius: 9999px;
+}
+
+.dash-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: dash-pulse 1.8s ease-out infinite;
+}
+
+@keyframes dash-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-status-dot { animation: none; }
+}
+
+/* ----------------------------------------
    Utilities
-   ======================================== */
+   ---------------------------------------- */
 .dash-divider {
   height: 1px;
   background: var(--dash-border-visible);

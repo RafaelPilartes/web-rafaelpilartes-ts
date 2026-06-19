@@ -115,18 +115,16 @@ export default function BlogPostFormPage() {
         >
           <ArrowLeft size={18} />
         </button>
-        <div>
-          <h1 className="text-xl font-bold" style={{ color: 'var(--dash-text)' }}>
-            {isEditing ? 'Edit Post' : 'New Post'}
-          </h1>
-        </div>
+        <h1 className="dash-page-title">
+          {isEditing ? 'Edit Post' : 'New Post'}
+        </h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="dash-card p-6 space-y-5">
           {/* Title */}
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--dash-text)' }}>
+            <label className="dash-label">
               Title
             </label>
             <input
@@ -134,12 +132,12 @@ export default function BlogPostFormPage() {
               className={`dash-input ${errors.title ? 'dash-input-error' : ''}`}
               placeholder="Post title"
             />
-            {errors.title && <p className="text-xs mt-1" style={{ color: 'var(--dash-danger)' }}>{errors.title.message}</p>}
+            {errors.title && <p className="dash-error-text">{errors.title.message}</p>}
           </div>
 
           {/* Slug */}
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--dash-text)' }}>
+            <label className="dash-label">
               Slug
             </label>
             <input
@@ -147,13 +145,13 @@ export default function BlogPostFormPage() {
               className={`dash-input ${errors.slug ? 'dash-input-error' : ''}`}
               placeholder="post-slug"
             />
-            {errors.slug && <p className="text-xs mt-1" style={{ color: 'var(--dash-danger)' }}>{errors.slug.message}</p>}
+            {errors.slug && <p className="dash-error-text">{errors.slug.message}</p>}
           </div>
 
           {/* Category + Author */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--dash-text)' }}>
+              <label className="dash-label">
                 Category
               </label>
               <select {...register('category_id')} className="dash-select">
@@ -164,7 +162,7 @@ export default function BlogPostFormPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--dash-text)' }}>
+              <label className="dash-label">
                 Author Name
               </label>
               <input {...register('author_name')} className="dash-input" placeholder="Author" />
@@ -173,7 +171,7 @@ export default function BlogPostFormPage() {
 
           {/* Publish Date */}
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--dash-text)' }}>
+            <label className="dash-label">
               Publish Date (leave empty for draft)
             </label>
             <input
@@ -185,7 +183,7 @@ export default function BlogPostFormPage() {
 
           {/* Excerpt */}
           <div>
-            <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--dash-text)' }}>
+            <label className="dash-label">
               Excerpt
             </label>
             <textarea
@@ -195,7 +193,7 @@ export default function BlogPostFormPage() {
               placeholder="Brief description"
               style={{ resize: 'vertical' }}
             />
-            {errors.excerpt && <p className="text-xs mt-1" style={{ color: 'var(--dash-danger)' }}>{errors.excerpt.message}</p>}
+            {errors.excerpt && <p className="dash-error-text">{errors.excerpt.message}</p>}
           </div>
 
           {/* Cover Image */}
@@ -212,7 +210,7 @@ export default function BlogPostFormPage() {
               />
             )}
           />
-          {errors.cover_image && <p className="text-xs mt-1" style={{ color: 'var(--dash-danger)' }}>{errors.cover_image.message}</p>}
+          {errors.cover_image && <p className="dash-error-text">{errors.cover_image.message}</p>}
         </div>
 
         {/* Markdown Content */}
@@ -229,7 +227,7 @@ export default function BlogPostFormPage() {
             />
           )}
         />
-        {errors.content_raw && <p className="text-xs mt-1" style={{ color: 'var(--dash-danger)' }}>{errors.content_raw.message}</p>}
+        {errors.content_raw && <p className="dash-error-text">{errors.content_raw.message}</p>}
 
         {/* Submit */}
         <div className="flex justify-end gap-3">

@@ -4,8 +4,8 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold" style={{ color: 'var(--dash-text)' }}>Settings</h1>
-        <p className="text-sm mt-1" style={{ color: 'var(--dash-text-muted)' }}>System configuration</p>
+        <h1 className="dash-page-title">Settings</h1>
+        <p className="dash-page-subtitle">System configuration</p>
       </div>
 
       <div className="dash-card p-8 flex flex-col items-center justify-center gap-4">

@@ -27,23 +27,23 @@ export function ConfirmDialog({
   return (
     <AnimatePresence>
       {open && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="dash-overlay"
-            onClick={onCancel}
-          />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="dash-modal-overlay"
+          onClick={onCancel}
+          style={{ zIndex: 70 }}
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={e => e.stopPropagation()}
           >
             <div
               className="dash-glass w-full max-w-sm p-6"
-              style={{ boxShadow: 'var(--dash-shadow)' }}
+              style={{ boxShadow: 'var(--dash-shadow-lg)' }}
             >
               <div className="flex items-start justify-between mb-4">
                 <div
@@ -92,7 +92,7 @@ export function ConfirmDialog({
               </div>
             </div>
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   )

@@ -100,10 +100,7 @@ export default function AdminLoginPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email */}
             <div>
-              <label
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: 'var(--dash-text)' }}
-              >
+              <label className="dash-label">
                 Email
               </label>
               <div className="relative">
@@ -122,7 +119,7 @@ export default function AdminLoginPage() {
                 />
               </div>
               {errors.email && (
-                <p className="text-xs mt-1" style={{ color: 'var(--dash-danger)' }}>
+                <p className="dash-error-text">
                   {errors.email.message}
                 </p>
               )}
@@ -130,10 +127,7 @@ export default function AdminLoginPage() {
 
             {/* Password */}
             <div>
-              <label
-                className="block text-sm font-medium mb-1.5"
-                style={{ color: 'var(--dash-text)' }}
-              >
+              <label className="dash-label">
                 Password
               </label>
               <div className="relative">
@@ -160,7 +154,7 @@ export default function AdminLoginPage() {
                 </button>
               </div>
               {errors.password && (
-                <p className="text-xs mt-1" style={{ color: 'var(--dash-danger)' }}>
+                <p className="dash-error-text">
                   {errors.password.message}
                 </p>
               )}

@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAuthViewModel } from '@/viewModels/auth.viewmodel'
 import {
   LayoutDashboard,
   FileText,
@@ -16,7 +17,8 @@ import {
   ChevronLeft,
   ChevronDown,
   Tag,
-  Settings
+  Settings,
+  LogOut
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -89,7 +91,18 @@ const navigation: NavGroup[] = [
 
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   const location = useLocation()
+  const navigate = useNavigate()
+  const { useCurrentUser, logout } = useAuthViewModel()
+  const { data: user } = useCurrentUser()
   const [expandedMenus, setExpandedMenus] = useState<string[]>([])
+
+  const handleLogout = async () => {
+    await logout()
+    navigate('/admin/login', { replace: true })
+  }
+
+  const email = user?.email ?? ''
+  const initials = email ? email.slice(0, 2).toUpperCase() : 'RP'
 
   const toggleMenu = (path: string) => {
     setExpandedMenus(prev =>
@@ -114,29 +127,52 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         transition: 'width var(--dash-transition)'
       }}
     >
+      {/* Collapse toggle — discreet button on the sidebar edge */}
+      <button
+        onClick={onToggle}
+        className="dash-collapse-toggle"
+        title={collapsed ? 'Expand' : 'Collapse'}
+        aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+      >
+        <ChevronLeft
+          size={14}
+          style={{ transform: collapsed ? 'rotate(180deg)' : 'none' }}
+        />
+      </button>
+
       {/* Logo */}
       <div
-        className="flex items-center gap-3 px-5 shrink-0"
+        className={`flex items-center gap-3 shrink-0 ${collapsed ? 'justify-center px-0' : 'px-5'}`}
         style={{
           height: 'var(--dash-topbar-h)',
           borderBottom: '1px solid var(--dash-border-visible)'
         }}
       >
         <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-sm shrink-0"
+          className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-white text-sm shrink-0"
           style={{ background: 'var(--dash-accent)' }}
         >
           RP
         </div>
         {!collapsed && (
-          <motion.span
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="font-semibold text-sm whitespace-nowrap"
-            style={{ color: 'var(--dash-text)' }}
+            className="min-w-0"
           >
-            Rafael CMS
-          </motion.span>
+            <p
+              className="font-semibold text-sm leading-tight whitespace-nowrap"
+              style={{ color: 'var(--dash-text)' }}
+            >
+              Rafael CMS
+            </p>
+            <p
+              className="text-[11px] whitespace-nowrap"
+              style={{ color: 'var(--dash-text-faint)' }}
+            >
+              Content Manager
+            </p>
+          </motion.div>
         )}
       </div>
 
@@ -145,12 +181,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         {navigation.map(group => (
           <div key={group.label} className="mb-6">
             {!collapsed && (
-              <p
-                className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-widest"
-                style={{ color: 'var(--dash-text-faint)' }}
-              >
-                {group.label}
-              </p>
+              <p className="dash-nav-group-label">{group.label}</p>
             )}
             <div className="flex flex-col gap-0.5">
               {group.items.map(item => (
@@ -159,15 +190,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                     <>
                       <button
                         onClick={() => toggleMenu(item.path)}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors"
-                        style={{
-                          color: isActive(item.path)
-                            ? 'var(--dash-text)'
-                            : 'var(--dash-text-muted)',
-                          background: isActive(item.path)
-                            ? 'var(--dash-surface-hover)'
-                            : 'transparent'
-                        }}
+                        title={collapsed ? item.label : undefined}
+                        className={`dash-nav-item ${isActive(item.path) ? 'active' : ''} ${collapsed ? 'justify-center' : ''}`}
                       >
                         <item.icon size={18} className="shrink-0" />
                         {!collapsed && (
@@ -193,7 +217,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden ml-5 pl-3"
+                            className="overflow-hidden ml-5 pl-3 mt-0.5"
                             style={{
                               borderLeft: '1px solid var(--dash-border)'
                             }}
@@ -203,15 +227,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                                 key={child.path}
                                 to={child.path}
                                 end={child.path === item.path}
-                                className="block px-3 py-2 text-sm rounded-md transition-colors"
-                                style={({ isActive: active }) => ({
-                                  color: active
-                                    ? 'var(--dash-accent)'
-                                    : 'var(--dash-text-muted)',
-                                  background: active
-                                    ? 'var(--dash-accent-soft)'
-                                    : 'transparent'
-                                })}
+                                className={({ isActive: active }) =>
+                                  `dash-nav-subitem ${active ? 'active' : ''}`
+                                }
                               >
                                 {child.label}
                               </NavLink>
@@ -224,15 +242,10 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                     <NavLink
                       to={item.path}
                       end={item.path === '/admin'}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors group relative"
-                      style={({ isActive: active }) => ({
-                        color: active
-                          ? 'var(--dash-text)'
-                          : 'var(--dash-text-muted)',
-                        background: active
-                          ? 'var(--dash-accent-soft)'
-                          : 'transparent'
-                      })}
+                      title={collapsed ? item.label : undefined}
+                      className={({ isActive: active }) =>
+                        `dash-nav-item ${active ? 'active' : ''} ${collapsed ? 'justify-center' : ''}`
+                      }
                     >
                       {({ isActive: active }) => (
                         <>
@@ -256,30 +269,52 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         ))}
       </nav>
 
-      {/* Collapse Toggle */}
+      {/* Account */}
       <div
         className="px-3 py-3 shrink-0"
         style={{ borderTop: '1px solid var(--dash-border-visible)' }}
       >
-        <button
-          onClick={onToggle}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
-          style={{ color: 'var(--dash-text-muted)' }}
-          onMouseEnter={e => {
-            ;(e.target as HTMLElement).style.background =
-              'var(--dash-surface-hover)'
-          }}
-          onMouseLeave={e => {
-            ;(e.target as HTMLElement).style.background = 'transparent'
-          }}
-        >
-          <ChevronLeft
-            size={18}
-            className="transition-transform"
-            style={{ transform: collapsed ? 'rotate(180deg)' : 'rotate(0deg)' }}
-          />
-          {!collapsed && <span>Collapse</span>}
-        </button>
+        {collapsed ? (
+          <div className="flex flex-col items-center gap-1">
+            <div className="dash-avatar" title={email}>
+              {initials}
+            </div>
+            <button
+              onClick={handleLogout}
+              className="dash-nav-item justify-center"
+              title="Sign out"
+              aria-label="Sign out"
+            >
+              <LogOut size={18} />
+            </button>
+          </div>
+        ) : (
+          <div className="dash-sidebar-account">
+            <div className="dash-avatar">{initials}</div>
+            <div className="flex-1 min-w-0">
+              <p
+                className="text-sm font-medium truncate"
+                style={{ color: 'var(--dash-text)' }}
+              >
+                Admin
+              </p>
+              <p
+                className="text-xs truncate"
+                style={{ color: 'var(--dash-text-muted)' }}
+              >
+                {email || '—'}
+              </p>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm"
+              title="Sign out"
+              aria-label="Sign out"
+            >
+              <LogOut size={16} />
+            </button>
+          </div>
+        )}
       </div>
     </aside>
   )

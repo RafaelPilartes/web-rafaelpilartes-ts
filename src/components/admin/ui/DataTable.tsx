@@ -142,7 +142,7 @@ export function DataTable<T extends { id: string }>({
         style={{ borderTop: '1px solid var(--dash-border-visible)' }}
       >
         <div className="flex items-center gap-4">
-          <p className="text-xs" style={{ color: 'var(--dash-text-muted)' }}>
+          <p className="dash-value text-xs" style={{ color: 'var(--dash-text-muted)' }}>
             {total > 0
               ? `${page * pageSize + 1}–${Math.min((page + 1) * pageSize, total)} de ${total}`
               : '0 registos'}
@@ -185,7 +185,7 @@ export function DataTable<T extends { id: string }>({
             <ChevronLeft size={14} />
           </button>
           <span
-            className="px-3 text-xs font-medium"
+            className="dash-value px-3 text-xs font-medium"
             style={{ color: 'var(--dash-text)' }}
           >
             {page + 1} / {totalPages}

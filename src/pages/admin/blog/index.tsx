@@ -66,12 +66,10 @@ export default function BlogPostsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="dash-page-header">
         <div>
-          <h1 className="text-xl font-bold" style={{ color: 'var(--dash-text)' }}>Blog Posts</h1>
-          <p className="text-sm mt-1" style={{ color: 'var(--dash-text-muted)' }}>
-            Manage your blog content
-          </p>
+          <h1 className="dash-page-title">Blog Posts</h1>
+          <p className="dash-page-subtitle">Manage your blog content</p>
         </div>
         <Link to="/admin/blog/new" className="dash-btn dash-btn-primary dash-btn-sm">
           <Plus size={16} /> New Post

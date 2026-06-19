@@ -68,22 +68,23 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="dash-page-header">
         <div>
-          <h1
-            className="text-2xl font-bold"
-            style={{ color: 'var(--dash-text)' }}
-          >
+          <span className="dash-kicker">control_panel</span>
+          <h1 className="dash-page-title" style={{ marginTop: 8 }}>
             Dashboard
           </h1>
-          <p
-            className="text-sm mt-1"
-            style={{ color: 'var(--dash-text-muted)' }}
-          >
-            Overview of your portfolio content
+          <p className="dash-page-subtitle">
+            {new Date().toISOString().slice(0, 10).replace(/-/g, '.')}
+            {' · '}
+            {new Date().toLocaleDateString('pt-PT', { weekday: 'long' })}
           </p>
         </div>
         <div className="flex items-center gap-3">
+          <span className="dash-status">
+            <span className="dash-status-dot" />
+            live
+          </span>
           <Link
             to="/admin/blog/new"
             className="dash-btn dash-btn-primary dash-btn-sm"
@@ -95,7 +96,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
           title="Blog Posts"
           value={posts?.pagination?.total ?? 0}
@@ -120,10 +121,6 @@ export default function AdminDashboardPage() {
           icon={<Award size={20} />}
           color="#eab308"
         />
-      </div>
-
-      {/* Second row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
           title="Testimonials"
           value={testimonials?.pagination?.total ?? 0}
@@ -154,28 +151,13 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Posts */}
         <div className="dash-card">
-          <div
-            className="flex items-center justify-between px-5 py-4"
-            style={{ borderBottom: '1px solid var(--dash-border-visible)' }}
-          >
-            <h2
-              className="text-sm font-semibold"
-              style={{ color: 'var(--dash-text)' }}
-            >
-              Recent Posts
-            </h2>
-            <Link
-              to="/admin/blog"
-              className="text-xs flex items-center gap-1 transition-colors"
-              style={{ color: 'var(--dash-accent)' }}
-            >
+          <div className="dash-card-header">
+            <h2>Recent Posts</h2>
+            <Link to="/admin/blog" className="dash-link-accent">
               View all <ArrowUpRight size={12} />
             </Link>
           </div>
-          <div
-            className="divide-y"
-            style={{ borderColor: 'var(--dash-border)' }}
-          >
+          <div>
             {recentPosts.isLoading ? (
               Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="px-5 py-3.5">
@@ -185,10 +167,7 @@ export default function AdminDashboardPage() {
               ))
             ) : recentPosts.data?.data.length === 0 ? (
               <div className="px-5 py-8 text-center">
-                <p
-                  className="text-sm"
-                  style={{ color: 'var(--dash-text-muted)' }}
-                >
+                <p className="text-sm" style={{ color: 'var(--dash-text-muted)' }}>
                   No posts yet
                 </p>
               </div>
@@ -197,27 +176,12 @@ export default function AdminDashboardPage() {
                 <Link
                   key={post.id}
                   to={`/admin/blog/${post.id}/edit`}
-                  className="block px-5 py-3.5 transition-colors"
-                  style={{ borderColor: 'var(--dash-border)' }}
-                  onMouseEnter={e => {
-                    ;(e.currentTarget as HTMLElement).style.background =
-                      'var(--dash-surface-hover)'
-                  }}
-                  onMouseLeave={e => {
-                    ;(e.currentTarget as HTMLElement).style.background =
-                      'transparent'
-                  }}
+                  className="dash-list-row"
                 >
-                  <p
-                    className="text-sm font-medium"
-                    style={{ color: 'var(--dash-text)' }}
-                  >
+                  <p className="text-sm font-medium" style={{ color: 'var(--dash-text)' }}>
                     {post.title}
                   </p>
-                  <p
-                    className="text-xs mt-1"
-                    style={{ color: 'var(--dash-text-muted)' }}
-                  >
+                  <p className="dash-mono text-xs mt-1" style={{ color: 'var(--dash-text-muted)' }}>
                     {post.category?.name ?? 'Uncategorized'} •{' '}
                     {post.published_at
                       ? new Date(post.published_at).toLocaleDateString('pt-PT')
@@ -231,28 +195,13 @@ export default function AdminDashboardPage() {
 
         {/* Recent Projects */}
         <div className="dash-card">
-          <div
-            className="flex items-center justify-between px-5 py-4"
-            style={{ borderBottom: '1px solid var(--dash-border-visible)' }}
-          >
-            <h2
-              className="text-sm font-semibold"
-              style={{ color: 'var(--dash-text)' }}
-            >
-              Recent Projects
-            </h2>
-            <Link
-              to="/admin/projects"
-              className="text-xs flex items-center gap-1 transition-colors"
-              style={{ color: 'var(--dash-accent)' }}
-            >
+          <div className="dash-card-header">
+            <h2>Recent Projects</h2>
+            <Link to="/admin/projects" className="dash-link-accent">
               View all <ArrowUpRight size={12} />
             </Link>
           </div>
-          <div
-            className="divide-y"
-            style={{ borderColor: 'var(--dash-border)' }}
-          >
+          <div>
             {recentProjects.isLoading ? (
               Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="px-5 py-3.5">
@@ -262,10 +211,7 @@ export default function AdminDashboardPage() {
               ))
             ) : recentProjects.data?.data.length === 0 ? (
               <div className="px-5 py-8 text-center">
-                <p
-                  className="text-sm"
-                  style={{ color: 'var(--dash-text-muted)' }}
-                >
+                <p className="text-sm" style={{ color: 'var(--dash-text-muted)' }}>
                   No projects yet
                 </p>
               </div>
@@ -273,28 +219,13 @@ export default function AdminDashboardPage() {
               recentProjects.data?.data.map(project => (
                 <Link
                   key={project.id}
-                  to={`/admin/projects`}
-                  className="block px-5 py-3.5 transition-colors"
-                  style={{ borderColor: 'var(--dash-border)' }}
-                  onMouseEnter={e => {
-                    ;(e.currentTarget as HTMLElement).style.background =
-                      'var(--dash-surface-hover)'
-                  }}
-                  onMouseLeave={e => {
-                    ;(e.currentTarget as HTMLElement).style.background =
-                      'transparent'
-                  }}
+                  to={`/admin/projects/${project.id}/edit`}
+                  className="dash-list-row"
                 >
-                  <p
-                    className="text-sm font-medium"
-                    style={{ color: 'var(--dash-text)' }}
-                  >
+                  <p className="text-sm font-medium" style={{ color: 'var(--dash-text)' }}>
                     {project.title}
                   </p>
-                  <p
-                    className="text-xs mt-1"
-                    style={{ color: 'var(--dash-text-muted)' }}
-                  >
+                  <p className="dash-mono text-xs mt-1" style={{ color: 'var(--dash-text-muted)' }}>
                     {project.category ?? 'Uncategorized'} •{' '}
                     {project.client_name ?? 'Personal'}
                   </p>
@@ -306,16 +237,8 @@ export default function AdminDashboardPage() {
 
         {/* Quick Actions */}
         <div className="dash-card lg:col-span-2">
-          <div
-            className="px-5 py-4"
-            style={{ borderBottom: '1px solid var(--dash-border-visible)' }}
-          >
-            <h2
-              className="text-sm font-semibold"
-              style={{ color: 'var(--dash-text)' }}
-            >
-              Quick Actions
-            </h2>
+          <div className="dash-card-header">
+            <h2>Quick Actions</h2>
           </div>
           <div className="p-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
@@ -327,7 +250,7 @@ export default function AdminDashboardPage() {
               },
               {
                 label: 'Add Project',
-                path: '/admin/projects',
+                path: '/admin/projects/new',
                 icon: FolderOpen,
                 color: '#3b82f6'
               },
@@ -347,16 +270,7 @@ export default function AdminDashboardPage() {
               <Link
                 key={action.path}
                 to={action.path}
-                className="flex flex-col items-center gap-2 p-4 rounded-xl transition-colors text-center"
-                style={{ background: 'var(--dash-surface-hover)' }}
-                onMouseEnter={e => {
-                  ;(e.currentTarget as HTMLElement).style.background =
-                    'var(--dash-surface-active)'
-                }}
-                onMouseLeave={e => {
-                  ;(e.currentTarget as HTMLElement).style.background =
-                    'var(--dash-surface-hover)'
-                }}
+                className="dash-quick-action"
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center"

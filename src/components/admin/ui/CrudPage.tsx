@@ -19,7 +19,17 @@ interface Field<T> {
   placeholder?: string
   options?: { label: string; value: string }[]
   render?: (item: T) => ReactNode
+  /** When creating, auto-fill this field's value as a slug derived from the
+   * referenced field's key (e.g. slug auto-generated from name/title). */
+  autoFillSlugFrom?: string
 }
+
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
 
 interface CrudPageProps<T extends { id: string }> {
   title: string
@@ -70,6 +80,19 @@ function CrudModalInner<T>({
   // Ref tracks all field values — zero re-renders on keystroke for text/textarea/select/date
   const valuesRef = useRef<Record<string, any>>({})
 
+  // DOM refs to uncontrolled inputs, so derived fields (e.g. slug) can be updated
+  const inputRefs = useRef<Record<string, HTMLInputElement | null>>({})
+
+  // Fields that derive a slug from another field: { sourceKey: targetKey }
+  const slugLinks = useRef<Record<string, string>>({})
+  useEffect(() => {
+    const links: Record<string, string> = {}
+    fields.forEach(f => {
+      if (f.autoFillSlugFrom) links[f.autoFillSlugFrom] = f.key
+    })
+    slugLinks.current = links
+  }, [fields])
+
   // Only color + image need controlled state (live visual feedback)
   const [richValues, setRichValues] = useState<Record<string, any>>({})
 
@@ -117,41 +140,35 @@ function CrudModalInner<T>({
   return (
     <AnimatePresence>
       {open && (
-        <>
-          {/* Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="dash-modal-overlay"
-            onClick={onClose}
-            style={{ zIndex: 60 }}
-          />
-
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="dash-modal-overlay"
+          onClick={onClose}
+          style={{ zIndex: 60 }}
+        >
           {/* Modal */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 8 }}
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed inset-0 flex items-center justify-center p-4"
-            style={{ zIndex: 61 }}
+            className="dash-modal"
             onClick={e => e.stopPropagation()}
           >
-            <div className="dash-modal" onClick={e => e.stopPropagation()}>
-              {/* Header */}
-              <div className="dash-modal-header">
-                <h2>
-                  {editingId ? `Edit ${entityName}` : `Create ${entityName}`}
-                </h2>
-                <button
-                  onClick={onClose}
-                  className="dash-btn dash-btn-ghost dash-btn-icon dash-btn-sm"
-                >
-                  <X size={16} />
-                </button>
-              </div>
+            {/* Header */}
+            <div className="dash-modal-header">
+              <h2>{editingId ? `Edit ${entityName}` : `Create ${entityName}`}</h2>
+              <button
+                onClick={onClose}
+                className="dash-btn dash-btn-ghost dash-btn-icon"
+                aria-label="Fechar"
+              >
+                <X size={20} />
+              </button>
+            </div>
 
               {/* Body — key forces remount of all uncontrolled inputs on session change */}
               <div className="dash-modal-body">
@@ -233,9 +250,21 @@ function CrudModalInner<T>({
                         // Uncontrolled — no re-render on keystroke
                         <input
                           type={field.type || 'text'}
+                          ref={el => {
+                            inputRefs.current[field.key] = el
+                          }}
                           defaultValue={initialData[field.key] ?? ''}
                           onChange={e => {
-                            valuesRef.current[field.key] = e.target.value
+                            const value = e.target.value
+                            valuesRef.current[field.key] = value
+                            // Auto-fill a linked slug field (only when creating)
+                            const targetKey = slugLinks.current[field.key]
+                            if (targetKey && !editingId) {
+                              const slug = slugify(value)
+                              valuesRef.current[targetKey] = slug
+                              const target = inputRefs.current[targetKey]
+                              if (target) target.value = slug
+                            }
                           }}
                           className="dash-input"
                           placeholder={field.placeholder}
@@ -262,9 +291,8 @@ function CrudModalInner<T>({
                   {isCreating ? 'Saving...' : editingId ? 'Update' : 'Create'}
                 </button>
               </div>
-            </div>
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   )
@@ -345,20 +373,10 @@ export function CrudPage<T extends { id: string }>({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="dash-page-header">
         <div>
-          <h1
-            className="text-xl font-bold"
-            style={{ color: 'var(--dash-text)' }}
-          >
-            {title}
-          </h1>
-          <p
-            className="text-sm mt-1"
-            style={{ color: 'var(--dash-text-muted)' }}
-          >
-            {subtitle}
-          </p>
+          <h1 className="dash-page-title">{title}</h1>
+          <p className="dash-page-subtitle">{subtitle}</p>
         </div>
         <button
           onClick={() => {

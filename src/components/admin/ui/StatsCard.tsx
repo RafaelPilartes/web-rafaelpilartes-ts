@@ -10,26 +10,21 @@ interface StatsCardProps {
   color?: string
 }
 
-export function StatsCard({ title, value, icon, trend, color = 'var(--dash-accent)' }: StatsCardProps) {
+export function StatsCard({
+  title,
+  value,
+  icon,
+  trend,
+  color = 'var(--dash-accent)'
+}: StatsCardProps) {
   const isPositive = trend && trend.value >= 0
 
   return (
-    <div
-      className="dash-card p-5 dash-animate-in cursor-default"
-      style={{ transition: 'border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease' }}
-      onMouseEnter={e => {
-        const el = e.currentTarget as HTMLElement
-        el.style.transform = 'translateY(-2px)'
-      }}
-      onMouseLeave={e => {
-        const el = e.currentTarget as HTMLElement
-        el.style.transform = 'translateY(0)'
-      }}
-    >
-      <div className="flex items-start justify-between mb-4">
+    <div className="dash-card dash-stat-card p-5 dash-animate-in">
+      <div className="flex items-center justify-between mb-4">
         <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center"
-          style={{ background: `${color}18`, color }}
+          className="w-11 h-11 rounded-xl flex items-center justify-center"
+          style={{ background: `${color}1A`, color }}
         >
           {icon}
         </div>
@@ -37,7 +32,9 @@ export function StatsCard({ title, value, icon, trend, color = 'var(--dash-accen
           <div
             className="flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full"
             style={{
-              background: isPositive ? 'var(--dash-success-soft)' : 'var(--dash-danger-soft)',
+              background: isPositive
+                ? 'var(--dash-success-soft)'
+                : 'var(--dash-danger-soft)',
               color: isPositive ? 'var(--dash-success)' : 'var(--dash-danger)'
             }}
           >
@@ -46,17 +43,18 @@ export function StatsCard({ title, value, icon, trend, color = 'var(--dash-accen
           </div>
         )}
       </div>
-      <div>
-        <h3
-          className="text-2xl font-bold mb-1"
-          style={{ color: 'var(--dash-text)' }}
-        >
-          <CountUp end={value} duration={1.5} separator="." />
-        </h3>
-        <p className="text-xs font-medium" style={{ color: 'var(--dash-text-muted)' }}>
-          {title}
-        </p>
-      </div>
+      <h3
+        className="dash-value text-3xl font-bold leading-none mb-1.5"
+        style={{ color: 'var(--dash-text)' }}
+      >
+        <CountUp end={value} duration={1.5} separator="." />
+      </h3>
+      <p
+        className="dash-mono text-[11px] font-medium uppercase"
+        style={{ color: 'var(--dash-text-muted)', letterSpacing: '0.08em' }}
+      >
+        {title}
+      </p>
     </div>
   )
 }
