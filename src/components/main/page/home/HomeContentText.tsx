@@ -65,7 +65,7 @@ const homeInfo = {
 }
 
 export default function HomeContentText() {
-  const { t } = useTranslation('home')
+  const { t, i18n } = useTranslation('home')
   const rotating = t('hero.rotating', { returnObjects: true }) as string[]
 
   const handleContact = () => {
@@ -95,6 +95,7 @@ export default function HomeContentText() {
           {t('hero.titleLine2')}{' '}
           <span className="text-accent">
             <TypeAnimation
+              key={i18n.language}
               sequence={rotating.flatMap(w => [w, 1000])}
               repeat={Infinity}
               wrapper="span"
