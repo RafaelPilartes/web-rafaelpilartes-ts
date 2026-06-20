@@ -236,7 +236,8 @@ const About = () => {
   const introductionData = {
     subtitle: t('subtitle'),
     title: t('title'),
-    description: t('description')
+    description: t('description'),
+    backLabel: t('back')
   }
 
   return (

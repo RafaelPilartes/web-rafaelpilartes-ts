@@ -9,14 +9,14 @@ type CertificateItemProps = {
 }
 
 export const CertificateItem = ({ certificate }: CertificateItemProps) => {
-  const { t } = useTranslation('about')
+  const { t, i18n } = useTranslation('about')
   const { title, issued_by, issue_date, expiration_date, credential_url } =
     certificate
 
-  const formatter = new Intl.DateTimeFormat('pt-PT', {
-    month: 'short',
-    year: 'numeric'
-  })
+  const formatter = new Intl.DateTimeFormat(
+    i18n.language === 'en' ? 'en-US' : 'pt-PT',
+    { month: 'short', year: 'numeric' }
+  )
 
   const formattedIssueDate = formatter.format(issue_date).replace(' de ', '/')
   const formattedExpDate = expiration_date

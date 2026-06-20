@@ -9,7 +9,7 @@ type ExperienceItemProps = {
 }
 
 export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
-  const { t } = useTranslation('about')
+  const { t, i18n } = useTranslation('about')
   const {
     end_date,
     company_name,
@@ -24,10 +24,10 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     : new Date()
   const endDate = end_date ? new Date(end_date) : null
 
-  const formatter = new Intl.DateTimeFormat('pt-PT', {
-    month: 'short',
-    year: 'numeric'
-  })
+  const formatter = new Intl.DateTimeFormat(
+    i18n.language === 'en' ? 'en-US' : 'pt-PT',
+    { month: 'short', year: 'numeric' }
+  )
 
   const formattedStartDate = formatter.format(startDate).replace(' de ', '/')
   const formattedEndDate = endDate
