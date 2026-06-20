@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import Circles from '../../../components/main/Circles'
 import { PageIntroduction } from '../../../components/main/PageIntroduction'
 import { LinkSimple } from '../../../components/main/Link'
@@ -9,13 +10,6 @@ import { useBlogPostViewModel } from '@/viewModels/blog-post.viewmodel'
 import { Skeleton } from '../../../components/main/ui/Skeleton'
 
 const ITEMS_PER_PAGE = 6
-
-const introductionData = {
-  subtitle: 'Artigos',
-  title: 'Blog Pessoal',
-  description:
-    'Acompanhe histórias, tutoriais e dicas sobre desenvolvimento, design e a vida como criador. Partilho aprendizagens contínuas, novas tecnologias e insights para a nossa comunidade.'
-}
 
 // Simple internal hook to debounce search query
 function useDebounce<T>(value: T, delay: number): T {
@@ -53,10 +47,11 @@ const BlogPostSkeleton = () => (
 )
 
 const Blog = () => {
+  const { t, i18n } = useTranslation('blog')
   const [activeFilterId, setActiveFilterId] = useState<string>('ALL')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  
+
   const debouncedSearch = useDebounce(searchQuery, 500)
 
   // API Hooks
@@ -71,7 +66,7 @@ const Blog = () => {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE
 
   const { data: postResponse, isLoading: isLoadingPosts, isError: isErrorPosts } = getAllPosts(ITEMS_PER_PAGE, offset, debouncedSearch, filters)
-  
+
   const posts = postResponse?.data || []
   const totalCount = postResponse?.pagination?.total || 0
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE)
@@ -86,6 +81,15 @@ const Blog = () => {
     setCurrentPage(1)
   }
 
+  const introductionData = {
+    subtitle: t('subtitle'),
+    title: t('title'),
+    description: t('description'),
+    backLabel: t('back')
+  }
+
+  const dateLocale = i18n.language === 'en' ? 'en-US' : 'pt-BR'
+
   return (
     <main className="flex flex-col gap-6 items-center justify-center">
       <PageIntroduction {...introductionData} />
@@ -98,7 +102,7 @@ const Blog = () => {
             <HiMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
             <input
               type="text"
-              placeholder="Pesquisar artigos..."
+              placeholder={t('search_placeholder')}
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               className="w-full h-12 bg-[#55555525] rounded-xl pl-11 pr-4 text-white placeholder:text-gray-600 border border-gray-800 focus:border-accent/50 focus:outline-none transition-all"
@@ -116,7 +120,7 @@ const Blog = () => {
                     : 'bg-transparent text-gray-400 border-gray-700 hover:border-accent/50 hover:text-white'
                 }`}
             >
-              Todos
+              {t('filter_all')}
             </button>
             {isLoadingCats ? (
               Array.from({ length: 4 }).map((_, i) => (
@@ -142,7 +146,7 @@ const Blog = () => {
         {/* Blog Cards Grid */}
         {isErrorPosts ? (
            <p className="text-center text-red-500 py-20 bg-red-500/10 rounded-2xl">
-              Não foi possível carregar os artigos.
+              {t('error')}
            </p>
         ) : isLoadingPosts ? (
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -150,7 +154,7 @@ const Blog = () => {
            </div>
         ) : posts.length === 0 ? (
            <div className="text-center text-gray-500 py-20 border border-white/10 rounded-2xl bg-white/5">
-              Nenhum artigo encontrado.
+              {t('empty')}
            </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -186,7 +190,7 @@ const Blog = () => {
                   {/* Date */}
                   <span className="text-xs text-gray-500 mb-2">
                     {post.published_at
-                      ? new Date(post.published_at).toLocaleDateString('pt-BR', {
+                      ? new Date(post.published_at).toLocaleDateString(dateLocale, {
                           day: '2-digit',
                           month: 'long',
                           year: 'numeric'
@@ -218,7 +222,7 @@ const Blog = () => {
                         <div className="w-7 h-7 rounded-full bg-gray-700" />
                       )}
                       <span className="text-xs text-gray-500">
-                        {post.author_name || 'Desconhecido'}
+                        {post.author_name || t('unknown_author')}
                       </span>
                     </div>
 
@@ -227,7 +231,7 @@ const Blog = () => {
                       to={`/blog/${post.slug}`}
                       className="text-xs text-gray-400 hover:text-accent transition-colors flex items-center gap-1"
                     >
-                      Ler mais
+                      {t('read_more')}
                       <AiOutlineArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </LinkSimple>
                   </div>
