@@ -35,7 +35,21 @@
   "quality": {
     "subtitle": "what sets me apart?",
     "title": "My Qualities",
-    "description": "I am known for my passion, dedication and commitment to every project. My skills allow me to embrace complex challenges and find creative solutions to overcome them. Together with a collaborative approach, this ensures exceptional results for my clients and partners."
+    "description": "I am known for my passion, dedication and commitment to every project. My skills allow me to embrace complex challenges and find creative solutions to overcome them. Together with a collaborative approach, this ensures exceptional results for my clients and partners.",
+    "cards": [
+      {
+        "name": "Creativity",
+        "description": "My mind is always buzzing with creative ideas. I love exploring different approaches and innovative concepts for each project, delivering unique and compelling solutions that stand out in the market."
+      },
+      {
+        "name": "Relentless Dedication",
+        "description": "I am committed to delivering exceptional results for every project I take on. My relentless dedication drives me to work hard, overcome obstacles, and ensure that every detail is carefully addressed."
+      },
+      {
+        "name": "Constant Innovation",
+        "description": "I am always seeking to learn and evolve. I keep myself up to date with the latest trends and technologies in my field, which allows me to bring innovation and fresh perspectives to every project."
+      }
+    ]
   },
   "knownTechs": {
     "subtitle": "skills",

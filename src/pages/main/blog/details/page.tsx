@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 import { HiArrowLeft, HiCalendar, HiClock } from 'react-icons/hi2'
 import { TbBrandTwitter, TbBrandLinkedin, TbLink } from 'react-icons/tb'
 import { LinkSimple } from '../../../../components/main/Link'
@@ -70,7 +71,7 @@ const BlogDetails = () => {
     )
   }
 
-  const dateLocale = i18n.language === 'en' ? 'en-US' : 'pt-BR'
+  const dateLocale = getDateLocale(i18n.language)
 
   const publishDate = post.published_at
     ? new Date(post.published_at).toLocaleDateString(dateLocale, {

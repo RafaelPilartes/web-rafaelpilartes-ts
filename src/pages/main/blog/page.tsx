@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 import Circles from '../../../components/main/Circles'
 import { PageIntroduction } from '../../../components/main/PageIntroduction'
 import { LinkSimple } from '../../../components/main/Link'
@@ -88,7 +89,7 @@ const Blog = () => {
     backLabel: t('back')
   }
 
-  const dateLocale = i18n.language === 'en' ? 'en-US' : 'pt-BR'
+  const dateLocale = getDateLocale(i18n.language)
 
   return (
     <main className="flex flex-col gap-6 items-center justify-center">

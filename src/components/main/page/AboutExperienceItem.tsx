@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { WorkExperienceEntity } from '@/core/entities/portfolio/WorkExperienceEntity'
 import { fadeUpAnimation, techBadgeAnimation } from '../../../lib/animations'
 import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 
 type ExperienceItemProps = {
   experience: WorkExperienceEntity
@@ -25,7 +26,7 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   const endDate = end_date ? new Date(end_date) : null
 
   const formatter = new Intl.DateTimeFormat(
-    i18n.language === 'en' ? 'en-US' : 'pt-PT',
+    getDateLocale(i18n.language),
     { month: 'short', year: 'numeric' }
   )
 

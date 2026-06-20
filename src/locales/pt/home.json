@@ -35,7 +35,21 @@
   "quality": {
     "subtitle": "o que me diferencia?",
     "title": "Minhas Qualidades",
-    "description": "Sou conhecido por minha paixão, dedicação e comprometimento com cada projeto. Minhas habilidades permitem abraçar desafios complexos e encontrar soluções criativas para superá-los. Juntamente com uma abordagem colaborativa, garante resultados excepcionais para meus clientes e parceiros."
+    "description": "Sou conhecido por minha paixão, dedicação e comprometimento com cada projeto. Minhas habilidades permitem abraçar desafios complexos e encontrar soluções criativas para superá-los. Juntamente com uma abordagem colaborativa, garante resultados excepcionais para meus clientes e parceiros.",
+    "cards": [
+      {
+        "name": "Criatividade",
+        "description": "Minha mente está sempre fervilhando de ideias criativas. Amo explorar diferentes abordagens e conceitos inovadores para cada projeto, proporcionando soluções únicas e atraentes que se destacam no mercado."
+      },
+      {
+        "name": "Dedicação Incansável",
+        "description": "Estou comprometido(a) em entregar resultados excepcionais para cada projeto que assumo. Minha dedicação incansável me impulsiona a trabalhar arduamente, superar obstáculos e garantir que cada detalhe seja cuidadosamente tratado."
+      },
+      {
+        "name": "Inovação Constante",
+        "description": "Estou sempre buscando aprender e evoluir. Mantenho-me atualizado(a) com as últimas tendências e tecnologias em meu campo de atuação, o que me permite trazer inovação e novas perspectivas para cada projeto."
+      }
+    ]
   },
   "knownTechs": {
     "subtitle": "competências",

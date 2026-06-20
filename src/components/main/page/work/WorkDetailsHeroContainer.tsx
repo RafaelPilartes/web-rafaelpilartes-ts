@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 import { ProjectEntity } from '@/core/entities/portfolio/ProjectEntity'
 import { TechBadge } from '../../TechBadge'
 import { techBadgeAnimation } from '../../../../lib/animations'
@@ -14,7 +15,7 @@ type ProjectDetailsProps = {
 }
 
 export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
-  const { t } = useTranslation('work')
+  const { t, i18n } = useTranslation('work')
 
   return (
     <section className="w-full h-screen flex flex-col items-center justify-end relative overflow-hidden bg-gradient-to-r from-primary/10 via-black/30 z-[1] ">
@@ -28,7 +29,7 @@ export const WorkDetailsHeroContainer = ({ project }: ProjectDetailsProps) => {
           transition={{ duration: 0.5 }}
           className="text-gray-200 text-left max-w-3xl max-0 line-clamp-2"
         >
-          {project.created_at ? new Date(project.created_at).toLocaleDateString() : ''}
+          {project.created_at ? new Date(project.created_at).toLocaleDateString(getDateLocale(i18n.language)) : ''}
         </motion.p>
 
         {/* Title */}

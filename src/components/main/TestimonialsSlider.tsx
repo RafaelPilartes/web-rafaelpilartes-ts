@@ -10,8 +10,12 @@ import 'swiper/css/pagination'
 
 import { TestimonialEntity } from '@/core/entities/content/TestimonialEntity'
 import { BsQuote } from 'react-icons/bs'
+import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 
 const TestimonialsSlider = ({ testimonials }: { testimonials: TestimonialEntity[] }) => {
+  const { i18n } = useTranslation()
+
   return (
     <Swiper
       breakpoints={{
@@ -60,7 +64,7 @@ const TestimonialsSlider = ({ testimonials }: { testimonials: TestimonialEntity[
                 <div className="font-medium dark:text-white">
                   <div>{item.name}</div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
-                    {item.created_at ? new Date(item.created_at).toLocaleDateString() : ''}
+                    {item.created_at ? new Date(item.created_at).toLocaleDateString(getDateLocale(i18n.language)) : ''}
                   </div>
                 </div>
               </div>

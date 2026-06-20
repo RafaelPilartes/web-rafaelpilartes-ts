@@ -3,6 +3,7 @@ import { fadeUpAnimation } from '../../../lib/animations'
 import { CertificateEntity } from '@/core/entities/portfolio/CertificateEntity'
 import { HiOutlineExternalLink } from 'react-icons/hi'
 import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 
 type CertificateItemProps = {
   certificate: CertificateEntity
@@ -14,7 +15,7 @@ export const CertificateItem = ({ certificate }: CertificateItemProps) => {
     certificate
 
   const formatter = new Intl.DateTimeFormat(
-    i18n.language === 'en' ? 'en-US' : 'pt-PT',
+    getDateLocale(i18n.language),
     { month: 'short', year: 'numeric' }
   )
 
