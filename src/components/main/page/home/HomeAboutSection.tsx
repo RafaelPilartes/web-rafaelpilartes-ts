@@ -1,38 +1,40 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { HiCodeBracket, HiCommandLine, HiArrowDownTray } from 'react-icons/hi2'
 
-const highlights = [
-  {
-    icon: <HiCodeBracket size={24} />,
-    title: 'Expertise',
-    description:
-      'Especializado em construir aplicações web escaláveis com tecnologias modernas e melhores práticas.'
-  },
-  {
-    icon: <HiCommandLine size={24} />,
-    title: 'Clean Code',
-    description: 'Escrevendo código mantível e bem-documentado que escala.'
-  },
-  {
-    icon: <HiArrowDownTray size={24} />,
-    title: 'Performance',
-    description: 'Optimizando velocidade e eficiência em cada projeto.'
-  }
-]
-
-const stats = [
-  { value: '45+', label: 'Happy Clients' },
-  { value: '2.5K+', label: 'Code Commits' },
-  { value: '500+', label: 'GitHub Stars' }
-]
-
-const rightStats = [
-  { value: '100%', label: 'Client Satisfaction' },
-  { value: '24/7', label: 'Support Available' },
-  { value: 'Fast', label: 'Delivery Time' }
-]
-
 export const HomeAboutSection = () => {
+  const { t } = useTranslation('home')
+
+  const highlights = [
+    {
+      icon: <HiCodeBracket size={24} />,
+      title: t('about.highlights.expertiseTitle'),
+      description: t('about.highlights.expertiseDesc')
+    },
+    {
+      icon: <HiCommandLine size={24} />,
+      title: t('about.highlights.cleanCodeTitle'),
+      description: t('about.highlights.cleanCodeDesc')
+    },
+    {
+      icon: <HiArrowDownTray size={24} />,
+      title: t('about.highlights.performanceTitle'),
+      description: t('about.highlights.performanceDesc')
+    }
+  ]
+
+  const stats = [
+    { value: '45+', label: t('about.stats.happyClients') },
+    { value: '2.5K+', label: t('about.stats.codeCommits') },
+    { value: '500+', label: t('about.stats.githubStars') }
+  ]
+
+  const rightStats = [
+    { value: '100%', label: t('about.stats.clientSatisfaction') },
+    { value: '24/7', label: t('about.stats.supportAvailable') },
+    { value: t('about.stats.fast'), label: t('about.stats.deliveryTime') }
+  ]
+
   return (
     <section id="about" className="container relative py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -48,30 +50,25 @@ export const HomeAboutSection = () => {
           <div className="flex items-center gap-2 w-max px-4 py-2 rounded-full border border-accent/30 bg-accent/5">
             <span className="text-accent text-sm">{'</>'}</span>
             <span className="text-sm text-white font-medium">
-              Full-Stack Developer
+              {t('about.badge')}
             </span>
             <HiCommandLine className="text-accent" size={16} />
           </div>
 
           {/* Heading */}
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-            Crafting Digital
+            {t('about.headingLine1')}
             <br />
-            Experiences That <span className="text-accent">Matter</span>
+            {t('about.headingLine2')} <span className="text-accent">{t('about.headingAccent')}</span>
           </h2>
 
           {/* Description */}
           <div className="flex flex-col gap-4 text-gray-400 text-sm leading-relaxed max-w-lg">
             <p>
-              Sou um desenvolvedor React apaixonado com mais de 3 anos de
-              experiência na construção de aplicações web escaláveis e
-              performáticas. Especializo-me em criar interfaces intuitivas que
-              combinam design bonito com funcionalidade excepcional.
+              {t('about.paragraph1')}
             </p>
             <p>
-              Quando não estou a programar, encontras-me a contribuir para
-              projectos open-source, a escrever artigos técnicos ou a explorar
-              novas tendências de design.
+              {t('about.paragraph2')}
             </p>
           </div>
 

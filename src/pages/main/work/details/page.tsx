@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { HorizontalDivider } from '../../../../components/main/HorizontalDivider'
 import WorkCarousel from '../../../../components/main/page/work/WorkCarousel'
 import { WorkDetailsHeroContainer } from '../../../../components/main/page/work/WorkDetailsHeroContainer'
@@ -83,6 +84,7 @@ const renderSection = (section: any, index: number) => {
 const ProjectDetails = () => {
   const { workId } = useParams<{ workId: string; workName: string }>()
   const navigate = useNavigate()
+  const { t } = useTranslation('work')
 
   const { getProjectById } = useProjectViewModel()
   const { data: project, isLoading, isError } = getProjectById(workId || '')
@@ -95,16 +97,16 @@ const ProjectDetails = () => {
     return (
       <main className="flex flex-col items-center justify-center min-h-[60vh] gap-4 z-10 relative">
         <h2 className="text-2xl font-bold text-white">
-          Projeto não encontrado
+          {t('details.notFound')}
         </h2>
         <p className="text-gray-400">
-          O projeto que procura não existe ou foi removido.
+          {t('details.notFoundDesc')}
         </p>
         <button
           onClick={() => navigate('/works')}
           className="text-accent hover:underline flex items-center gap-2"
         >
-          <HiArrowLeft size={16} /> Voltar aos projetos
+          <HiArrowLeft size={16} /> {t('details.backToProjects')}
         </button>
       </main>
     )
@@ -125,7 +127,7 @@ const ProjectDetails = () => {
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white text-sm hover:border-accent/50 hover:bg-black/80 transition-all"
           >
             <HiArrowLeft size={16} />
-            Voltar
+            {t('details.back')}
           </motion.button>
         </div>
       </div>
@@ -138,7 +140,7 @@ const ProjectDetails = () => {
           </div>
         ) : (
           <div className="w-full h-[400px] bg-[#111] rounded-2xl border border-white/5 flex items-center justify-center">
-            <span className="text-white/20">Sem imagens complementares</span>
+            <span className="text-white/20">{t('details.noImages')}</span>
           </div>
         )}
 
@@ -154,7 +156,7 @@ const ProjectDetails = () => {
                 </span>
                 <div className="flex flex-col gap-[0.15rem] justify-center items-start">
                   <span className="uppercase font-medium font-poppins text-zinc-400 text-xs tracking-wider">
-                    Receptor:
+                    {t('details.receptor')}
                   </span>
                   <span className="text-white font-bold text-lg">
                     {project.client_name}
@@ -171,18 +173,18 @@ const ProjectDetails = () => {
                 </span>
                 <div className="flex flex-col gap-[0.15rem] justify-center items-start">
                   <span className="uppercase font-medium font-poppins text-zinc-400 text-xs tracking-wider">
-                    Categoria:
+                    {t('details.category')}
                   </span>
                   <span className="text-white font-bold text-lg">
                     {project.category === ProjectCategory.WEB
-                      ? 'Desenvolvimento web'
+                      ? t('details.categories.web')
                       : project.category === ProjectCategory.MOBILE
-                        ? 'Desenvolvimento mobile'
+                        ? t('details.categories.mobile')
                         : project.category === ProjectCategory.DESIGN
-                          ? 'Design de Interfaces'
+                          ? t('details.categories.design')
                           : project.category === ProjectCategory.DESKTOP
-                            ? 'Aplicações Desktop'
-                            : 'Software'}
+                            ? t('details.categories.desktop')
+                            : t('details.categories.other')}
                   </span>
                 </div>
               </div>
@@ -196,7 +198,7 @@ const ProjectDetails = () => {
                 </span>
                 <div className="flex flex-col gap-[0.15rem] justify-center items-start">
                   <span className="uppercase font-medium font-poppins text-zinc-400 text-xs tracking-wider">
-                    Duração:
+                    {t('details.duration')}
                   </span>
                   <span className="text-white font-bold text-lg">
                     {project.duration}

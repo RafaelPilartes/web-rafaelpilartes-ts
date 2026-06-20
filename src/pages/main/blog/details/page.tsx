@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 import { HiArrowLeft, HiCalendar, HiClock } from 'react-icons/hi2'
 import { TbBrandTwitter, TbBrandLinkedin, TbLink } from 'react-icons/tb'
 import { LinkSimple } from '../../../../components/main/Link'
@@ -36,12 +38,13 @@ const BlogDetailsSkeleton = () => (
 const BlogDetails = () => {
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
+  const { t, i18n } = useTranslation('blog')
 
   const { getPostBySlug, getAllPosts } = useBlogPostViewModel()
-  
+
   // Fetch current post
   const { data: post, isLoading: isPostLoading, isError: isPostError } = getPostBySlug(slug || '')
-  
+
   // Fetch related posts (same category context)
   const categoryId = post?.category_id
   const { data: relatedData } = getAllPosts(4, 0, undefined, categoryId ? { category_id: categoryId } : undefined)
@@ -54,22 +57,24 @@ const BlogDetails = () => {
   if (!post || isPostError) {
     return (
       <main className="flex flex-col items-center justify-center min-h-[60vh] gap-4 z-10 relative">
-        <h2 className="text-2xl font-bold text-white">Artigo não encontrado</h2>
+        <h2 className="text-2xl font-bold text-white">{t('detail.not_found_title')}</h2>
         <p className="text-gray-400">
-          O artigo que procura não existe ou foi removido.
+          {t('detail.not_found_body')}
         </p>
         <button
           onClick={() => navigate('/blog')}
           className="text-accent hover:underline flex items-center gap-2"
         >
-          <HiArrowLeft size={16} /> Voltar ao blog
+          <HiArrowLeft size={16} /> {t('detail.back_to_blog')}
         </button>
       </main>
     )
   }
 
+  const dateLocale = getDateLocale(i18n.language)
+
   const publishDate = post.published_at
-    ? new Date(post.published_at).toLocaleDateString('pt-BR', {
+    ? new Date(post.published_at).toLocaleDateString(dateLocale, {
         day: '2-digit',
         month: 'long',
         year: 'numeric'
@@ -105,7 +110,7 @@ const BlogDetails = () => {
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white text-sm hover:border-accent/50 hover:bg-black/80 transition-all"
           >
             <HiArrowLeft size={16} />
-            Voltar
+            {t('detail.back')}
           </motion.button>
         </div>
       </div>
@@ -154,9 +159,9 @@ const BlogDetails = () => {
             )}
             <div>
               <p className="text-sm font-medium text-white">
-                {post.author_name || 'Desconhecido'}
+                {post.author_name || t('unknown_author')}
               </p>
-              <p className="text-xs text-gray-500">Autor</p>
+              <p className="text-xs text-gray-500">{t('detail.author_label')}</p>
             </div>
           </div>
 
@@ -169,14 +174,14 @@ const BlogDetails = () => {
           {/* Reading time */}
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <HiClock size={16} />
-            <span>{readingTime} min de leitura</span>
+            <span>{t('detail.reading_time', { count: readingTime })}</span>
           </div>
 
           {/* Share */}
           <div className="flex items-center gap-2 ml-auto">
             <button
               onClick={handleCopyLink}
-              title="Copiar link"
+              title={t('detail.copy_link')}
               className="w-9 h-9 rounded-lg border border-white/[0.08] flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent/30 transition-all bg-white/5 hover:bg-white/10"
             >
               <TbLink size={16} />
@@ -225,7 +230,7 @@ const BlogDetails = () => {
         {relatedPosts.length > 0 && (
           <div className="mt-16">
             <h3 className="text-xl font-bold text-white mb-8">
-              Artigos relacionados
+              {t('detail.related_posts')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedPosts.map(related => (
@@ -244,7 +249,7 @@ const BlogDetails = () => {
                     <span className="text-[10px] text-gray-500">
                       {related.published_at
                         ? new Date(related.published_at).toLocaleDateString(
-                            'pt-BR',
+                            dateLocale,
                             {
                               day: '2-digit',
                               month: 'short',
@@ -260,7 +265,7 @@ const BlogDetails = () => {
                       to={`/blog/${related.slug}`}
                       className="text-xs text-gray-400 hover:text-accent mt-auto pt-3 flex items-center gap-1"
                     >
-                      Ler mais <AiOutlineArrowRight size={12} />
+                      {t('read_more')} <AiOutlineArrowRight size={12} />
                     </LinkSimple>
                   </div>
                 </div>

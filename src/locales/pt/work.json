@@ -1,0 +1,64 @@
+{
+  "subtitle": "projetos",
+  "title": "Meus Projetos",
+  "description": "Aqui você poderá ver alguns dos trabalhos que eu desenvolvi. Navegue à vontade e explore os projetos para ver como foram criados, as tecnologias utilizadas e as funcionalidades implementadas.",
+  "back": "Voltar para Home",
+  "filter": {
+    "all": "Todos"
+  },
+  "featured": "Projeto em Destaque",
+  "livesite": "Site ao Vivo",
+  "error": "Não foi possível carregar os projetos momentaneamente.",
+  "empty": "Nenhum projeto encontrado para esta categoria.",
+  "details": {
+    "back": "Voltar",
+    "backToProjects": "Voltar aos projetos",
+    "notFound": "Projeto não encontrado",
+    "notFoundDesc": "O projeto que procura não existe ou foi removido.",
+    "noImages": "Sem imagens complementares",
+    "receptor": "Receptor:",
+    "category": "Categoria:",
+    "duration": "Duração:",
+    "repository": "Repositório",
+    "liveProject": "Projeto Online",
+    "categories": {
+      "web": "Desenvolvimento web",
+      "mobile": "Desenvolvimento mobile",
+      "design": "Design de Interfaces",
+      "desktop": "Aplicações Desktop",
+      "other": "Software"
+    }
+  },
+  "slider": {
+    "items": [
+      {
+        "title": "Desenvolvimento de website",
+        "description": "Desenvolvimento de websites criarão uma presença online única e envolvente para o seu negócio"
+      },
+      {
+        "title": "Design gráfico",
+        "description": "Crio designs atraentes e criativos que ajudam a transmitir a mensagem da sua marca de forma única e memorável"
+      },
+      {
+        "title": "Marketing Digital",
+        "description": "Soluções abrangentes de marketing digital, desde estratégias de mídia social até campanhas de e-mail marketing"
+      },
+      {
+        "title": "Branding",
+        "description": "Através de uma abordagem estratégica, desenvolvemos uma identidade de marca coesa e autêntica"
+      },
+      {
+        "title": "Copywriting",
+        "description": "Criam conteúdo persuasivo e envolvente que atrai, convence e transforma os visitantes em clientes"
+      },
+      {
+        "title": "SEO",
+        "description": "Aumente a visibilidade e a classificação do seu site nos mecanismos de busca com nosso serviço de SEO"
+      }
+    ]
+  },
+  "content": {
+    "heading": "Soluções para fazer crescer",
+    "body": "Acredito no poder das ideias e na capacidade da tecnologia de torná-las realidade. Com habilidade e criatividade, desenvolvo soluções digitais sob medida, alinhadas às necessidades e objetivos de cada clientes."
+  }
+}

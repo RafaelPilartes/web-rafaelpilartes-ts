@@ -1,8 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 export default function WorkContentText() {
+  const { t } = useTranslation('work')
+
   return (
     <div className="text-center flex flex-col justify-end gap-10 xl:pt-40 xl:text-left h-full container mx-auto ">
       {/* Title */}
@@ -13,9 +16,7 @@ export default function WorkContentText() {
         transition={{ duration: 0.5 }}
         className="text-xl sm:h1"
       >
-        Soluções para fazer
-        <br />
-        crescer
+        {t('content.heading')}
       </motion.h1>
       {/* Subtitle */}
       <motion.p
@@ -25,9 +26,7 @@ export default function WorkContentText() {
         transition={{ duration: 0.5 }}
         className="max-w-sm xl:max-w-xl xl:mx-0 mx-auto xl:max-0"
       >
-        Acredito no poder das ideias e na capacidade da tecnologia de torná-las
-        realidade. Com habilidade e criatividade, desenvolvo soluções digitais
-        sob medida, alinhadas às necessidades e objetivos de cada clientes.
+        {t('content.body')}
       </motion.p>
 
       {/* Btn */}

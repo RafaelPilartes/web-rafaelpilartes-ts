@@ -1,0 +1,66 @@
+{
+  "subtitle": "about me",
+  "back": "Back to Home",
+  "title": "Get to Know My Story",
+  "description": "I am a developer passionate about the art of turning complex problems into simple, accessible and elegant solutions through code.",
+  "hero": {
+    "heading_1": "Turning",
+    "heading_accent": "ideas",
+    "heading_2": "into code and into reality.",
+    "body": "I am a developer driven by challenges and the art of creating. With solid experience across multiple front-end and mobile technologies, I am always pursuing technical excellence, new interface design trends, and development best practices to build solutions that create direct impact for the user."
+  },
+  "stats": {
+    "years": "Years of experience",
+    "clients": "Happy clients",
+    "projects": "Projects delivered"
+  },
+  "tabs": {
+    "experience": "Experience",
+    "skills": "Skills",
+    "certificates": "Certificates"
+  },
+  "experience": {
+    "heading": "Professional Journey",
+    "empty": "No experience records yet.",
+    "present": "Present",
+    "company_logo_alt": "{{name}} company logo",
+    "duration": {
+      "year_one": "{{count}} year",
+      "year_other": "{{count}} years",
+      "month_one": "{{count}} month",
+      "month_other": "{{count}} months",
+      "and": "and"
+    }
+  },
+  "certificates": {
+    "heading": "Education & Certificates",
+    "empty": "No certificates registered yet.",
+    "view_credential": "View Credential"
+  },
+  "skills": {
+    "frontend": {
+      "title": "Frontend Development",
+      "description": "Building modern and responsive interfaces."
+    },
+    "backend": {
+      "title": "Backend Development",
+      "description": "Developing robust APIs and databases."
+    },
+    "mobile": {
+      "title": "Mobile Development",
+      "description": "High-performance native and cross-platform applications."
+    },
+    "desktop": {
+      "title": "Desktop Development",
+      "description": "Fast and complete solutions for the desktop environment."
+    },
+    "uiux": {
+      "title": "UI/UX Design",
+      "description": "Elegant prototypes focused on the user experience."
+    },
+    "tools": {
+      "title": "Tools",
+      "description": "Essential technologies for organisation and productivity."
+    }
+  }
+}

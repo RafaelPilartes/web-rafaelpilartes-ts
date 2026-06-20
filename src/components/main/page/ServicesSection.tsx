@@ -2,10 +2,12 @@ import { createElement } from 'react'
 import { motion } from 'framer-motion'
 import { RxArrowTopRight } from 'react-icons/rx'
 import { FaWrench } from 'react-icons/fa'
+import { useTranslation } from 'react-i18next'
 import { useServiceViewModel } from '@/viewModels/service.viewmodel'
 import { Skeleton } from '../ui/Skeleton'
 
 export const ServicesSection = () => {
+  const { t } = useTranslation('services')
   const { getAllServices } = useServiceViewModel()
   const { data: response, isLoading, isError } = getAllServices()
   
@@ -61,7 +63,7 @@ export const ServicesSection = () => {
           ))
         ) : (
           <div className="col-span-full border border-white/10 p-10 text-center rounded-xl bg-white/5 text-white/50">
-            Nenhum serviço registado.
+            {t('empty')}
           </div>
         )}
       </div>

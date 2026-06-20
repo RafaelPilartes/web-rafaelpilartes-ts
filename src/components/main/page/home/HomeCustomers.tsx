@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next'
 import { SectionTitle } from '../../../../components/main/SectionTitle'
 import CustomersSlider from '../../CustomersSlider'
 import { useCustomerViewModel } from '@/viewModels/customer.viewmodel'
 import { Skeleton } from '../../ui/Skeleton'
 
 export const HomeCustomers = () => {
+  const { t } = useTranslation('home')
   const { getAllCustomers } = useCustomerViewModel()
   const { data: response, isLoading, isError } = getAllCustomers()
 
@@ -13,7 +15,7 @@ export const HomeCustomers = () => {
 
   return (
     <section id="customers" className="container py-16">
-      <SectionTitle subtitle="clientes" title="Parceiros e clientes" />
+      <SectionTitle subtitle={t('customers.subtitle')} title={t('customers.title')} />
 
       <div className="w-full gap-x-4 gap-y-6 mt-[60px] ">
         <div className="flex flex-col gap-x-8 ">
@@ -28,7 +30,7 @@ export const HomeCustomers = () => {
               <CustomersSlider customers={customers} />
             ) : (
                 <div className="text-center text-white/50 p-6 border border-white/10 rounded-2xl bg-white/5 w-full">
-                   Nenhum parceiro registado
+                   {t('customers.empty')}
                 </div>
             )}
           </div>

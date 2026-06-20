@@ -2,12 +2,15 @@ import { TechBadge } from '../../../components/main/TechBadge'
 import { motion } from 'framer-motion'
 import { WorkExperienceEntity } from '@/core/entities/portfolio/WorkExperienceEntity'
 import { fadeUpAnimation, techBadgeAnimation } from '../../../lib/animations'
+import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 
 type ExperienceItemProps = {
   experience: WorkExperienceEntity
 }
 
 export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
+  const { t, i18n } = useTranslation('about')
   const {
     end_date,
     company_name,
@@ -22,15 +25,15 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     : new Date()
   const endDate = end_date ? new Date(end_date) : null
 
-  const formatter = new Intl.DateTimeFormat('pt-PT', {
-    month: 'short',
-    year: 'numeric'
-  })
+  const formatter = new Intl.DateTimeFormat(
+    getDateLocale(i18n.language),
+    { month: 'short', year: 'numeric' }
+  )
 
   const formattedStartDate = formatter.format(startDate).replace(' de ', '/')
   const formattedEndDate = endDate
     ? formatter.format(endDate).replace(' de ', '/')
-    : 'Presente'
+    : t('experience.present')
 
   const end = endDate || new Date()
 
@@ -42,12 +45,12 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
 
   const formattedDuration =
     years > 0
-      ? `${years} ano${years > 1 ? 's' : ''}${
+      ? `${t('experience.duration.year', { count: years })}${
           monthsRemaining > 0
-            ? ` e ${monthsRemaining} mês${monthsRemaining > 1 ? 'es' : ''}`
+            ? ` ${t('experience.duration.and')} ${t('experience.duration.month', { count: monthsRemaining })}`
             : ''
         }`
-      : `${diffInMonths} mes${diffInMonths > 1 ? 'es' : ''}`
+      : `${t('experience.duration.month', { count: diffInMonths })}`
 
   return (
     <motion.div
@@ -63,7 +66,7 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
             width={36}
             height={36}
             className="rounded-lg object-contain w-full h-full"
-            alt={`Logo da empresa ${company_name}`}
+            alt={t('experience.company_logo_alt', { name: company_name })}
           />
         </div>
         {/* Line */}
@@ -97,7 +100,7 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
 
           <div className="text-gray-400 text-sm leading-relaxed mt-3">
             {/* If we have an actual rich text renderer we could use it here.
-                 For now, we'll just fall back to role. 
+                 For now, we'll just fall back to role.
              */}
             {role}
           </div>

@@ -1,0 +1,84 @@
+{
+  "hero": {
+    "titleLine1": "Solutions to grow",
+    "titleLine2": "your",
+    "rotating": ["Business!", "Startup", "Brand"],
+    "subtitle": "I believe in the power of ideas and technology's ability to make them real. With skill and creativity, I build tailor-made digital solutions aligned with each client's needs and goals.",
+    "contactCta": "Get in touch",
+    "downloadCv": "Download CV"
+  },
+  "about": {
+    "badge": "Full-Stack Developer",
+    "headingLine1": "Crafting Digital",
+    "headingLine2": "Experiences That",
+    "headingAccent": "Matter",
+    "paragraph1": "I'm a passionate React developer with 3+ years of experience building scalable, high-performance web applications. I specialize in crafting intuitive interfaces that combine beautiful design with exceptional functionality.",
+    "paragraph2": "When I'm not coding, you'll find me contributing to open-source projects, writing technical articles, or exploring new design trends.",
+    "highlights": {
+      "expertiseTitle": "Expertise",
+      "expertiseDesc": "Specialized in building scalable web applications with modern technologies and best practices.",
+      "cleanCodeTitle": "Clean Code",
+      "cleanCodeDesc": "Writing maintainable, well-documented code that scales.",
+      "performanceTitle": "Performance",
+      "performanceDesc": "Optimizing speed and efficiency in every project."
+    },
+    "stats": {
+      "happyClients": "Happy Clients",
+      "codeCommits": "Code Commits",
+      "githubStars": "GitHub Stars",
+      "clientSatisfaction": "Client Satisfaction",
+      "supportAvailable": "Support Available",
+      "deliveryTime": "Delivery Time",
+      "fast": "Fast"
+    }
+  },
+  "quality": {
+    "subtitle": "what sets me apart?",
+    "title": "My Qualities",
+    "description": "I am known for my passion, dedication and commitment to every project. My skills allow me to embrace complex challenges and find creative solutions to overcome them. Together with a collaborative approach, this ensures exceptional results for my clients and partners.",
+    "cards": [
+      {
+        "name": "Creativity",
+        "description": "My mind is always buzzing with creative ideas. I love exploring different approaches and innovative concepts for each project, delivering unique and compelling solutions that stand out in the market."
+      },
+      {
+        "name": "Relentless Dedication",
+        "description": "I am committed to delivering exceptional results for every project I take on. My relentless dedication drives me to work hard, overcome obstacles, and ensure that every detail is carefully addressed."
+      },
+      {
+        "name": "Constant Innovation",
+        "description": "I am always seeking to learn and evolve. I keep myself up to date with the latest trends and technologies in my field, which allows me to bring innovation and fresh perspectives to every project."
+      }
+    ]
+  },
+  "knownTechs": {
+    "subtitle": "skills",
+    "title": "Knowledge",
+    "empty": "No skills registered yet."
+  },
+  "services": {
+    "badge": "what I offer",
+    "titleAccent": "results.",
+    "titlePrefix": "Built to innovate. Designed for",
+    "subtitle": "Complete solutions to turn your ideas into exceptional digital experiences.",
+    "viewAll": "View all services",
+    "empty": "Services being updated"
+  },
+  "projects": {
+    "subtitle": "projects",
+    "sectionTitle": "Check out my",
+    "heading": "Latest projects.",
+    "description": "Explore the gallery of inspiring projects. Each work reflects my commitment to excellence and creativity. Be the next success story on this journey!",
+    "viewAll": "View all projects",
+    "comingSoon": "More projects coming soon"
+  },
+  "customers": {
+    "subtitle": "clients",
+    "title": "Partners & Clients",
+    "empty": "No partners registered"
+  },
+  "testimonials": {
+    "subtitle": "testimonials",
+    "title": "What clients say"
+  }
+}

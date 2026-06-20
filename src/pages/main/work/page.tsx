@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ProjectCard } from '../../../components/main/ProjectCard'
 import { PageIntroduction } from '../../../components/main/PageIntroduction'
 import { ProjectCategory } from '@/types/enum/portfolio'
@@ -7,22 +8,6 @@ import { useProjectViewModel } from '@/viewModels/project.viewmodel'
 import { Skeleton } from '../../../components/main/ui/Skeleton'
 
 const ITEMS_PER_PAGE = 6
-
-const categoryLabels: Record<string, string> = {
-  ALL: 'Todos',
-  [ProjectCategory.WEB]: 'Web',
-  [ProjectCategory.MOBILE]: 'Mobile',
-  [ProjectCategory.AI]: 'AI',
-  [ProjectCategory.DESKTOP]: 'Desktop',
-  [ProjectCategory.DESIGN]: 'Design'
-}
-
-const introductionData = {
-  subtitle: 'projetos',
-  title: 'Meus Projetos',
-  description:
-    'Aqui você poderá ver alguns dos trabalhos que eu desenvolvi. Navegue à vontade e explore os projetos para ver como foram criados, as tecnologias utilizadas e as funcionalidades implementadas.'
-}
 
 const ProjectCardSkeleton = ({ index = 0 }: { index?: number }) => {
   const isReversed = index % 2 !== 0
@@ -66,10 +51,27 @@ const ProjectCardSkeleton = ({ index = 0 }: { index?: number }) => {
 }
 
 const Projects = () => {
+  const { t } = useTranslation('work')
   const [activeFilter, setActiveFilter] = useState<string>('ALL')
   const [currentPage, setCurrentPage] = useState(1)
 
   const { getAllProjects } = useProjectViewModel()
+
+  const categoryLabels: Record<string, string> = {
+    ALL: t('filter.all'),
+    [ProjectCategory.WEB]: 'Web',
+    [ProjectCategory.MOBILE]: 'Mobile',
+    [ProjectCategory.AI]: 'AI',
+    [ProjectCategory.DESKTOP]: 'Desktop',
+    [ProjectCategory.DESIGN]: 'Design'
+  }
+
+  const introductionData = {
+    subtitle: t('subtitle'),
+    title: t('title'),
+    description: t('description'),
+    backLabel: t('back')
+  }
 
   // Convert API filter format
   const filterParams =
@@ -121,7 +123,7 @@ const Projects = () => {
         {/* Project Grid / Skeletons */}
         {isError ? (
           <p className="text-center text-red-500 py-20 bg-red-500/10 rounded-2xl mx-4">
-            Não foi possível carregar os projetos momentaneamente.
+            {t('error')}
           </p>
         ) : isLoading ? (
           <div className="flex flex-col gap-16 px-4">
@@ -131,7 +133,7 @@ const Projects = () => {
           </div>
         ) : projects.length === 0 ? (
           <p className="text-center text-gray-500 py-20 border border-white/10 rounded-2xl mx-4 bg-white/5">
-            Nenhum projeto encontrado para esta categoria.
+            {t('empty')}
           </p>
         ) : (
           <div className="flex flex-col gap-8 md:gap-12 px-4">

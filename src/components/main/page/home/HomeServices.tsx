@@ -1,5 +1,6 @@
 import { createElement } from 'react'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { ButtonBase } from '../../../../components/main/ButtonBase'
 import { RxArrowTopRight } from 'react-icons/rx'
 import { FaWrench } from 'react-icons/fa'
@@ -7,9 +8,10 @@ import { useServiceViewModel } from '@/viewModels/service.viewmodel'
 import { Skeleton } from '../../ui/Skeleton'
 
 export const HomeServices = () => {
+  const { t } = useTranslation('home')
   const { getAllServices } = useServiceViewModel()
   const { data: response, isLoading, isError } = getAllServices(4)
-  
+
   const services = response?.data || []
 
   if (isError) return null
@@ -30,7 +32,7 @@ export const HomeServices = () => {
               transition={{ duration: 0.3 }}
               className="px-4 py-1.5 rounded-full border border-accent/30 bg-accent/10 flex items-center gap-2 text-accent text-xs font-semibold tracking-wider shadow-[0_0_15px_rgba(var(--accent-rgb),0.1)] uppercase"
             >
-              <FaWrench size={14} /> o que eu ofereço
+              <FaWrench size={14} /> {t('services.badge')}
             </motion.div>
 
             {/* Title */}
@@ -40,8 +42,8 @@ export const HomeServices = () => {
               transition={{ duration: 0.4, delay: 0.1 }}
               className="text-3xl md:text-5xl font-bold text-white max-w-3xl leading-tight"
             >
-              Feito para inovar. Projetado para{' '}
-              <span className="text-accent">resultados.</span>
+              {t('services.titlePrefix')}{' '}
+              <span className="text-accent">{t('services.titleAccent')}</span>
             </motion.h2>
 
             {/* Description */}
@@ -51,8 +53,7 @@ export const HomeServices = () => {
               transition={{ duration: 0.4, delay: 0.2 }}
               className="max-w-xl text-gray-400 text-sm md:text-base leading-relaxed"
             >
-              Soluções completas para transformar as suas ideias em experiências
-              digitais excepcionais.
+              {t('services.subtitle')}
             </motion.p>
           </div>
 
@@ -98,7 +99,7 @@ export const HomeServices = () => {
               ))
             ) : (
                 <div className="col-span-1 sm:col-span-2 lg:col-span-4 text-center text-white/50 p-10 bg-white/5 rounded-2xl border border-white/10">
-                   Serviços em atualização
+                   {t('services.empty')}
                 </div>
             )}
           </div>
@@ -110,7 +111,7 @@ export const HomeServices = () => {
             className="mt-6"
           >
             <ButtonBase onClick={() => (window.location.href = '/services')}>
-              Ver todos os serviços
+              {t('services.viewAll')}
               <RxArrowTopRight className="ml-1" />
             </ButtonBase>
           </motion.div>

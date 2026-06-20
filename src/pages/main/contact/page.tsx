@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
 import { ButtonBase } from '../../../components/main/ButtonBase'
 import { HiArrowNarrowRight } from 'react-icons/hi'
 import { motion } from 'framer-motion'
@@ -47,28 +48,30 @@ const socials = [
   }
 ]
 
-const contactInfo = [
-  {
-    icon: <BiPhoneCall size={22} />,
-    label: 'Telefone',
-    value: '+27 067 323 5056',
-    href: 'tel:270673235056'
-  },
-  {
-    icon: <MdOutlineMailOutline size={22} />,
-    label: 'E-mail',
-    value: 'contact@rafaelpilartes.com',
-    href: 'mailto:contact@rafaelpilartes.com'
-  },
-  {
-    icon: <MdLocationOn size={22} />,
-    label: 'Localização',
-    value: 'Cape Town, South Africa',
-    href: undefined
-  }
-]
-
 const Contact = () => {
+  const { t } = useTranslation('contact')
+
+  const contactInfo = [
+    {
+      icon: <BiPhoneCall size={22} />,
+      label: t('info.phone'),
+      value: '+27 067 323 5056',
+      href: 'tel:270673235056'
+    },
+    {
+      icon: <MdOutlineMailOutline size={22} />,
+      label: t('info.email'),
+      value: 'contact@rafaelpilartes.com',
+      href: 'mailto:contact@rafaelpilartes.com'
+    },
+    {
+      icon: <MdLocationOn size={22} />,
+      label: t('info.location'),
+      value: 'Cape Town, South Africa',
+      href: undefined
+    }
+  ]
+
   const {
     handleSubmit,
     register,
@@ -81,10 +84,10 @@ const Contact = () => {
   const onSubmit = async (data: ContactFormData) => {
     try {
       await axios.post('/api/contact', data)
-      toast.success('Mensagem enviada com sucesso!')
+      toast.success(t('toast.success'))
       reset()
     } catch {
-      toast.error('Ocorreu um erro ao enviar a mensagem. Tente novamente.')
+      toast.error(t('toast.error'))
     }
   }
 
@@ -99,14 +102,13 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
         >
           <span className="text-accent text-sm font-medium tracking-widest uppercase">
-            Contacto
+            {t('eyebrow')}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-3">
-            Vamos trabalhar <span className="text-accent">juntos</span>
+            {t('title')} <span className="text-accent">{t('titleAccent')}</span>
           </h2>
           <p className="max-w-[550px] mx-auto text-gray-400 mt-4">
-            Se você tem algum projeto em mente, podemos desenvolvê-lo juntos.
-            Entre em contacto e vamos transformar a sua ideia em realidade.
+            {t('description')}
           </p>
         </motion.div>
 
@@ -177,7 +179,7 @@ const Contact = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Localização - Cape Town, South Africa"
+                title={t('mapTitle')}
               />
             </div>
           </motion.div>
@@ -193,56 +195,56 @@ const Contact = () => {
               onSubmit={handleSubmit(onSubmit)}
             >
               <h3 className="text-xl font-semibold text-white mb-2">
-                Envie uma mensagem
+                {t('form.heading')}
               </h3>
 
               {/* Name */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs text-gray-500 uppercase tracking-wider">
-                  Nome
+                  {t('form.name')}
                 </label>
                 <input
-                  placeholder="O seu nome"
+                  placeholder={t('form.namePlaceholder')}
                   className={`h-13 bg-white/[0.04] rounded-xl text-white placeholder:text-gray-600 border p-4 focus:outline-none focus:ring-2 ring-accent/50 transition-all
                     ${errors.name ? 'border-red-500/50' : 'border-white/[0.08]'}`}
                   {...register('name')}
                 />
                 {errors.name && (
-                  <span className="text-red-400 text-xs">Mínimo 3 caracteres</span>
+                  <span className="text-red-400 text-xs">{t('validation.nameTooShort')}</span>
                 )}
               </div>
 
               {/* Email */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs text-gray-500 uppercase tracking-wider">
-                  E-mail
+                  {t('form.email')}
                 </label>
                 <input
-                  placeholder="seuemail@exemplo.com"
+                  placeholder={t('form.emailPlaceholder')}
                   type="email"
                   className={`h-13 bg-white/[0.04] rounded-xl text-white placeholder:text-gray-600 border p-4 focus:outline-none focus:ring-2 ring-accent/50 transition-all
                     ${errors.email ? 'border-red-500/50' : 'border-white/[0.08]'}`}
                   {...register('email')}
                 />
                 {errors.email && (
-                  <span className="text-red-400 text-xs">E-mail inválido</span>
+                  <span className="text-red-400 text-xs">{t('validation.emailInvalid')}</span>
                 )}
               </div>
 
               {/* Message */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs text-gray-500 uppercase tracking-wider">
-                  Mensagem
+                  {t('form.message')}
                 </label>
                 <textarea
-                  placeholder="Conte-me sobre o seu projeto..."
+                  placeholder={t('form.messagePlaceholder')}
                   className={`resize-none h-[160px] bg-white/[0.04] rounded-xl text-white placeholder:text-gray-600 border p-4 focus:outline-none focus:ring-2 ring-accent/50 transition-all
                     ${errors.message ? 'border-red-500/50' : 'border-white/[0.08]'}`}
                   {...register('message')}
                   maxLength={500}
                 />
                 {errors.message && (
-                  <span className="text-red-400 text-xs">Campo obrigatório</span>
+                  <span className="text-red-400 text-xs">{t('validation.messageRequired')}</span>
                 )}
               </div>
 
@@ -252,7 +254,7 @@ const Contact = () => {
                   className="z-[2] relative w-full justify-center py-4"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
+                  {isSubmitting ? t('submitting') : t('submit')}
                   <HiArrowNarrowRight size={18} />
                 </ButtonBase>
                 <div className="absolute inset-0 bg-red-600 blur-2xl opacity-10 rounded-xl" />

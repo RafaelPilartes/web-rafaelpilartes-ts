@@ -1,0 +1,22 @@
+{
+  "subtitle": "Articles",
+  "title": "Personal Blog",
+  "description": "Follow stories, tutorials and tips on development, design and life as a creator. I share continuous learnings, new technologies and insights for our community.",
+  "back": "Back to Home",
+  "search_placeholder": "Search articles...",
+  "filter_all": "All",
+  "error": "Could not load articles.",
+  "empty": "No articles found.",
+  "read_more": "Read more",
+  "unknown_author": "Unknown",
+  "detail": {
+    "back": "Back",
+    "back_to_blog": "Back to blog",
+    "not_found_title": "Article not found",
+    "not_found_body": "The article you are looking for does not exist or has been removed.",
+    "author_label": "Author",
+    "reading_time": "{{count}} min read",
+    "copy_link": "Copy link",
+    "related_posts": "Related articles"
+  }
+}

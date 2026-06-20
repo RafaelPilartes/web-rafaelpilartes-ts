@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 import { HiArrowNarrowRight } from 'react-icons/hi'
 import { FaDownload } from 'react-icons/fa'
@@ -64,6 +65,9 @@ const homeInfo = {
 }
 
 export default function HomeContentText() {
+  const { t, i18n } = useTranslation('home')
+  const rotating = t('hero.rotating', { returnObjects: true }) as string[]
+
   const handleContact = () => {
     window.location.href = 'https://wa.me/244923414621'
   }
@@ -86,20 +90,13 @@ export default function HomeContentText() {
           transition={{ duration: 0.5 }}
           className="text-xl sm:h1"
         >
-          Soluções para fazer
+          {t('hero.titleLine1')}
           <br />
-          crescer{' '}
+          {t('hero.titleLine2')}{' '}
           <span className="text-accent">
-            {/* realidade  */}
             <TypeAnimation
-              sequence={[
-                'seu Negocio!',
-                1000,
-                'sua Startup',
-                1000,
-                'sua Imagem',
-                1000
-              ]}
+              key={i18n.language}
+              sequence={rotating.flatMap(w => [w, 1000])}
               repeat={Infinity}
               wrapper="span"
             />
@@ -113,10 +110,7 @@ export default function HomeContentText() {
           transition={{ duration: 0.5 }}
           className="max-w-sm xl:max-w-xl xl:mx-0 mx-auto xl:max-0"
         >
-          Acredito no poder das ideias e na capacidade da tecnologia de
-          torná-las realidade. Com habilidade e criatividade, desenvolvo
-          soluções digitais sob medida, alinhadas às necessidades e objetivos de
-          cada clientes.
+          {t('hero.subtitle')}
         </motion.p>
 
         {/* Btn */}
@@ -139,7 +133,7 @@ export default function HomeContentText() {
           className="flex sm:items-center sm:gap-5 flex-col sm:flex-row"
         >
           <ButtonBase className="w-max shadow-button" onClick={handleContact}>
-            Entre em contato
+            {t('hero.contactCta')}
             <HiArrowNarrowRight size={18} />
           </ButtonBase>
 
@@ -147,7 +141,7 @@ export default function HomeContentText() {
             className="w-max border border-accent/50 bg-black/40 text-accent hover:bg-accent/10 hover:border-accent hover:text-white transition-all duration-300"
             onClick={handleDownloadCV}
           >
-            Baixar Currículo
+            {t('hero.downloadCv')}
             <FaDownload size={14} className="ml-2" />
           </ButtonBase>
 

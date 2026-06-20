@@ -2,19 +2,22 @@ import { motion } from 'framer-motion'
 import { fadeUpAnimation } from '../../../lib/animations'
 import { CertificateEntity } from '@/core/entities/portfolio/CertificateEntity'
 import { HiOutlineExternalLink } from 'react-icons/hi'
+import { useTranslation } from 'react-i18next'
+import { getDateLocale } from '@/utils/dateLocale'
 
 type CertificateItemProps = {
   certificate: CertificateEntity
 }
 
 export const CertificateItem = ({ certificate }: CertificateItemProps) => {
+  const { t, i18n } = useTranslation('about')
   const { title, issued_by, issue_date, expiration_date, credential_url } =
     certificate
 
-  const formatter = new Intl.DateTimeFormat('pt-PT', {
-    month: 'short',
-    year: 'numeric'
-  })
+  const formatter = new Intl.DateTimeFormat(
+    getDateLocale(i18n.language),
+    { month: 'short', year: 'numeric' }
+  )
 
   const formattedIssueDate = formatter.format(issue_date).replace(' de ', '/')
   const formattedExpDate = expiration_date
@@ -48,7 +51,7 @@ export const CertificateItem = ({ certificate }: CertificateItemProps) => {
           className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors"
         >
           <HiOutlineExternalLink size={14} />
-          <span>Ver Credencial</span>
+          <span>{t('certificates.view_credential')}</span>
         </a>
       )}
     </motion.div>

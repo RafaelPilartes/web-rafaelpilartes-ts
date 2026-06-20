@@ -1,0 +1,84 @@
+{
+  "hero": {
+    "titleLine1": "Soluções para fazer",
+    "titleLine2": "crescer",
+    "rotating": ["seu Negócio!", "sua Startup", "sua Imagem"],
+    "subtitle": "Acredito no poder das ideias e na capacidade da tecnologia de torná-las realidade. Com habilidade e criatividade, desenvolvo soluções digitais sob medida, alinhadas às necessidades e objetivos de cada cliente.",
+    "contactCta": "Entre em contato",
+    "downloadCv": "Baixar Currículo"
+  },
+  "about": {
+    "badge": "Full-Stack Developer",
+    "headingLine1": "Crafting Digital",
+    "headingLine2": "Experiences That",
+    "headingAccent": "Matter",
+    "paragraph1": "Sou um desenvolvedor React apaixonado com mais de 3 anos de experiência na construção de aplicações web escaláveis e performáticas. Especializo-me em criar interfaces intuitivas que combinam design bonito com funcionalidade excepcional.",
+    "paragraph2": "Quando não estou a programar, encontras-me a contribuir para projectos open-source, a escrever artigos técnicos ou a explorar novas tendências de design.",
+    "highlights": {
+      "expertiseTitle": "Expertise",
+      "expertiseDesc": "Especializado em construir aplicações web escaláveis com tecnologias modernas e melhores práticas.",
+      "cleanCodeTitle": "Clean Code",
+      "cleanCodeDesc": "Escrevendo código mantível e bem-documentado que escala.",
+      "performanceTitle": "Performance",
+      "performanceDesc": "Optimizando velocidade e eficiência em cada projeto."
+    },
+    "stats": {
+      "happyClients": "Clientes Satisfeitos",
+      "codeCommits": "Commits de Código",
+      "githubStars": "GitHub Stars",
+      "clientSatisfaction": "Satisfação do Cliente",
+      "supportAvailable": "Suporte Disponível",
+      "deliveryTime": "Tempo de Entrega",
+      "fast": "Rápido"
+    }
+  },
+  "quality": {
+    "subtitle": "o que me diferencia?",
+    "title": "Minhas Qualidades",
+    "description": "Sou conhecido por minha paixão, dedicação e comprometimento com cada projeto. Minhas habilidades permitem abraçar desafios complexos e encontrar soluções criativas para superá-los. Juntamente com uma abordagem colaborativa, garante resultados excepcionais para meus clientes e parceiros.",
+    "cards": [
+      {
+        "name": "Criatividade",
+        "description": "Minha mente está sempre fervilhando de ideias criativas. Amo explorar diferentes abordagens e conceitos inovadores para cada projeto, proporcionando soluções únicas e atraentes que se destacam no mercado."
+      },
+      {
+        "name": "Dedicação Incansável",
+        "description": "Estou comprometido(a) em entregar resultados excepcionais para cada projeto que assumo. Minha dedicação incansável me impulsiona a trabalhar arduamente, superar obstáculos e garantir que cada detalhe seja cuidadosamente tratado."
+      },
+      {
+        "name": "Inovação Constante",
+        "description": "Estou sempre buscando aprender e evoluir. Mantenho-me atualizado(a) com as últimas tendências e tecnologias em meu campo de atuação, o que me permite trazer inovação e novas perspectivas para cada projeto."
+      }
+    ]
+  },
+  "knownTechs": {
+    "subtitle": "competências",
+    "title": "Conhecimentos",
+    "empty": "Nenhuma competência registada ainda."
+  },
+  "services": {
+    "badge": "o que eu ofereço",
+    "titleAccent": "resultados.",
+    "titlePrefix": "Feito para inovar. Projetado para",
+    "subtitle": "Soluções completas para transformar as suas ideias em experiências digitais excepcionais.",
+    "viewAll": "Ver todos os serviços",
+    "empty": "Serviços em atualização"
+  },
+  "projects": {
+    "subtitle": "projetos",
+    "sectionTitle": "Veja os meus",
+    "heading": "Últimos projetos.",
+    "description": "Explore a galeria de projetos inspiradores. Cada trabalho reflete meu compromisso com a excelência e criatividade. Seja o próximo sucesso nesta jornada!",
+    "viewAll": "Ver todos os projetos",
+    "comingSoon": "Mais projetos em breve"
+  },
+  "customers": {
+    "subtitle": "clientes",
+    "title": "Parceiros e clientes",
+    "empty": "Nenhum parceiro registado"
+  },
+  "testimonials": {
+    "subtitle": "testemunhos",
+    "title": "O que os clientes dizem"
+  }
+}

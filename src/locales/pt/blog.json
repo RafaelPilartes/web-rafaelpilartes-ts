@@ -1,0 +1,22 @@
+{
+  "subtitle": "Artigos",
+  "title": "Blog Pessoal",
+  "description": "Acompanhe histórias, tutoriais e dicas sobre desenvolvimento, design e a vida como criador. Partilho aprendizagens contínuas, novas tecnologias e insights para a nossa comunidade.",
+  "back": "Voltar para Home",
+  "search_placeholder": "Pesquisar artigos...",
+  "filter_all": "Todos",
+  "error": "Não foi possível carregar os artigos.",
+  "empty": "Nenhum artigo encontrado.",
+  "read_more": "Ler mais",
+  "unknown_author": "Desconhecido",
+  "detail": {
+    "back": "Voltar",
+    "back_to_blog": "Voltar ao blog",
+    "not_found_title": "Artigo não encontrado",
+    "not_found_body": "O artigo que procura não existe ou foi removido.",
+    "author_label": "Autor",
+    "reading_time": "{{count}} min de leitura",
+    "copy_link": "Copiar link",
+    "related_posts": "Artigos relacionados"
+  }
+}
