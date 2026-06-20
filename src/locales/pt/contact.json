@@ -1,1 +1,32 @@
-{}
+{
+  "eyebrow": "Contacto",
+  "title": "Vamos trabalhar",
+  "titleAccent": "juntos",
+  "description": "Se você tem algum projeto em mente, podemos desenvolvê-lo juntos. Entre em contacto e vamos transformar a sua ideia em realidade.",
+  "info": {
+    "phone": "Telefone",
+    "email": "E-mail",
+    "location": "Localização"
+  },
+  "mapTitle": "Localização - Cape Town, South Africa",
+  "form": {
+    "heading": "Envie uma mensagem",
+    "name": "Nome",
+    "namePlaceholder": "O seu nome",
+    "email": "E-mail",
+    "emailPlaceholder": "seuemail@exemplo.com",
+    "message": "Mensagem",
+    "messagePlaceholder": "Conte-me sobre o seu projeto..."
+  },
+  "submit": "Enviar mensagem",
+  "submitting": "Enviando...",
+  "toast": {
+    "success": "Mensagem enviada com sucesso!",
+    "error": "Ocorreu um erro ao enviar a mensagem. Tente novamente."
+  },
+  "validation": {
+    "nameTooShort": "Mínimo 3 caracteres",
+    "emailInvalid": "E-mail inválido",
+    "messageRequired": "Campo obrigatório"
+  }
+}
