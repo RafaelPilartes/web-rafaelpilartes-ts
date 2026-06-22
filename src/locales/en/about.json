@@ -2,12 +2,13 @@
   "subtitle": "about me",
   "back": "Back to Home",
   "title": "Get to Know My Story",
-  "description": "I am a developer passionate about the art of turning complex problems into simple, accessible and elegant solutions through code.",
+  "description": "I've been coding for over 5 years, across web and mobile. I like taking a messy problem and making it simple.",
   "hero": {
-    "heading_1": "Turning",
-    "heading_accent": "ideas",
-    "heading_2": "into code and into reality.",
-    "body": "I am a developer driven by challenges and the art of creating. With solid experience across multiple front-end and mobile technologies, I am always pursuing technical excellence, new interface design trends, and development best practices to build solutions that create direct impact for the user."
+    "heading_1": "I plan,",
+    "heading_accent": "build",
+    "heading_2": "and maintain.",
+    "body": "I've worked on web and mobile for over 5 years, plus the backend behind them. I learn whatever tool the project needs. What doesn't change is how I work: understand the problem, build it, and stay to maintain it.",
+    "body2": "I started on the frontend and worked my way down the stack until I could take a product end to end, from the first screen to the database. These days I take loose ideas and hand back something people actually use. I'm based in Cape Town and work with clients here and abroad."
   },
   "stats": {
     "years": "Years of experience",
@@ -40,27 +41,27 @@
   "skills": {
     "frontend": {
       "title": "Frontend Development",
-      "description": "Building modern and responsive interfaces."
+      "description": "Responsive, fast interfaces."
     },
     "backend": {
       "title": "Backend Development",
-      "description": "Developing robust APIs and databases."
+      "description": "APIs and databases."
     },
     "mobile": {
       "title": "Mobile Development",
-      "description": "High-performance native and cross-platform applications."
+      "description": "Apps for Android and iOS."
     },
     "desktop": {
       "title": "Desktop Development",
-      "description": "Fast and complete solutions for the desktop environment."
+      "description": "Desktop apps when needed."
     },
     "uiux": {
       "title": "UI/UX Design",
-      "description": "Elegant prototypes focused on the user experience."
+      "description": "I design screens before building them."
     },
     "tools": {
       "title": "Tools",
-      "description": "Essential technologies for organisation and productivity."
+      "description": "What I use day to day."
     }
   }
 }

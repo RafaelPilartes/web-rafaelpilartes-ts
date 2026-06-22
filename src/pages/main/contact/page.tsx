@@ -27,7 +27,7 @@ type ContactFormData = z.infer<typeof contactFormSchema>
 
 const socials = [
   {
-    url: 'https://web.whatsapp.com/send?phone=270673235056',
+    url: 'https://web.whatsapp.com/send?phone=27673235056',
     iconSvg: <TbBrandWhatsapp />,
     label: 'WhatsApp'
   },
@@ -55,8 +55,8 @@ const Contact = () => {
     {
       icon: <BiPhoneCall size={22} />,
       label: t('info.phone'),
-      value: '+27 067 323 5056',
-      href: 'tel:270673235056'
+      value: '+27 67 323 5056',
+      href: 'tel:+27673235056'
     },
     {
       icon: <MdOutlineMailOutline size={22} />,

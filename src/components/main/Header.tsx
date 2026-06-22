@@ -3,7 +3,7 @@ import LanguageSwitcher from './ui/LanguageSwitcher'
 
 export const Header = () => {
   return (
-    <header className="absolute top-0 z-10 h-24 w-full flex items-center justify-center">
+    <header className="absolute top-0 z-30 h-24 w-full flex items-center justify-center">
       <div className="container flex items-center justify-between">
         <Link to="/">
           <img

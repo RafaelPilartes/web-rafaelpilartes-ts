@@ -1,19 +1,22 @@
 {
   "hero": {
-    "titleLine1": "Soluções para fazer",
-    "titleLine2": "crescer",
-    "rotating": ["seu Negócio!", "sua Startup", "sua Imagem"],
-    "subtitle": "Acredito no poder das ideias e na capacidade da tecnologia de torná-las realidade. Com habilidade e criatividade, desenvolvo soluções digitais sob medida, alinhadas às necessidades e objetivos de cada cliente.",
+    "titleLine1": "Da tua ideia",
+    "titleLine2": "ao",
+    "rotating": ["deploy", "produto", "utilizador"],
+    "role": "Full-Stack Developer",
+    "tagline": "Construo aplicações web e mobile, e o backend que as faz funcionar.",
+    "tagline2": "Gosto de pegar num problema mal definido e devolver algo simples de usar. Trabalho a partir de Cape Town, com clientes daqui e de fora.",
+    "status": "Disponível para novos projetos",
     "contactCta": "Entre em contato",
     "downloadCv": "Baixar Currículo"
   },
   "about": {
     "badge": "Full-Stack Developer",
-    "headingLine1": "Crafting Digital",
-    "headingLine2": "Experiences That",
-    "headingAccent": "Matter",
-    "paragraph1": "Sou um desenvolvedor React apaixonado com mais de 3 anos de experiência na construção de aplicações web escaláveis e performáticas. Especializo-me em criar interfaces intuitivas que combinam design bonito com funcionalidade excepcional.",
-    "paragraph2": "Quando não estou a programar, encontras-me a contribuir para projectos open-source, a escrever artigos técnicos ou a explorar novas tendências de design.",
+    "headingLine1": "Construo aplicações completas, do",
+    "headingLine2": "frontend ao",
+    "headingAccent": "backend",
+    "paragraph1": "Sou full-stack há mais de 5 anos. Trato dos dois lados: a interface que o utilizador vê e a lógica que a faz funcionar por trás.",
+    "paragraph2": "Escolho as ferramentas pelo problema que tenho à frente, não por moda. O foco é entregar algo que funciona e se mantém.",
     "highlights": {
       "expertiseTitle": "Expertise",
       "expertiseDesc": "Especializado em construir aplicações web escaláveis com tecnologias modernas e melhores práticas.",
@@ -33,21 +36,21 @@
     }
   },
   "quality": {
-    "subtitle": "o que me diferencia?",
-    "title": "Minhas Qualidades",
-    "description": "Sou conhecido por minha paixão, dedicação e comprometimento com cada projeto. Minhas habilidades permitem abraçar desafios complexos e encontrar soluções criativas para superá-los. Juntamente com uma abordagem colaborativa, garante resultados excepcionais para meus clientes e parceiros.",
+    "subtitle": "o que esperar",
+    "title": "Como trabalho",
+    "description": "Três coisas que vais notar se trabalhares comigo.",
     "cards": [
       {
-        "name": "Criatividade",
-        "description": "Minha mente está sempre fervilhando de ideias criativas. Amo explorar diferentes abordagens e conceitos inovadores para cada projeto, proporcionando soluções únicas e atraentes que se destacam no mercado."
+        "name": "Resolvo o problema certo",
+        "description": "Antes de escrever código, percebo o que o projeto precisa mesmo. Muita coisa resolve-se a cortar, não a adicionar."
       },
       {
-        "name": "Dedicação Incansável",
-        "description": "Estou comprometido(a) em entregar resultados excepcionais para cada projeto que assumo. Minha dedicação incansável me impulsiona a trabalhar arduamente, superar obstáculos e garantir que cada detalhe seja cuidadosamente tratado."
+        "name": "Entrego e mantenho",
+        "description": "Não desapareço depois do deploy. Corrijo o que partir e fico para a manutenção quando faz falta."
       },
       {
-        "name": "Inovação Constante",
-        "description": "Estou sempre buscando aprender e evoluir. Mantenho-me atualizado(a) com as últimas tendências e tecnologias em meu campo de atuação, o que me permite trazer inovação e novas perspectivas para cada projeto."
+        "name": "Digo o que penso",
+        "description": "Se uma ideia me parece má para o projeto, digo. Prefiro uma conversa honesta a um sim fácil."
       }
     ]
   },
@@ -57,10 +60,10 @@
     "empty": "Nenhuma competência registada ainda."
   },
   "services": {
-    "badge": "o que eu ofereço",
-    "titleAccent": "resultados.",
-    "titlePrefix": "Feito para inovar. Projetado para",
-    "subtitle": "Soluções completas para transformar as suas ideias em experiências digitais excepcionais.",
+    "badge": "o que faço",
+    "titleAccent": "ti.",
+    "titlePrefix": "O que posso construir para",
+    "subtitle": "Do site à app, com o backend que a sustenta.",
     "viewAll": "Ver todos os serviços",
     "empty": "Serviços em atualização"
   },
@@ -68,7 +71,7 @@
     "subtitle": "projetos",
     "sectionTitle": "Veja os meus",
     "heading": "Últimos projetos.",
-    "description": "Explore a galeria de projetos inspiradores. Cada trabalho reflete meu compromisso com a excelência e criatividade. Seja o próximo sucesso nesta jornada!",
+    "description": "Uma amostra do que já construí. Carrega num projeto para ver os detalhes.",
     "viewAll": "Ver todos os projetos",
     "comingSoon": "Mais projetos em breve"
   },
@@ -80,5 +83,57 @@
   "testimonials": {
     "subtitle": "testemunhos",
     "title": "O que os clientes dizem"
+  },
+  "process": {
+    "subtitle": "como eu trabalho",
+    "title": "Meu processo",
+    "description": "Cada projeto segue um fluxo claro, da ideia ao lançamento. Clica num nó para explorar a etapa.",
+    "steps": [
+      {
+        "title": "Descoberta",
+        "date": "Etapa 01",
+        "content": "Entendo o teu negócio, objetivos e requisitos para definir o caminho certo."
+      },
+      {
+        "title": "Design",
+        "date": "Etapa 02",
+        "content": "Desenho a interface e a arquitetura, focado em UX e escalabilidade."
+      },
+      {
+        "title": "Desenvolvimento",
+        "date": "Etapa 03",
+        "content": "Construo as funcionalidades e ligo tudo ao backend."
+      },
+      {
+        "title": "Testes & QA",
+        "date": "Etapa 04",
+        "content": "Valido tudo com testes e correções para garantir qualidade e estabilidade."
+      },
+      {
+        "title": "Deploy & Entrega",
+        "date": "Etapa 05",
+        "content": "Publico em produção e acompanho o lançamento com suporte contínuo."
+      }
+    ]
+  },
+  "radar": {
+    "subtitle": "ponta a ponta",
+    "title": "O que cubro",
+    "items": [
+      "Desenvolvimento web",
+      "Apps mobile",
+      "Design",
+      "Manutenção",
+      "Gestão de servidores",
+      "Integração GitHub",
+      "Integração de CMS"
+    ]
+  },
+  "comparison": {
+    "subtitle": "design → código",
+    "title": "O que desenho é o que entrego",
+    "description": "Arrasta para comparar o design com o produto final.",
+    "designLabel": "Design",
+    "codeLabel": "Código"
   }
 }

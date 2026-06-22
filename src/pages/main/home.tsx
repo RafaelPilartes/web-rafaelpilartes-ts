@@ -4,9 +4,11 @@ import { HomeAboutSection } from '../../components/main/page/home/HomeAboutSecti
 import { HomeKnownTechs } from '../../components/main/page/home/HomeKnownTechs'
 import { HomeProjects } from '../../components/main/page/home/HomeProjects'
 import { HomeServices } from '../../components/main/page/home/HomeServices'
+import { HomeProcess } from '../../components/main/page/home/HomeProcess'
 import { HomeQuality } from '../../components/main/page/home/HomeQuality'
 import { HomeCustomers } from '../../components/main/page/home/HomeCustomers'
 import { HomeTestimonials } from '../../components/main/page/home/HomeTestimonials'
+import { HomeRadar } from '../../components/main/page/home/HomeRadar'
 export default function Home() {
   useEffect(() => {
     const hash = window.location.hash
@@ -24,17 +26,21 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="relative pb-12">
+    <main className="relative">
       <HomeHeroContainer />
       <HomeAboutSection />
       <HomeQuality />
       <HomeKnownTechs />
 
       <HomeServices />
+      <HomeProcess />
       <HomeProjects />
+      {/* <HomeComparison /> */}
 
       <HomeCustomers />
       <HomeTestimonials />
+
+      <HomeRadar />
     </main>
   )
 }

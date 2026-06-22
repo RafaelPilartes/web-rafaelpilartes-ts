@@ -22,7 +22,7 @@ const socials = [
     iconSvg: <TbBrandInstagram />
   },
   {
-    url: 'https://web.whatsapp.com/send?phone=270673235056',
+    url: 'https://web.whatsapp.com/send?phone=27673235056',
     iconSvg: <TbBrandWhatsapp />
   }
 ]
@@ -36,7 +36,7 @@ export const Footer = () => {
 
       <div className="w-full flex flex-row max-sm:flex-col items-center justify-between gap-5">
         <span className="flex items-center gap-1.5 text-xs sm:text-sm font-mono text-gray-400">
-          {t('copyright')}
+          {t('copyright', { year: new Date().getFullYear() })}
         </span>
 
         <div className="text-2xl text-gray-600 flex items-center gap-3">

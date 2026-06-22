@@ -6,6 +6,7 @@ import { FaCogs } from 'react-icons/fa'
 import { SectionTitle } from '../../SectionTitle'
 import { CardQuality } from '../../CardQuality'
 import { QualityEntity } from '@/core/entities/content/QualityEntity'
+import { staggerContainer, fadeUpItem } from '@/lib/animations'
 
 const icons = [RiLightbulbFlashLine, IoIosTimer, FaCogs]
 const ids = ['qual-1', 'qual-2', 'qual-3']
@@ -21,28 +22,25 @@ export const HomeQuality = () => {
           <SectionTitle
             subtitle={t('quality.subtitle')}
             title={t('quality.title')}
+            description={t('quality.description')}
           />
 
-          <h3 className="mb-16">
-            {t('quality.description')}
-          </h3>
-
-          <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(264px,1fr))] gap-x-6 gap-y-6 mt-[60px]">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-80px' }}
+            className="w-full grid grid-cols-[repeat(auto-fit,minmax(264px,1fr))] gap-6 mt-[60px]"
+          >
             {cards?.map((card, i) => {
               const quality = new QualityEntity({ id: ids[i], icon_svg: icons[i] as any, name: card.name, description: card.description })
               return (
-                <motion.div
-                  key={quality.id}
-                  initial={{ opacity: 0, x: -100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -100 }}
-                  transition={{ duration: 0.15, delay: i * 0.1 }}
-                >
-                  <CardQuality quality={quality} />
+                <motion.div key={quality.id} variants={fadeUpItem} className="h-full">
+                  <CardQuality quality={quality} index={i} />
                 </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -23,18 +23,6 @@ export const HomeAboutSection = () => {
     }
   ]
 
-  const stats = [
-    { value: '45+', label: t('about.stats.happyClients') },
-    { value: '2.5K+', label: t('about.stats.codeCommits') },
-    { value: '500+', label: t('about.stats.githubStars') }
-  ]
-
-  const rightStats = [
-    { value: '100%', label: t('about.stats.clientSatisfaction') },
-    { value: '24/7', label: t('about.stats.supportAvailable') },
-    { value: t('about.stats.fast'), label: t('about.stats.deliveryTime') }
-  ]
-
   return (
     <section id="about" className="container relative py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -72,24 +60,6 @@ export const HomeAboutSection = () => {
             </p>
           </div>
 
-          {/* Stats Row */}
-          <div className="flex items-center gap-0 mt-4">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 + i * 0.1 }}
-                viewport={{ once: true }}
-                className={`flex flex-col gap-1 pr-8 ${i !== 0 ? 'pl-8 border-l border-gray-700' : ''}`}
-              >
-                <span className="text-2xl md:text-3xl font-bold text-white">
-                  {stat.value}
-                </span>
-                <span className="text-xs text-gray-500">{stat.label}</span>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
 
         {/* Right side — Highlight Cards */}
@@ -133,20 +103,6 @@ export const HomeAboutSection = () => {
             ))}
           </div>
 
-          {/* Bottom Stats Row */}
-          <div className="grid grid-cols-3 gap-4">
-            {rightStats.map(stat => (
-              <div
-                key={stat.label}
-                className="p-4 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] text-center"
-              >
-                <span className="text-lg font-bold text-accent">
-                  {stat.value}
-                </span>
-                <p className="text-[11px] text-gray-500 mt-1">{stat.label}</p>
-              </div>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>

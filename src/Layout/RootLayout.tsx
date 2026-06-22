@@ -3,7 +3,7 @@ import { Header } from '../components/main/Header'
 import { BackToTop } from '../components/main/BackToTop'
 import Nav from '../components/main/Nav'
 import { Footer } from '../components/main/Footer'
-import { motion } from 'framer-motion'
+import { motion, MotionConfig } from 'framer-motion'
 import Transition from '../components/main/Transition'
 import { Outlet, useLocation } from 'react-router-dom'
 
@@ -12,20 +12,22 @@ function RootLayout() {
   const pathNameKey = key
 
   return (
-    <main className="text-white bg-cover bg-no-repeat font-poppins ">
-      {/* <Toaster /> */}
+    <MotionConfig reducedMotion="user">
+      <main className="text-white bg-cover bg-no-repeat font-poppins overflow-x-clip">
+        {/* <Toaster /> */}
 
-      <TopLeftImg />
-      <Header />
-      <motion.div key={pathNameKey} className="h-full">
-        <Transition />
-        <Outlet />
-      </motion.div>
-      <BackToTop />
-      <Nav />
-      {/* <ContactForm /> */}
-      <Footer />
-    </main>
+        <TopLeftImg />
+        <Header />
+        <motion.div key={pathNameKey} className="h-full">
+          <Transition />
+          <Outlet />
+        </motion.div>
+        <BackToTop />
+        <Nav />
+        {/* <ContactForm /> */}
+        <Footer />
+      </main>
+    </MotionConfig>
   )
 }
 

@@ -72,7 +72,7 @@ const toolsItems = [
   { name: 'Vercel', icon: <SiVercel className="text-white" /> }
 ]
 
-const statsValues = ['3+', '18+', '24+']
+const statsValues = ['5+', '18+', '24+']
 
 const ExperienceTabWrapper = () => {
   const { t } = useTranslation('about')
@@ -93,36 +93,39 @@ const ExperienceTabWrapper = () => {
         <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
           <HiStar size={20} />
         </div>
-        <h3 className="text-2xl font-bold text-white">{t('experience.heading')}</h3>
+        <h3 className="text-2xl font-bold text-white">
+          {t('experience.heading')}
+        </h3>
       </div>
 
       {isLoading ? (
-         <div className="flex flex-col gap-8 w-full mt-4">
-           {Array.from({ length: 3 }).map((_, idx) => (
-             <div key={idx} className="flex gap-4 w-full items-start">
-               {/* Timeline Dot Skeleton */}
-               <div className="flex flex-col items-center mt-2">
-                 <Skeleton className="w-4 h-4 rounded-full" />
-                 <Skeleton className="w-1 h-32 mt-2" />
-               </div>
+        <div className="flex flex-col gap-8 w-full mt-4">
+          {Array.from({ length: 3 }).map((_, idx) => (
+            <div key={idx} className="flex gap-4 w-full items-start">
+              {/* Timeline Dot Skeleton */}
+              <div className="flex flex-col items-center mt-2">
+                <Skeleton className="w-4 h-4 rounded-full" />
+                <Skeleton className="w-1 h-32 mt-2" />
+              </div>
 
-               {/* Card Skeleton */}
-               <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col gap-3">
-                 <Skeleton className="w-24 h-5 rounded-md" /> {/* date */}
-                 <Skeleton className="w-48 h-6 rounded-md" /> {/* title */}
-                 <Skeleton className="w-32 h-4 rounded-md" /> {/* company */}
-                 <Skeleton className="w-full h-16 rounded-md mt-2" /> {/* description */}
-               </div>
-             </div>
-           ))}
-         </div>
+              {/* Card Skeleton */}
+              <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col gap-3">
+                <Skeleton className="w-24 h-5 rounded-md" /> {/* date */}
+                <Skeleton className="w-48 h-6 rounded-md" /> {/* title */}
+                <Skeleton className="w-32 h-4 rounded-md" /> {/* company */}
+                <Skeleton className="w-full h-16 rounded-md mt-2" />{' '}
+                {/* description */}
+              </div>
+            </div>
+          ))}
+        </div>
       ) : experiences.length > 0 ? (
         experiences.map((exp, index) => (
           <ExperienceItem key={exp.id ?? index} experience={exp} />
         ))
       ) : (
         <div className="text-center text-white/50 p-6 border border-white/10 rounded-2xl bg-white/5 w-full">
-           {t('experience.empty')}
+          {t('experience.empty')}
         </div>
       )}
     </motion.div>
@@ -148,20 +151,25 @@ const CertificatesTabWrapper = () => {
         <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
           <HiAcademicCap size={22} />
         </div>
-        <h3 className="text-2xl font-bold text-white">{t('certificates.heading')}</h3>
+        <h3 className="text-2xl font-bold text-white">
+          {t('certificates.heading')}
+        </h3>
       </div>
 
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           {Array.from({ length: 4 }).map((_, idx) => (
-             <div key={idx} className="flex gap-4 w-full items-center p-4 rounded-xl bg-white/5 border border-white/10">
-               <Skeleton className="w-16 h-16 rounded-lg flex-shrink-0" />
-               <div className="flex flex-col gap-2 w-full">
-                 <Skeleton className="w-3/4 h-5 rounded-md" />
-                 <Skeleton className="w-1/2 h-4 rounded-md" />
-               </div>
-             </div>
-           ))}
+            <div
+              key={idx}
+              className="flex gap-4 w-full items-center p-4 rounded-xl bg-white/5 border border-white/10"
+            >
+              <Skeleton className="w-16 h-16 rounded-lg flex-shrink-0" />
+              <div className="flex flex-col gap-2 w-full">
+                <Skeleton className="w-3/4 h-5 rounded-md" />
+                <Skeleton className="w-1/2 h-4 rounded-md" />
+              </div>
+            </div>
+          ))}
         </div>
       ) : certificates.length > 0 ? (
         certificates.map(cert => (
@@ -175,7 +183,6 @@ const CertificatesTabWrapper = () => {
     </motion.div>
   )
 }
-
 
 const About = () => {
   const { t } = useTranslation('about')
@@ -249,41 +256,56 @@ const About = () => {
 
       <div className="container mx-auto px-4 lg:px-8 mt-4">
         {/* Intro Text & Stats Grid */}
-        <section className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-16 items-center">
+        <section className="flex flex-col lg:flex-row gap-12 lg:gap-16 mb-16 py-16 items-center">
+          {/* Portrait */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex-1 text-center lg:text-left"
+            className="relative mx-auto w-full max-w-xs shrink-0 sm:max-w-sm lg:mx-0"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-              {t('hero.heading_1')} <span className="text-accent">{t('hero.heading_accent')}</span>{' '}
-              {t('hero.heading_2')}
-            </h2>
-            <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
-              {t('hero.body')}
-            </p>
+            <div className="pointer-events-none absolute -inset-6 rounded-full bg-accent/20 blur-[90px]" />
+            <img
+              src="/avatar/Spotlight_Beam_Photography.png"
+              alt="Rafael Pilartes"
+              loading="lazy"
+              className="relative w-full rounded-2xl border border-white/10 object-cover shadow-2xl shadow-black/50"
+            />
           </motion.div>
 
+          {/* Text + stats */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full lg:w-auto"
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="flex-1 text-center lg:text-left"
           >
-            {stats.map((stat, i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center justify-center p-6 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] shadow-lg"
-              >
-                <div className="text-4xl lg:text-5xl font-extrabold text-accent mb-3">
-                  {stat.value}
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+              {t('hero.heading_1')}{' '}
+              <span className="text-accent">{t('hero.heading_accent')}</span>{' '}
+              {t('hero.heading_2')}
+            </h2>
+
+            <div className="mx-auto mb-8 flex max-w-2xl flex-col gap-4 text-base leading-relaxed text-gray-400 lg:mx-0">
+              <p>{t('hero.body')}</p>
+              <p>{t('hero.body2')}</p>
+            </div>
+
+            <div className="mx-auto grid max-w-md grid-cols-3 gap-4 lg:mx-0">
+              {stats.map((stat, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center gap-1 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4 lg:items-start"
+                >
+                  <span className="text-2xl font-extrabold text-accent md:text-3xl">
+                    {stat.value}
+                  </span>
+                  <span className="text-[11px] uppercase tracking-widest text-gray-400">
+                    {stat.label}
+                  </span>
                 </div>
-                <div className="text-xs uppercase tracking-widest text-gray-400 text-center mx-auto max-w-[120px]">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </motion.div>
         </section>
 

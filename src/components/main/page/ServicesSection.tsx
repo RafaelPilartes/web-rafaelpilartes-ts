@@ -1,6 +1,5 @@
 import { createElement } from 'react'
 import { motion } from 'framer-motion'
-import { RxArrowTopRight } from 'react-icons/rx'
 import { FaWrench } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
 import { useServiceViewModel } from '@/viewModels/service.viewmodel'
@@ -10,7 +9,7 @@ export const ServicesSection = () => {
   const { t } = useTranslation('services')
   const { getAllServices } = useServiceViewModel()
   const { data: response, isLoading, isError } = getAllServices()
-  
+
   const services = response?.data || []
 
   if (isError) return null
@@ -20,13 +19,16 @@ export const ServicesSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {isLoading ? (
           Array.from({ length: 6 }).map((_, index) => (
-             <div key={index} className="bg-[#55555525] rounded-xl p-8 flex flex-col gap-4 border border-transparent h-[256px]">
-                <Skeleton className="w-14 h-14 rounded-lg flex-shrink-0" />
-                <Skeleton className="w-[60%] h-6" />
-                <Skeleton className="w-full h-4" />
-                <Skeleton className="w-[90%] h-4" />
-                <Skeleton className="w-[80%] h-4" />
-             </div>
+            <div
+              key={index}
+              className="flex h-[256px] flex-col gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8"
+            >
+              <Skeleton className="h-14 w-14 flex-shrink-0 rounded-xl" />
+              <Skeleton className="h-6 w-[60%]" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-[90%]" />
+              <Skeleton className="h-4 w-[80%]" />
+            </div>
           ))
         ) : services.length > 0 ? (
           services.map((service, index) => (
@@ -34,35 +36,43 @@ export const ServicesSection = () => {
               key={service.id ?? index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 30 }}
-              transition={{ duration: 0.3, delay: index * 0.08 }}
-              className="bg-[#55555525] rounded-xl p-8 flex flex-col gap-4 group cursor-pointer
-                         hover:bg-[#a9414126] hover:-translate-y-2 transition-all duration-300
-                         border border-transparent hover:border-accent/20"
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.4, delay: index * 0.06 }}
+              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-[0_10px_40px_-15px_rgba(241,48,36,0.4)]"
             >
+              {/* Top accent bar (grows on hover) */}
+              <span className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
+
+              {/* Index */}
+              <span className="pointer-events-none absolute right-6 top-6 font-mono text-sm text-white/20">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+
               {/* Icon */}
-              <div className="w-14 h-14 rounded-lg bg-accent/10 flex items-center justify-center text-accent text-2xl group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                {service.icon && typeof service.icon === 'function'
-                  ? createElement(service.icon)
-                  : <FaWrench />}
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-white/[0.05] bg-accent/10 text-2xl text-accent transition-all duration-300 group-hover:scale-105 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
+                {service.icon && typeof service.icon === 'function' ? (
+                  createElement(service.icon)
+                ) : (
+                  <FaWrench />
+                )}
               </div>
 
               {/* Title */}
-              <h3 className="text-lg font-semibold text-white">{service.title}</h3>
+              <h3 className="mt-5 text-lg font-semibold text-white">
+                {service.title}
+              </h3>
 
               {/* Description */}
-              <p className="text-gray-400 text-sm leading-relaxed flex-1">
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-400">
                 {service.description}
               </p>
 
-              {/* Arrow */}
-              <div className="text-xl text-gray-600 group-hover:text-accent transition-all duration-300 mt-auto">
-                <RxArrowTopRight className="group-hover:rotate-45 transition-all duration-300" />
-              </div>
+              {/* Growing accent line */}
+              <span className="mt-6 block h-px w-full origin-left scale-x-[0.15] bg-accent/50 transition-transform duration-500 ease-out group-hover:scale-x-100" />
             </motion.div>
           ))
         ) : (
-          <div className="col-span-full border border-white/10 p-10 text-center rounded-xl bg-white/5 text-white/50">
+          <div className="col-span-full border border-white/10 p-10 text-center rounded-2xl bg-white/5 text-white/50">
             {t('empty')}
           </div>
         )}

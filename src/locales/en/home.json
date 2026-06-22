@@ -1,19 +1,22 @@
 {
   "hero": {
-    "titleLine1": "Solutions to grow",
-    "titleLine2": "your",
-    "rotating": ["Business!", "Startup", "Brand"],
-    "subtitle": "I believe in the power of ideas and technology's ability to make them real. With skill and creativity, I build tailor-made digital solutions aligned with each client's needs and goals.",
+    "titleLine1": "From your idea",
+    "titleLine2": "to",
+    "rotating": ["deploy", "product", "user"],
+    "role": "Full-Stack Developer",
+    "tagline": "I build web and mobile apps, and the backend that makes them work.",
+    "tagline2": "I like taking a fuzzy problem and handing back something simple to use. I work from Cape Town, with clients local and abroad.",
+    "status": "Available for new projects",
     "contactCta": "Get in touch",
     "downloadCv": "Download CV"
   },
   "about": {
     "badge": "Full-Stack Developer",
-    "headingLine1": "Crafting Digital",
-    "headingLine2": "Experiences That",
-    "headingAccent": "Matter",
-    "paragraph1": "I'm a passionate React developer with 3+ years of experience building scalable, high-performance web applications. I specialize in crafting intuitive interfaces that combine beautiful design with exceptional functionality.",
-    "paragraph2": "When I'm not coding, you'll find me contributing to open-source projects, writing technical articles, or exploring new design trends.",
+    "headingLine1": "I build complete apps, from",
+    "headingLine2": "frontend to",
+    "headingAccent": "backend",
+    "paragraph1": "I've been full-stack for over 5 years. I handle both sides: the interface people see and the logic that makes it work behind it.",
+    "paragraph2": "I pick tools by the problem in front of me, not by hype. The goal is shipping something that works and keeps working.",
     "highlights": {
       "expertiseTitle": "Expertise",
       "expertiseDesc": "Specialized in building scalable web applications with modern technologies and best practices.",
@@ -33,21 +36,21 @@
     }
   },
   "quality": {
-    "subtitle": "what sets me apart?",
-    "title": "My Qualities",
-    "description": "I am known for my passion, dedication and commitment to every project. My skills allow me to embrace complex challenges and find creative solutions to overcome them. Together with a collaborative approach, this ensures exceptional results for my clients and partners.",
+    "subtitle": "what to expect",
+    "title": "How I work",
+    "description": "Three things you'll notice if you work with me.",
     "cards": [
       {
-        "name": "Creativity",
-        "description": "My mind is always buzzing with creative ideas. I love exploring different approaches and innovative concepts for each project, delivering unique and compelling solutions that stand out in the market."
+        "name": "I solve the right problem",
+        "description": "Before writing code, I figure out what the project actually needs. A lot gets solved by cutting, not adding."
       },
       {
-        "name": "Relentless Dedication",
-        "description": "I am committed to delivering exceptional results for every project I take on. My relentless dedication drives me to work hard, overcome obstacles, and ensure that every detail is carefully addressed."
+        "name": "I ship and maintain",
+        "description": "I don't disappear after the deploy. I fix what breaks and stick around for maintenance when it's needed."
       },
       {
-        "name": "Constant Innovation",
-        "description": "I am always seeking to learn and evolve. I keep myself up to date with the latest trends and technologies in my field, which allows me to bring innovation and fresh perspectives to every project."
+        "name": "I say what I think",
+        "description": "If an idea looks bad for the project, I'll tell you. I'd rather have an honest talk than an easy yes."
       }
     ]
   },
@@ -57,10 +60,10 @@
     "empty": "No skills registered yet."
   },
   "services": {
-    "badge": "what I offer",
-    "titleAccent": "results.",
-    "titlePrefix": "Built to innovate. Designed for",
-    "subtitle": "Complete solutions to turn your ideas into exceptional digital experiences.",
+    "badge": "what I do",
+    "titleAccent": "you.",
+    "titlePrefix": "What I can build for",
+    "subtitle": "From the website to the app, with the backend behind it.",
     "viewAll": "View all services",
     "empty": "Services being updated"
   },
@@ -68,7 +71,7 @@
     "subtitle": "projects",
     "sectionTitle": "Check out my",
     "heading": "Latest projects.",
-    "description": "Explore the gallery of inspiring projects. Each work reflects my commitment to excellence and creativity. Be the next success story on this journey!",
+    "description": "A sample of what I've built. Tap a project to see the details.",
     "viewAll": "View all projects",
     "comingSoon": "More projects coming soon"
   },
@@ -80,5 +83,57 @@
   "testimonials": {
     "subtitle": "testimonials",
     "title": "What clients say"
+  },
+  "process": {
+    "subtitle": "how i work",
+    "title": "My process",
+    "description": "Every project follows a clear flow, from idea to launch. Click a node to explore each step.",
+    "steps": [
+      {
+        "title": "Discovery",
+        "date": "Step 01",
+        "content": "I understand your business, goals and requirements to define the right path."
+      },
+      {
+        "title": "Design",
+        "date": "Step 02",
+        "content": "I design the interface and architecture, focused on UX and scalability."
+      },
+      {
+        "title": "Development",
+        "date": "Step 03",
+        "content": "I build the features and wire everything to the backend."
+      },
+      {
+        "title": "Testing & QA",
+        "date": "Step 04",
+        "content": "I validate everything with tests and fixes to ensure quality and stability."
+      },
+      {
+        "title": "Deploy & Delivery",
+        "date": "Step 05",
+        "content": "I ship to production and follow the launch with ongoing support."
+      }
+    ]
+  },
+  "radar": {
+    "subtitle": "end to end",
+    "title": "What I cover",
+    "items": [
+      "Web development",
+      "Mobile apps",
+      "Design",
+      "Maintenance",
+      "Server management",
+      "GitHub integration",
+      "CMS integration"
+    ]
+  },
+  "comparison": {
+    "subtitle": "design → code",
+    "title": "What I design is what I ship",
+    "description": "Drag to compare the design with the final build.",
+    "designLabel": "Design",
+    "codeLabel": "Code"
   }
 }

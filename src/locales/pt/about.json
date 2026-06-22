@@ -2,12 +2,13 @@
   "subtitle": "sobre mim",
   "back": "Voltar para Home",
   "title": "Conheça a Minha História",
-  "description": "Sou um desenvolvedor apaixonado pela arte de transformar problemas complexos em soluções simples, acessíveis e elegantes através do código.",
+  "description": "Programo há mais de 5 anos, em web e mobile. Gosto de pegar num problema confuso e deixá-lo simples.",
   "hero": {
-    "heading_1": "Transformando",
-    "heading_accent": "ideias",
-    "heading_2": "em código para a realidade.",
-    "body": "Sou um programador movido por desafios e pela arte de criar. Com sólida experiência em diversas tecnologias front-end e mobile, estou sempre em busca da excelência técnica, de novas tendências no design de interfaces e das melhores práticas de desenvolvimento para criar soluções que tragam impacto directo ao usuário."
+    "heading_1": "Penso,",
+    "heading_accent": "construo",
+    "heading_2": "e mantenho.",
+    "body": "Trabalho em web e mobile há mais de 5 anos, e também no backend que os sustenta. Aprendo a ferramenta que o projeto pedir. O que não muda é a forma de trabalhar: perceber o problema, construir, e ficar para manter.",
+    "body2": "Comecei no frontend e fui descendo a stack até conseguir levar um produto sozinho, do primeiro ecrã à base de dados. Hoje pego em ideias soltas e devolvo algo que as pessoas usam mesmo. Estou em Cape Town e trabalho com clientes daqui e de fora."
   },
   "stats": {
     "years": "Anos de experiência",
@@ -40,27 +41,27 @@
   "skills": {
     "frontend": {
       "title": "Frontend Development",
-      "description": "Criação de interfaces modernas e responsivas."
+      "description": "Interfaces responsivas e rápidas."
     },
     "backend": {
       "title": "Backend Development",
-      "description": "Desenvolvimento de APIs robustas e banco de dados."
+      "description": "APIs e bases de dados."
     },
     "mobile": {
       "title": "Mobile Development",
-      "description": "Aplicações nativas e multiplataforma de alta performance."
+      "description": "Apps para Android e iOS."
     },
     "desktop": {
       "title": "Desktop Development",
-      "description": "Soluções rápidas e completas para o ambiente desktop."
+      "description": "Apps para desktop quando é preciso."
     },
     "uiux": {
       "title": "UI/UX Design",
-      "description": "Protótipos elegantes focados na experiência do usuário."
+      "description": "Desenho os ecrãs antes de os construir."
     },
     "tools": {
       "title": "Ferramentas",
-      "description": "Tecnologias cruciais para organização e produtividade."
+      "description": "O que uso no dia a dia."
     }
   }
 }
