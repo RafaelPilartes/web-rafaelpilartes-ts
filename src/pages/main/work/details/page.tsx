@@ -135,7 +135,7 @@ const ProjectDetails = () => {
       <div className="container w-full gap-x-4 gap-y-6 mt-[60px] relative z-10 text-left">
         {/* Images */}
         {project.images && project.images.length > 0 ? (
-          <div className="w-full h-full flex justify-center items-center rounded-2xl overflow-hidden border border-white/5">
+          <div className="w-full">
             <WorkCarousel slides={project.images} />
           </div>
         ) : (

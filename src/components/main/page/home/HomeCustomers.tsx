@@ -28,7 +28,11 @@ export const HomeCustomers = () => {
               <div
                 key={idx}
                 className={`flex w-full max-w-xs flex-col gap-6 ${
-                  idx === 1 ? 'hidden md:flex' : idx === 2 ? 'hidden lg:flex' : ''
+                  idx === 1
+                    ? 'hidden md:flex'
+                    : idx === 2
+                      ? 'hidden lg:flex'
+                      : ''
                 }`}
               >
                 {Array.from({ length: 3 }).map((_, j) => (
