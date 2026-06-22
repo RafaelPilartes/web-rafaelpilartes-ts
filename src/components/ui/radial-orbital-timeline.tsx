@@ -191,7 +191,11 @@ export default function RadialOrbitalTimeline({
               <div
                 key={item.id}
                 ref={el => (nodeRefs.current[item.id] = el)}
-                className="absolute cursor-pointer transition-all duration-700"
+                className={`absolute cursor-pointer ${
+                  autoRotate
+                    ? 'transition-opacity duration-500'
+                    : 'transition-all duration-700'
+                }`}
                 style={nodeStyle}
                 onClick={e => {
                   e.stopPropagation()
